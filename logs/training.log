@@ -1,0 +1,772 @@
+[2026-07-17 12:36:31] INFO [root.setup_logger:83] Logger initialized. Logs are stored in C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-17 12:36:31] INFO [Verification.run_verification:34] Starting Module 1 verification...
+[2026-07-17 12:36:31] INFO [root.set_seed:23] Random seed set to 42 (Python, NumPy, TensorFlow)
+[2026-07-17 12:36:31] INFO [Verification.run_verification:40] Checking folder structures...
+[2026-07-17 12:36:31] INFO [Verification.run_verification:54] Directory check: dataset/train -> Verified (Created if missing)
+[2026-07-17 12:36:31] INFO [Verification.run_verification:54] Directory check: dataset/validation -> Verified (Created if missing)
+[2026-07-17 12:36:31] INFO [Verification.run_verification:54] Directory check: dataset/test -> Verified (Created if missing)
+[2026-07-17 12:36:31] INFO [Verification.run_verification:54] Directory check: configs -> Verified (Created if missing)
+[2026-07-17 12:36:31] INFO [Verification.run_verification:54] Directory check: logs -> Verified (Created if missing)
+[2026-07-17 12:36:31] INFO [Verification.run_verification:54] Directory check: saved_models -> Verified (Created if missing)
+[2026-07-17 12:36:31] INFO [Verification.run_verification:54] Directory check: outputs -> Verified (Created if missing)
+[2026-07-17 12:36:31] INFO [Verification.run_verification:54] Directory check: notebooks -> Verified (Created if missing)
+[2026-07-17 12:36:31] INFO [Verification.run_verification:57] Checking Configurations...
+[2026-07-17 12:36:31] INFO [Verification.run_verification:60]   PROJECT_NAME: Brain-MRI-Tumor-Classification
+[2026-07-17 12:36:31] INFO [Verification.run_verification:60]   VERSION: 1.0.0
+[2026-07-17 12:36:31] INFO [Verification.run_verification:60]   SEED: 42
+[2026-07-17 12:36:31] INFO [Verification.run_verification:60]   DEVICE: GPU
+[2026-07-17 12:36:31] INFO [Verification.run_verification:60]   NUM_WORKERS: 4
+[2026-07-17 12:36:31] INFO [Verification.run_verification:60]   DATASET_PATH: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-17 12:36:31] INFO [Verification.run_verification:60]   IMAGE_SIZE: (224, 224)
+[2026-07-17 12:36:31] INFO [Verification.run_verification:60]   BATCH_SIZE: 32
+[2026-07-17 12:36:31] INFO [Verification.run_verification:60]   NUM_CLASSES: 4
+[2026-07-17 12:36:31] INFO [Verification.run_verification:60]   MODEL_NAME: EfficientNetB0
+[2026-07-17 12:36:31] INFO [Verification.run_verification:60]   LEARNING_RATE: 0.0001
+[2026-07-17 12:36:31] INFO [Verification.run_verification:60]   EPOCHS: 20
+[2026-07-17 12:36:31] INFO [Verification.run_verification:60]   CHECKPOINT_DIR: C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models
+[2026-07-17 12:36:31] INFO [Verification.run_verification:60]   OUTPUT_DIR: C:\Users\udayg\Desktop\MRI brain tumor detection\outputs
+[2026-07-17 12:36:31] INFO [Verification.run_verification:60]   LOG_DIR: C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-17 12:36:31] INFO [Verification.run_verification:63] Initializing Dataset Loader...
+[2026-07-17 12:36:31] INFO [src.data.dataset_loader.validate_structure:56] Dataset structure validated successfully under: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-17 12:36:31] ERROR [src.data.dataset_loader.scan_dataset:84] No class subdirectories discovered in split folders.
+[2026-07-17 12:36:31] INFO [Verification.run_verification:68] Dataset statistics computed:
+[2026-07-17 12:36:31] INFO [Verification.run_verification:72] Running programmatic checks on preprocessing...
+[2026-07-17 12:36:32] ERROR [src.data.preprocessing.validate_image:51] Error validating image: Value for attr 'T' of uint8 is not in the list of allowed values: bfloat16, half, float, double
+	; NodeDef: {{node IsNan}}; Op<name=IsNan; signature=x:T -> y:bool; attr=T:type,allowed=[DT_BFLOAT16, DT_HALF, DT_FLOAT, DT_DOUBLE]> [Op:IsNan] name: 
+[2026-07-17 12:36:32] INFO [Verification.run_verification:82]   Image Validation: False
+[2026-07-17 12:36:32] INFO [Verification.run_verification:86]   Grayscale converted to RGB shape: (256, 256, 3)
+[2026-07-17 12:36:32] INFO [Verification.run_verification:91]   Resized image shape: (224, 224, 3)
+[2026-07-17 12:36:32] INFO [Verification.run_verification:96]   Normalized image value range: Min=0.0152, Max=0.9821
+[2026-07-17 12:36:32] ERROR [src.data.preprocessing.validate_image:51] Error validating image: Value for attr 'T' of uint8 is not in the list of allowed values: bfloat16, half, float, double
+	; NodeDef: {{node IsNan}}; Op<name=IsNan; signature=x:T -> y:bool; attr=T:type,allowed=[DT_BFLOAT16, DT_HALF, DT_FLOAT, DT_DOUBLE]> [Op:IsNan] name: 
+[2026-07-17 12:36:32] ERROR [Verification.run_verification:118] Preprocessing check failed: Image failed numerical or dimensional validation.
+Traceback (most recent call last):
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\verify_module1.py", line 99, in run_verification
+    preprocessed_single = preprocess_single_image(
+        dummy_grayscale.numpy(), target_size=config.IMAGE_SIZE, normalize_method="minmax_01"
+    )
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\src\data\preprocessing.py", line 169, in preprocess_single_image
+    raise ValueError("Image failed numerical or dimensional validation.")
+ValueError: Image failed numerical or dimensional validation.
+[2026-07-17 12:36:49] INFO [root.setup_logger:83] Logger initialized. Logs are stored in C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-17 12:36:49] INFO [Verification.run_verification:34] Starting Module 1 verification...
+[2026-07-17 12:36:49] INFO [root.set_seed:23] Random seed set to 42 (Python, NumPy, TensorFlow)
+[2026-07-17 12:36:49] INFO [Verification.run_verification:40] Checking folder structures...
+[2026-07-17 12:36:49] INFO [Verification.run_verification:54] Directory check: dataset/train -> Verified (Created if missing)
+[2026-07-17 12:36:49] INFO [Verification.run_verification:54] Directory check: dataset/validation -> Verified (Created if missing)
+[2026-07-17 12:36:49] INFO [Verification.run_verification:54] Directory check: dataset/test -> Verified (Created if missing)
+[2026-07-17 12:36:49] INFO [Verification.run_verification:54] Directory check: configs -> Verified (Created if missing)
+[2026-07-17 12:36:49] INFO [Verification.run_verification:54] Directory check: logs -> Verified (Created if missing)
+[2026-07-17 12:36:49] INFO [Verification.run_verification:54] Directory check: saved_models -> Verified (Created if missing)
+[2026-07-17 12:36:49] INFO [Verification.run_verification:54] Directory check: outputs -> Verified (Created if missing)
+[2026-07-17 12:36:49] INFO [Verification.run_verification:54] Directory check: notebooks -> Verified (Created if missing)
+[2026-07-17 12:36:49] INFO [Verification.run_verification:57] Checking Configurations...
+[2026-07-17 12:36:49] INFO [Verification.run_verification:60]   PROJECT_NAME: Brain-MRI-Tumor-Classification
+[2026-07-17 12:36:49] INFO [Verification.run_verification:60]   VERSION: 1.0.0
+[2026-07-17 12:36:49] INFO [Verification.run_verification:60]   SEED: 42
+[2026-07-17 12:36:49] INFO [Verification.run_verification:60]   DEVICE: GPU
+[2026-07-17 12:36:49] INFO [Verification.run_verification:60]   NUM_WORKERS: 4
+[2026-07-17 12:36:49] INFO [Verification.run_verification:60]   DATASET_PATH: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-17 12:36:49] INFO [Verification.run_verification:60]   IMAGE_SIZE: (224, 224)
+[2026-07-17 12:36:49] INFO [Verification.run_verification:60]   BATCH_SIZE: 32
+[2026-07-17 12:36:49] INFO [Verification.run_verification:60]   NUM_CLASSES: 4
+[2026-07-17 12:36:49] INFO [Verification.run_verification:60]   MODEL_NAME: EfficientNetB0
+[2026-07-17 12:36:49] INFO [Verification.run_verification:60]   LEARNING_RATE: 0.0001
+[2026-07-17 12:36:49] INFO [Verification.run_verification:60]   EPOCHS: 20
+[2026-07-17 12:36:49] INFO [Verification.run_verification:60]   CHECKPOINT_DIR: C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models
+[2026-07-17 12:36:49] INFO [Verification.run_verification:60]   OUTPUT_DIR: C:\Users\udayg\Desktop\MRI brain tumor detection\outputs
+[2026-07-17 12:36:49] INFO [Verification.run_verification:60]   LOG_DIR: C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-17 12:36:49] INFO [Verification.run_verification:63] Initializing Dataset Loader...
+[2026-07-17 12:36:49] INFO [src.data.dataset_loader.validate_structure:56] Dataset structure validated successfully under: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-17 12:36:49] ERROR [src.data.dataset_loader.scan_dataset:84] No class subdirectories discovered in split folders.
+[2026-07-17 12:36:49] INFO [Verification.run_verification:68] Dataset statistics computed:
+[2026-07-17 12:36:49] INFO [Verification.run_verification:72] Running programmatic checks on preprocessing...
+[2026-07-17 12:36:49] INFO [Verification.run_verification:82]   Image Validation: True
+[2026-07-17 12:36:49] INFO [Verification.run_verification:86]   Grayscale converted to RGB shape: (256, 256, 3)
+[2026-07-17 12:36:49] INFO [Verification.run_verification:91]   Resized image shape: (224, 224, 3)
+[2026-07-17 12:36:49] INFO [Verification.run_verification:96]   Normalized image value range: Min=0.0152, Max=0.9821
+[2026-07-17 12:36:49] INFO [Verification.run_verification:102]   Preprocessed single image shape: (224, 224, 3)
+[2026-07-17 12:36:49] INFO [Verification.run_verification:112]   Preprocessed batch image shape: (4, 224, 224, 3)
+[2026-07-17 12:36:49] INFO [Verification.run_verification:115] Preprocessing checks completed successfully!
+[2026-07-17 12:36:49] INFO [Verification.run_verification:122] Running programmatic checks on data augmentation...
+[2026-07-17 12:36:49] ERROR [Verification.run_verification:147] Augmentation check failed: Exception encountered when calling RandomShear.call().
+
+[1mimage_projective_transform_v2() got an unexpected keyword argument 'fill_value'[0m
+
+Arguments received by RandomShear.call():
+  • inputs=tf.Tensor(shape=(4, 224, 224, 3), dtype=float32)
+  • training=True
+Traceback (most recent call last):
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\verify_module1.py", line 134, in run_verification
+    augmented_batch = augmentation_pipeline(preprocessed_batch, training=True)
+  File "C:\Users\udayg\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\utils\traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\src\data\augmentation.py", line 187, in call
+    x = self.shear(x)
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\src\data\augmentation.py", line 79, in call
+    sheared = tf.raw_ops.ImageProjectiveTransformV2(
+        images=inputs_float,
+    ...<4 lines>...
+        fill_value=0.0
+    )
+TypeError: Exception encountered when calling RandomShear.call().
+
+[1mimage_projective_transform_v2() got an unexpected keyword argument 'fill_value'[0m
+
+Arguments received by RandomShear.call():
+  • inputs=tf.Tensor(shape=(4, 224, 224, 3), dtype=float32)
+  • training=True
+[2026-07-17 12:37:15] INFO [root.setup_logger:83] Logger initialized. Logs are stored in C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-17 12:37:15] INFO [Verification.run_verification:34] Starting Module 1 verification...
+[2026-07-17 12:37:15] INFO [root.set_seed:23] Random seed set to 42 (Python, NumPy, TensorFlow)
+[2026-07-17 12:37:15] INFO [Verification.run_verification:40] Checking folder structures...
+[2026-07-17 12:37:15] INFO [Verification.run_verification:54] Directory check: dataset/train -> Verified (Created if missing)
+[2026-07-17 12:37:15] INFO [Verification.run_verification:54] Directory check: dataset/validation -> Verified (Created if missing)
+[2026-07-17 12:37:15] INFO [Verification.run_verification:54] Directory check: dataset/test -> Verified (Created if missing)
+[2026-07-17 12:37:15] INFO [Verification.run_verification:54] Directory check: configs -> Verified (Created if missing)
+[2026-07-17 12:37:15] INFO [Verification.run_verification:54] Directory check: logs -> Verified (Created if missing)
+[2026-07-17 12:37:15] INFO [Verification.run_verification:54] Directory check: saved_models -> Verified (Created if missing)
+[2026-07-17 12:37:15] INFO [Verification.run_verification:54] Directory check: outputs -> Verified (Created if missing)
+[2026-07-17 12:37:15] INFO [Verification.run_verification:54] Directory check: notebooks -> Verified (Created if missing)
+[2026-07-17 12:37:15] INFO [Verification.run_verification:57] Checking Configurations...
+[2026-07-17 12:37:15] INFO [Verification.run_verification:60]   PROJECT_NAME: Brain-MRI-Tumor-Classification
+[2026-07-17 12:37:15] INFO [Verification.run_verification:60]   VERSION: 1.0.0
+[2026-07-17 12:37:15] INFO [Verification.run_verification:60]   SEED: 42
+[2026-07-17 12:37:15] INFO [Verification.run_verification:60]   DEVICE: GPU
+[2026-07-17 12:37:15] INFO [Verification.run_verification:60]   NUM_WORKERS: 4
+[2026-07-17 12:37:15] INFO [Verification.run_verification:60]   DATASET_PATH: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-17 12:37:15] INFO [Verification.run_verification:60]   IMAGE_SIZE: (224, 224)
+[2026-07-17 12:37:15] INFO [Verification.run_verification:60]   BATCH_SIZE: 32
+[2026-07-17 12:37:15] INFO [Verification.run_verification:60]   NUM_CLASSES: 4
+[2026-07-17 12:37:15] INFO [Verification.run_verification:60]   MODEL_NAME: EfficientNetB0
+[2026-07-17 12:37:15] INFO [Verification.run_verification:60]   LEARNING_RATE: 0.0001
+[2026-07-17 12:37:15] INFO [Verification.run_verification:60]   EPOCHS: 20
+[2026-07-17 12:37:15] INFO [Verification.run_verification:60]   CHECKPOINT_DIR: C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models
+[2026-07-17 12:37:15] INFO [Verification.run_verification:60]   OUTPUT_DIR: C:\Users\udayg\Desktop\MRI brain tumor detection\outputs
+[2026-07-17 12:37:15] INFO [Verification.run_verification:60]   LOG_DIR: C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-17 12:37:15] INFO [Verification.run_verification:63] Initializing Dataset Loader...
+[2026-07-17 12:37:15] INFO [src.data.dataset_loader.validate_structure:56] Dataset structure validated successfully under: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-17 12:37:15] ERROR [src.data.dataset_loader.scan_dataset:84] No class subdirectories discovered in split folders.
+[2026-07-17 12:37:15] INFO [Verification.run_verification:68] Dataset statistics computed:
+[2026-07-17 12:37:15] INFO [Verification.run_verification:72] Running programmatic checks on preprocessing...
+[2026-07-17 12:37:15] INFO [Verification.run_verification:82]   Image Validation: True
+[2026-07-17 12:37:15] INFO [Verification.run_verification:86]   Grayscale converted to RGB shape: (256, 256, 3)
+[2026-07-17 12:37:15] INFO [Verification.run_verification:91]   Resized image shape: (224, 224, 3)
+[2026-07-17 12:37:15] INFO [Verification.run_verification:96]   Normalized image value range: Min=0.0152, Max=0.9821
+[2026-07-17 12:37:15] INFO [Verification.run_verification:102]   Preprocessed single image shape: (224, 224, 3)
+[2026-07-17 12:37:15] INFO [Verification.run_verification:112]   Preprocessed batch image shape: (4, 224, 224, 3)
+[2026-07-17 12:37:15] INFO [Verification.run_verification:115] Preprocessing checks completed successfully!
+[2026-07-17 12:37:15] INFO [Verification.run_verification:122] Running programmatic checks on data augmentation...
+[2026-07-17 12:37:15] INFO [Verification.run_verification:135]   Augmented batch shape: (4, 224, 224, 3)
+[2026-07-17 12:37:15] INFO [Verification.run_verification:140]   Augmentation in eval mode checks out. Shapes: (4, 224, 224, 3)
+[2026-07-17 12:37:15] INFO [Verification.run_verification:144] Augmentation checks completed successfully!
+[2026-07-17 12:37:15] INFO [Verification.run_verification:150] ============================================================
+[2026-07-17 12:37:15] INFO [Verification.run_verification:151] MODULE 1 VERIFICATION COMPLETED SUCCESSFULLY!
+[2026-07-17 12:37:15] INFO [Verification.run_verification:152] The environment, source modules, and parameters are fully operational.
+[2026-07-17 12:37:15] INFO [Verification.run_verification:153] ============================================================
+[2026-07-17 12:40:17] INFO [root.setup_logger:83] Logger initialized. Logs are stored in C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-17 12:40:17] INFO [VerificationModule2.run_verification:26] Starting Module 2 validation tests...
+[2026-07-17 12:40:17] INFO [root.set_seed:23] Random seed set to 42 (Python, NumPy, TensorFlow)
+[2026-07-17 12:40:17] INFO [VerificationModule2.run_verification:31] Testing model compilation...
+[2026-07-17 12:40:17] INFO [src.models.efficientnet_model.build_model:45] Building EfficientNetB0 model with shape (224, 224, 3)...
+[2026-07-17 12:40:24] INFO [src.models.efficientnet_model.build_model:56] EfficientNetB0 base backbone frozen.
+[2026-07-17 12:40:24] WARNING [tensorflow._tfmw_add_deprecation_warning:149] From C:\Users\udayg\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\backend\tensorflow\core.py:232: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+[2026-07-17 12:40:25] WARNING [tensorflow.list_physical_devices:464] TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[2026-07-17 12:40:25] INFO [src.models.efficientnet_model.build_model:105] Successfully built and compiled EfficientNetB0 model with GPU augmentations.
+[2026-07-17 12:40:25] INFO [VerificationModule2.run_verification:34] Model compiled successfully!
+[2026-07-17 12:40:25] INFO [VerificationModule2.run_verification:37] Validating model layer names and properties...
+[2026-07-17 12:40:25] INFO [VerificationModule2.run_verification:39] Model layers: ['input_image', 'mri_augmentation', 'efficientnetb0', 'global_avg_pool', 'batch_norm', 'dropout_1', 'dense_256', 'dropout_2', 'predictions']
+[2026-07-17 12:40:25] INFO [VerificationModule2.run_verification:53] Predictions output dtype policy: float32
+[2026-07-17 12:40:25] INFO [VerificationModule2.run_verification:56] Model architecture validated successfully!
+[2026-07-17 12:40:25] INFO [VerificationModule2.run_verification:63] Executing training script in verification mode (empty dataset)...
+[2026-07-17 12:40:25] INFO [root.setup_logger:83] Logger initialized. Logs are stored in C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-17 12:40:25] INFO [root.set_seed:23] Random seed set to 42 (Python, NumPy, TensorFlow)
+[2026-07-17 12:40:25] INFO [TrainingPipeline.run_train_pipeline:296] ============================================================
+[2026-07-17 12:40:25] INFO [TrainingPipeline.run_train_pipeline:297]            STARTING MODEL TRAINING PIPELINE           
+[2026-07-17 12:40:25] INFO [TrainingPipeline.run_train_pipeline:298] ============================================================
+[2026-07-17 12:40:25] INFO [TrainingPipeline.configure_mixed_precision:44] Mixed precision requested, but no GPU devices detected. Using float32 policy.
+[2026-07-17 12:40:25] INFO [TrainingPipeline.run_train_pipeline:313] Saved configuration config settings to C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\training_config.json
+[2026-07-17 12:40:25] INFO [TrainingPipeline.run_train_pipeline:316] Scanning dataset folders under: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-17 12:40:25] INFO [src.data.dataset_loader.validate_structure:56] Dataset structure validated successfully under: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-17 12:40:25] ERROR [src.data.dataset_loader.scan_dataset:84] No class subdirectories discovered in split folders.
+[2026-07-17 12:40:25] ERROR [TrainingPipeline.run_train_pipeline:325] Dataset folder splits 'train' and 'validation' are empty or missing. Skipping training loops. Creating dummy outputs for structure verification.
+[2026-07-17 12:40:25] INFO [src.models.efficientnet_model.build_model:45] Building EfficientNetB0 model with shape (224, 224, 3)...
+[2026-07-17 12:40:26] INFO [src.models.efficientnet_model.build_model:56] EfficientNetB0 base backbone frozen.
+[2026-07-17 12:40:26] INFO [src.models.efficientnet_model.build_model:105] Successfully built and compiled EfficientNetB0 model with GPU augmentations.
+[2026-07-17 12:40:26] INFO [TrainingPipeline.run_train_pipeline:339] Saved model summary text structure to C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\model_summary.txt
+[2026-07-17 12:40:26] WARNING [TrainingPipeline.run_train_pipeline:340] Pipeline terminated gracefully before training loop due to empty dataset.
+[2026-07-17 12:40:26] INFO [VerificationModule2.run_verification:71] Checking exported files under C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models...
+[2026-07-17 12:40:26] INFO [VerificationModule2.run_verification:79]   Verified export: model_summary.txt (1951 bytes)
+[2026-07-17 12:40:26] INFO [VerificationModule2.run_verification:84]   Verified export: training_config.json containing 19 keys.
+[2026-07-17 12:40:26] INFO [VerificationModule2.run_verification:86] ============================================================
+[2026-07-17 12:40:26] INFO [VerificationModule2.run_verification:87] MODULE 2 VERIFICATION COMPLETED SUCCESSFULLY!
+[2026-07-17 12:40:26] INFO [VerificationModule2.run_verification:88] All parameters, architectures, and training outputs conform to requirements.
+[2026-07-17 12:40:26] INFO [VerificationModule2.run_verification:89] ============================================================
+[2026-07-17 12:43:20] INFO [root.setup_logger:83] Logger initialized. Logs are stored in C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-17 12:43:20] INFO [VerificationModule3.run_verification:25] Starting Module 3 validation tests...
+[2026-07-17 12:43:20] INFO [VerificationModule3.run_verification:28] Checking explainers class inheritance...
+[2026-07-17 12:43:20] INFO [VerificationModule3.run_verification:31]   GradCAMExplainer inherits from BaseExplainer correctly.
+[2026-07-17 12:43:20] INFO [VerificationModule3.run_verification:37]   GradCAMExplainer methods verified.
+[2026-07-17 12:43:20] INFO [VerificationModule3.run_verification:44] Executing evaluation pipeline in verification mode (empty dataset / no model)...
+[2026-07-17 12:43:20] INFO [EvaluationPipeline.run_evaluation:1013] ============================================================
+[2026-07-17 12:43:20] INFO [EvaluationPipeline.run_evaluation:1014]            STARTING MODEL EVALUATION PIPELINE           
+[2026-07-17 12:43:20] INFO [EvaluationPipeline.run_evaluation:1015] ============================================================
+[2026-07-17 12:43:20] ERROR [EvaluationPipeline.run_evaluation:1031] Trained model 'C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\best_model.keras' not discovered. Skipping actual evaluation loops. Generating template placeholder report files.
+[2026-07-17 12:43:20] WARNING [tensorflow.list_physical_devices:464] TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[2026-07-17 12:43:20] INFO [EvaluationPipeline.generate_html_report:958] HTML evaluation report generated at: C:\Users\udayg\Desktop\MRI brain tumor detection\outputs\evaluation\reports\evaluation_report.html
+[2026-07-17 12:43:20] INFO [EvaluationPipeline.generate_markdown_report:1008] Markdown evaluation report generated at: C:\Users\udayg\Desktop\MRI brain tumor detection\outputs\evaluation\reports\evaluation_report.md
+[2026-07-17 12:43:20] INFO [VerificationModule3.run_verification:50] Checking exported files under C:\Users\udayg\Desktop\MRI brain tumor detection\outputs\evaluation\reports...
+[2026-07-17 12:43:20] INFO [VerificationModule3.run_verification:60]   Verified export: evaluation_summary.json (534 bytes)
+[2026-07-17 12:43:20] INFO [VerificationModule3.run_verification:61]   Verified export: evaluation_report.html (15310 bytes)
+[2026-07-17 12:43:20] INFO [VerificationModule3.run_verification:62]   Verified export: evaluation_report.md (1083 bytes)
+[2026-07-17 12:43:20] INFO [VerificationModule3.run_verification:69]   Verified report JSON structure.
+[2026-07-17 12:43:20] INFO [VerificationModule3.run_verification:74]   Verified logs: evaluation.log exists (1074 bytes)
+[2026-07-17 12:43:20] INFO [VerificationModule3.run_verification:76] ============================================================
+[2026-07-17 12:43:20] INFO [VerificationModule3.run_verification:77] MODULE 3 VERIFICATION COMPLETED SUCCESSFULLY!
+[2026-07-17 12:43:20] INFO [VerificationModule3.run_verification:78] All explainers, metrics calculations, and report exports conform to specifications.
+[2026-07-17 12:43:20] INFO [VerificationModule3.run_verification:79] ============================================================
+[2026-07-17 12:46:15] INFO [root.setup_logger:83] Logger initialized. Logs are stored in C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:27] Starting Module 4 validation tests...
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:30] Checking Streamlit files existences...
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:44]   Verified file: app/streamlit_app.py (18287 bytes)
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:44]   Verified file: app/assets/styles.css (1243 bytes)
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:44]   Verified file: app/assets/logo.png (1173 bytes)
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:44]   Verified file: app/components/sidebar.py (1791 bytes)
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:44]   Verified file: app/components/uploader.py (4346 bytes)
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:44]   Verified file: app/components/prediction_card.py (3519 bytes)
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:44]   Verified file: app/components/gradcam_viewer.py (3995 bytes)
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:44]   Verified file: app/components/report_generator.py (9047 bytes)
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:49]   Verified directory: app/demo_images/ -> Verified (Created if missing)
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:52] Testing PDF report generation helper...
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:62]   PDF report generated successfully! Byte length: 313
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:67]   Report file signature: b'BRAIN'
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:73] ============================================================
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:74] MODULE 4 VERIFICATION COMPLETED SUCCESSFULLY!
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:75] Streamlit entry, CSS style structures, and export formats are fully operational.
+[2026-07-17 12:46:15] INFO [VerificationModule4.run_verification:76] ============================================================
+[2026-07-17 14:14:43] INFO [root.setup_logger:83] Logger initialized. Logs are stored in C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-17 14:14:43] INFO [root.set_seed:23] Random seed set to 42 (Python, NumPy, TensorFlow)
+[2026-07-17 14:14:43] INFO [TrainingPipeline.run_train_pipeline:296] ============================================================
+[2026-07-17 14:14:43] INFO [TrainingPipeline.run_train_pipeline:297]            STARTING MODEL TRAINING PIPELINE           
+[2026-07-17 14:14:43] INFO [TrainingPipeline.run_train_pipeline:298] ============================================================
+[2026-07-17 14:14:43] WARNING [tensorflow.list_physical_devices:464] TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[2026-07-17 14:14:43] INFO [TrainingPipeline.configure_mixed_precision:44] Mixed precision requested, but no GPU devices detected. Using float32 policy.
+[2026-07-17 14:14:43] INFO [TrainingPipeline.run_train_pipeline:313] Saved configuration config settings to C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\training_config.json
+[2026-07-17 14:14:43] INFO [TrainingPipeline.run_train_pipeline:316] Scanning dataset folders under: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-17 14:14:43] INFO [src.data.dataset_loader.validate_structure:56] Dataset structure validated successfully under: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-17 14:14:43] ERROR [src.data.dataset_loader.scan_dataset:84] No class subdirectories discovered in split folders.
+[2026-07-17 14:14:43] ERROR [TrainingPipeline.run_train_pipeline:325] Dataset folder splits 'train' and 'validation' are empty or missing. Skipping training loops. Creating dummy outputs for structure verification.
+[2026-07-17 14:14:43] INFO [src.models.efficientnet_model.build_model:45] Building EfficientNetB0 model with shape (224, 224, 3)...
+[2026-07-17 14:14:44] INFO [src.models.efficientnet_model.build_model:56] EfficientNetB0 base backbone frozen.
+[2026-07-17 14:14:45] WARNING [tensorflow._tfmw_add_deprecation_warning:149] From C:\Users\udayg\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\backend\tensorflow\core.py:232: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+[2026-07-17 14:14:45] INFO [src.models.efficientnet_model.build_model:105] Successfully built and compiled EfficientNetB0 model with GPU augmentations.
+[2026-07-17 14:40:57] INFO [root.setup_logger:110] Logger initialized. Logs stored in: C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-17 14:40:57] INFO [root.set_seed:25] Random seed set to 42 (Python, NumPy, TensorFlow)
+[2026-07-17 14:40:57] INFO [TrainingPipeline.run_train_pipeline:306] ============================================================
+[2026-07-17 14:40:57] INFO [TrainingPipeline.run_train_pipeline:307]            STARTING MODEL TRAINING PIPELINE           
+[2026-07-17 14:40:57] INFO [TrainingPipeline.run_train_pipeline:308] ============================================================
+[2026-07-17 14:40:57] WARNING [tensorflow.list_physical_devices:464] TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[2026-07-17 14:40:57] INFO [TrainingPipeline.configure_mixed_precision:54] Mixed precision requested, but no GPU devices detected. Using float32 policy.
+[2026-07-17 14:40:57] INFO [TrainingPipeline.run_train_pipeline:323] Saved configuration config settings to C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\training_config.json
+[2026-07-17 14:40:57] INFO [TrainingPipeline.run_train_pipeline:326] Scanning dataset folders under: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-17 14:40:57] INFO [src.data.dataset_loader._detect_layout:134] Layout A (standard splits) detected with images present.
+[2026-07-17 14:40:57] INFO [src.data.dataset_loader.scan_dataset:95] Detected dataset layout: standard
+[2026-07-17 14:40:57] WARNING [src.data.dataset_loader.validate_structure:77] Split directory 'validation' has no class subdirectories.
+[2026-07-17 14:40:57] ERROR [src.data.dataset_loader.scan_dataset:106] Scan aborted — dataset does not follow the required structure.
+[2026-07-17 14:40:57] ERROR [TrainingPipeline.run_train_pipeline:335] Dataset folder splits 'train' and 'validation' are empty or missing. Skipping training loops. Creating dummy outputs for structure verification.
+[2026-07-17 14:40:57] INFO [src.models.efficientnet_model.build_model:45] Building EfficientNetB0 model with shape (224, 224, 3)...
+[2026-07-17 14:40:58] INFO [src.models.efficientnet_model.build_model:56] EfficientNetB0 base backbone frozen.
+[2026-07-17 14:40:59] WARNING [tensorflow._tfmw_add_deprecation_warning:149] From C:\Users\udayg\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\backend\tensorflow\core.py:232: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+[2026-07-17 14:40:59] INFO [src.models.efficientnet_model.build_model:105] Successfully built and compiled EfficientNetB0 model with GPU augmentations.
+[2026-07-17 14:44:30] INFO [root.setup_logger:110] Logger initialized. Logs stored in: C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-17 14:44:30] INFO [root.set_seed:25] Random seed set to 42 (Python, NumPy, TensorFlow)
+[2026-07-17 14:44:30] INFO [TrainingPipeline.run_train_pipeline:306] ============================================================
+[2026-07-17 14:44:30] INFO [TrainingPipeline.run_train_pipeline:307]            STARTING MODEL TRAINING PIPELINE           
+[2026-07-17 14:44:30] INFO [TrainingPipeline.run_train_pipeline:308] ============================================================
+[2026-07-17 14:44:30] WARNING [tensorflow.list_physical_devices:464] TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[2026-07-17 14:44:30] INFO [TrainingPipeline.configure_mixed_precision:54] Mixed precision requested, but no GPU devices detected. Using float32 policy.
+[2026-07-17 14:44:30] INFO [TrainingPipeline.run_train_pipeline:323] Saved configuration config settings to C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\training_config.json
+[2026-07-17 14:44:30] INFO [TrainingPipeline.run_train_pipeline:326] Scanning dataset folders under: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-17 14:44:30] INFO [src.data.dataset_loader._detect_layout:134] Layout A (standard splits) detected with images present.
+[2026-07-17 14:44:30] INFO [src.data.dataset_loader.scan_dataset:95] Detected dataset layout: standard
+[2026-07-17 14:44:30] INFO [src.data.dataset_loader.validate_structure:80] Dataset structure validated: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-17 14:44:30] INFO [src.data.dataset_loader._scan_standard:377] Detected classes: ['glioma', 'meningioma', 'notumor', 'pituitary']
+[2026-07-17 14:45:31] INFO [src.data.dataset_loader._scan_standard:403] Split 'train': 4760 valid images. Skipped 0 corrupted files.
+[2026-07-17 14:45:43] INFO [src.data.dataset_loader._scan_standard:403] Split 'validation': 840 valid images. Skipped 0 corrupted files.
+[2026-07-17 14:46:01] INFO [src.data.dataset_loader._scan_standard:403] Split 'test': 1600 valid images. Skipped 0 corrupted files.
+[2026-07-17 14:46:01] INFO [TrainingPipeline.run_train_pipeline:357] Training dataset size: 4760 valid images.
+[2026-07-17 14:46:01] INFO [TrainingPipeline.run_train_pipeline:358] Validation dataset size: 840 valid images.
+[2026-07-17 14:46:01] INFO [TrainingPipeline.calculate_class_weights:147] Computed class weights: {0: 1.0, 1: 1.0, 2: 1.0, 3: 1.0}
+[2026-07-17 14:46:01] INFO [src.models.efficientnet_model.build_model:45] Building EfficientNetB0 model with shape (224, 224, 3)...
+[2026-07-17 14:46:02] INFO [src.models.efficientnet_model.build_model:56] EfficientNetB0 base backbone frozen.
+[2026-07-17 14:46:03] WARNING [tensorflow._tfmw_add_deprecation_warning:149] From C:\Users\udayg\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\backend\tensorflow\core.py:232: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+[2026-07-17 14:46:03] INFO [src.models.efficientnet_model.build_model:105] Successfully built and compiled EfficientNetB0 model with GPU augmentations.
+[2026-07-17 14:46:03] INFO [TrainingPipeline.run_train_pipeline:378] Model summary written to C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\model_summary.txt
+[2026-07-17 14:46:03] INFO [TrainingPipeline.run_train_pipeline:384] --- PHASE 1: Training Custom Head (Backbone Frozen) for 10 epochs ---
+[2026-07-17 14:48:00] INFO [root.setup_logger:110] Logger initialized. Logs stored in: C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-17 14:48:00] INFO [root.set_seed:25] Random seed set to 42 (Python, NumPy, TensorFlow)
+[2026-07-17 14:48:00] INFO [TrainingPipeline.run_train_pipeline:302] ============================================================
+[2026-07-17 14:48:00] INFO [TrainingPipeline.run_train_pipeline:303]            STARTING MODEL TRAINING PIPELINE           
+[2026-07-17 14:48:00] INFO [TrainingPipeline.run_train_pipeline:304] ============================================================
+[2026-07-17 14:48:00] WARNING [tensorflow.list_physical_devices:464] TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[2026-07-17 14:48:00] INFO [TrainingPipeline.configure_mixed_precision:54] Mixed precision requested, but no GPU devices detected. Using float32 policy.
+[2026-07-17 14:48:00] INFO [TrainingPipeline.run_train_pipeline:319] Saved configuration config settings to C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\training_config.json
+[2026-07-17 14:48:00] INFO [TrainingPipeline.run_train_pipeline:322] Scanning dataset folders under: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-17 14:48:00] INFO [src.data.dataset_loader._detect_layout:134] Layout A (standard splits) detected with images present.
+[2026-07-17 14:48:00] INFO [src.data.dataset_loader.scan_dataset:95] Detected dataset layout: standard
+[2026-07-17 14:48:00] INFO [src.data.dataset_loader.validate_structure:80] Dataset structure validated: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-17 14:48:00] INFO [src.data.dataset_loader._scan_standard:377] Detected classes: ['glioma', 'meningioma', 'notumor', 'pituitary']
+[2026-07-17 14:48:17] INFO [src.data.dataset_loader._scan_standard:403] Split 'train': 4760 valid images. Skipped 0 corrupted files.
+[2026-07-17 14:48:20] INFO [src.data.dataset_loader._scan_standard:403] Split 'validation': 840 valid images. Skipped 0 corrupted files.
+[2026-07-17 14:48:25] INFO [src.data.dataset_loader._scan_standard:403] Split 'test': 1600 valid images. Skipped 0 corrupted files.
+[2026-07-17 14:48:25] INFO [TrainingPipeline.run_train_pipeline:353] Training dataset size: 4760 valid images.
+[2026-07-17 14:48:25] INFO [TrainingPipeline.run_train_pipeline:354] Validation dataset size: 840 valid images.
+[2026-07-17 14:48:25] INFO [TrainingPipeline.calculate_class_weights:145] Computed class weights: {0: 1.0, 1: 1.0, 2: 1.0, 3: 1.0}
+[2026-07-17 14:48:25] INFO [src.models.efficientnet_model.build_model:45] Building EfficientNetB0 model with shape (224, 224, 3)...
+[2026-07-17 14:48:25] INFO [src.models.efficientnet_model.build_model:56] EfficientNetB0 base backbone frozen.
+[2026-07-17 14:48:26] WARNING [tensorflow._tfmw_add_deprecation_warning:149] From C:\Users\udayg\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\backend\tensorflow\core.py:232: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+[2026-07-17 14:48:27] INFO [src.models.efficientnet_model.build_model:105] Successfully built and compiled EfficientNetB0 model with GPU augmentations.
+[2026-07-17 14:48:27] INFO [TrainingPipeline.run_train_pipeline:374] Model summary written to C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\model_summary.txt
+[2026-07-17 14:48:27] INFO [TrainingPipeline.run_train_pipeline:380] --- PHASE 1: Training Custom Head (Backbone Frozen) for 10 epochs ---
+[2026-07-19 12:31:44] INFO [root.setup_logger:110] Logger initialized. Logs stored in: C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-19 12:31:44] INFO [Verification.run_verification:34] Starting Module 1 verification...
+[2026-07-19 12:31:44] INFO [root.set_seed:25] Random seed set to 42 (Python, NumPy, TensorFlow)
+[2026-07-19 12:31:44] INFO [Verification.run_verification:40] Checking folder structures...
+[2026-07-19 12:31:44] INFO [Verification.run_verification:54] Directory check: dataset/train -> Verified (Created if missing)
+[2026-07-19 12:31:44] INFO [Verification.run_verification:54] Directory check: dataset/validation -> Verified (Created if missing)
+[2026-07-19 12:31:44] INFO [Verification.run_verification:54] Directory check: dataset/test -> Verified (Created if missing)
+[2026-07-19 12:31:44] INFO [Verification.run_verification:54] Directory check: configs -> Verified (Created if missing)
+[2026-07-19 12:31:44] INFO [Verification.run_verification:54] Directory check: logs -> Verified (Created if missing)
+[2026-07-19 12:31:44] INFO [Verification.run_verification:54] Directory check: saved_models -> Verified (Created if missing)
+[2026-07-19 12:31:44] INFO [Verification.run_verification:54] Directory check: outputs -> Verified (Created if missing)
+[2026-07-19 12:31:44] INFO [Verification.run_verification:54] Directory check: notebooks -> Verified (Created if missing)
+[2026-07-19 12:31:44] INFO [Verification.run_verification:57] Checking Configurations...
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   PROJECT_NAME: Brain-MRI-Tumor-Classification
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   VERSION: 1.0.0
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   SEED: 42
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   DEVICE: GPU
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   NUM_WORKERS: 4
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   DATASET_PATH: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   IMAGE_SIZE: (224, 224)
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   BATCH_SIZE: 32
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   NUM_CLASSES: 4
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   MODEL_NAME: EfficientNetB0
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   LEARNING_RATE: 0.0001
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   EPOCHS: 10
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   FINE_TUNE_EPOCHS: 15
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   FINE_TUNE_LEARNING_RATE: 1e-05
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   FINE_TUNE_LAYERS: 25
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   MIXED_PRECISION: True
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   CHECKPOINT_DIR: C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   OUTPUT_DIR: C:\Users\udayg\Desktop\MRI brain tumor detection\outputs
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   LOG_DIR: C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-19 12:31:44] INFO [Verification.run_verification:60]   MODEL_PATH: C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\best_model.keras
+[2026-07-19 12:31:44] INFO [Verification.run_verification:63] Initializing Dataset Loader...
+[2026-07-19 12:31:44] INFO [src.data.dataset_loader._detect_layout:134] Layout A (standard splits) detected with images present.
+[2026-07-19 12:31:44] INFO [src.data.dataset_loader.scan_dataset:95] Detected dataset layout: standard
+[2026-07-19 12:31:44] INFO [src.data.dataset_loader.validate_structure:80] Dataset structure validated: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-19 12:31:44] INFO [src.data.dataset_loader._scan_standard:377] Detected classes: ['glioma', 'meningioma', 'notumor', 'pituitary']
+[2026-07-19 12:32:02] INFO [src.data.dataset_loader._scan_standard:403] Split 'train': 4760 valid images. Skipped 0 corrupted files.
+[2026-07-19 12:32:06] INFO [src.data.dataset_loader._scan_standard:403] Split 'validation': 840 valid images. Skipped 0 corrupted files.
+[2026-07-19 12:32:11] INFO [src.data.dataset_loader._scan_standard:403] Split 'test': 1600 valid images. Skipped 0 corrupted files.
+[2026-07-19 12:32:11] INFO [Verification.run_verification:68] Dataset statistics computed:
+[2026-07-19 12:32:11] INFO [Verification.run_verification:72] Running programmatic checks on preprocessing...
+[2026-07-19 12:32:11] INFO [Verification.run_verification:82]   Image Validation: True
+[2026-07-19 12:32:11] INFO [Verification.run_verification:86]   Grayscale converted to RGB shape: (256, 256, 3)
+[2026-07-19 12:32:11] INFO [Verification.run_verification:91]   Resized image shape: (224, 224, 3)
+[2026-07-19 12:32:11] INFO [Verification.run_verification:96]   Normalized image value range: Min=0.0152, Max=0.9821
+[2026-07-19 12:32:11] INFO [Verification.run_verification:102]   Preprocessed single image shape: (224, 224, 3)
+[2026-07-19 12:32:11] INFO [Verification.run_verification:112]   Preprocessed batch image shape: (4, 224, 224, 3)
+[2026-07-19 12:32:11] INFO [Verification.run_verification:115] Preprocessing checks completed successfully!
+[2026-07-19 12:32:11] INFO [Verification.run_verification:122] Running programmatic checks on data augmentation...
+[2026-07-19 12:32:11] INFO [Verification.run_verification:135]   Augmented batch shape: (4, 224, 224, 3)
+[2026-07-19 12:32:11] INFO [Verification.run_verification:140]   Augmentation in eval mode checks out. Shapes: (4, 224, 224, 3)
+[2026-07-19 12:32:11] INFO [Verification.run_verification:144] Augmentation checks completed successfully!
+[2026-07-19 12:32:11] INFO [Verification.run_verification:150] ============================================================
+[2026-07-19 12:32:11] INFO [Verification.run_verification:151] MODULE 1 VERIFICATION COMPLETED SUCCESSFULLY!
+[2026-07-19 12:32:11] INFO [Verification.run_verification:152] The environment, source modules, and parameters are fully operational.
+[2026-07-19 12:32:11] INFO [Verification.run_verification:153] ============================================================
+[2026-07-19 13:03:46] INFO [root.setup_logger:110] Logger initialized. Logs stored in: C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-19 13:03:46] INFO [root.set_seed:25] Random seed set to 42 (Python, NumPy, TensorFlow)
+[2026-07-19 13:03:46] INFO [TrainingPipeline.run_train_pipeline:304] ============================================================
+[2026-07-19 13:03:46] INFO [TrainingPipeline.run_train_pipeline:305]            STARTING MODEL TRAINING PIPELINE           
+[2026-07-19 13:03:46] INFO [TrainingPipeline.run_train_pipeline:306] ============================================================
+[2026-07-19 13:03:46] INFO [TrainingPipeline.configure_mixed_precision:53] Mixed precision requested, but no GPU devices detected. Using float32 policy.
+[2026-07-19 13:03:46] INFO [TrainingPipeline.run_train_pipeline:321] Saved configuration config settings to C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\training_config.json
+[2026-07-19 13:03:46] INFO [TrainingPipeline.run_train_pipeline:324] Scanning dataset folders under: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-19 13:03:46] INFO [src.data.dataset_loader._detect_layout:134] Layout A (standard splits) detected with images present.
+[2026-07-19 13:03:46] INFO [src.data.dataset_loader.scan_dataset:95] Detected dataset layout: standard
+[2026-07-19 13:03:46] INFO [src.data.dataset_loader.validate_structure:80] Dataset structure validated: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-19 13:03:46] INFO [src.data.dataset_loader._scan_standard:377] Detected classes: ['glioma', 'meningioma', 'notumor', 'pituitary']
+[2026-07-19 13:04:08] INFO [src.data.dataset_loader._scan_standard:403] Split 'train': 4760 valid images. Skipped 0 corrupted files.
+[2026-07-19 13:04:12] INFO [src.data.dataset_loader._scan_standard:403] Split 'validation': 840 valid images. Skipped 0 corrupted files.
+[2026-07-19 13:04:18] INFO [src.data.dataset_loader._scan_standard:403] Split 'test': 1600 valid images. Skipped 0 corrupted files.
+[2026-07-19 13:04:18] INFO [TrainingPipeline.run_train_pipeline:355] Training dataset size: 4760 valid images.
+[2026-07-19 13:04:18] INFO [TrainingPipeline.run_train_pipeline:356] Validation dataset size: 840 valid images.
+[2026-07-19 13:04:18] INFO [TrainingPipeline.calculate_class_weights:147] Computed class weights: {0: 1.0, 1: 1.0, 2: 1.0, 3: 1.0}
+[2026-07-19 13:04:18] INFO [src.models.efficientnet_model.build_model:45] Building EfficientNetB0 model with shape (224, 224, 3)...
+[2026-07-19 13:04:19] INFO [src.models.efficientnet_model.build_model:56] EfficientNetB0 base backbone frozen.
+[2026-07-19 13:04:20] INFO [src.models.efficientnet_model.build_model:105] Successfully built and compiled EfficientNetB0 model with GPU augmentations.
+[2026-07-19 13:04:20] INFO [TrainingPipeline.run_train_pipeline:376] Model summary written to C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\model_summary.txt
+[2026-07-19 13:04:20] INFO [TrainingPipeline.run_train_pipeline:382] --- PHASE 1: Training Custom Head (Backbone Frozen) for 10 epochs ---
+[2026-07-19 13:04:20] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:04:20] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:20] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:20] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:04:21] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 13:04:21] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:04:21] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:21] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:21] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:04:21] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:04:21] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:21] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:21] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:04:21] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 13:04:21] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:04:21] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:21] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:21] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:04:21] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:04:21] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:22] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:22] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:04:22] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:04:22] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:22] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:22] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:04:24] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:04:24] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:24] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:24] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:25] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:04:26] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:04:26] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:26] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:04:26] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:11:14] INFO [root.setup_logger:110] Logger initialized. Logs stored in: C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-19 13:11:14] INFO [root.set_seed:25] Random seed set to 42 (Python, NumPy, TensorFlow)
+[2026-07-19 13:11:14] INFO [TrainingPipeline.run_train_pipeline:304] ============================================================
+[2026-07-19 13:11:14] INFO [TrainingPipeline.run_train_pipeline:305]            STARTING MODEL TRAINING PIPELINE           
+[2026-07-19 13:11:14] INFO [TrainingPipeline.run_train_pipeline:306] ============================================================
+[2026-07-19 13:11:14] INFO [TrainingPipeline.configure_mixed_precision:53] Mixed precision requested, but no GPU devices detected. Using float32 policy.
+[2026-07-19 13:11:14] INFO [TrainingPipeline.run_train_pipeline:321] Saved configuration config settings to C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\training_config.json
+[2026-07-19 13:11:14] INFO [TrainingPipeline.run_train_pipeline:324] Scanning dataset folders under: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-19 13:11:14] INFO [src.data.dataset_loader._detect_layout:134] Layout A (standard splits) detected with images present.
+[2026-07-19 13:11:14] INFO [src.data.dataset_loader.scan_dataset:95] Detected dataset layout: standard
+[2026-07-19 13:11:14] INFO [src.data.dataset_loader.validate_structure:80] Dataset structure validated: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-19 13:11:14] INFO [src.data.dataset_loader._scan_standard:377] Detected classes: ['glioma', 'meningioma', 'notumor', 'pituitary']
+[2026-07-19 13:11:38] INFO [src.data.dataset_loader._scan_standard:403] Split 'train': 4760 valid images. Skipped 0 corrupted files.
+[2026-07-19 13:11:41] INFO [src.data.dataset_loader._scan_standard:403] Split 'validation': 840 valid images. Skipped 0 corrupted files.
+[2026-07-19 13:11:47] INFO [src.data.dataset_loader._scan_standard:403] Split 'test': 1600 valid images. Skipped 0 corrupted files.
+[2026-07-19 13:11:47] INFO [TrainingPipeline.run_train_pipeline:355] Training dataset size: 4760 valid images.
+[2026-07-19 13:11:47] INFO [TrainingPipeline.run_train_pipeline:356] Validation dataset size: 840 valid images.
+[2026-07-19 13:11:47] INFO [TrainingPipeline.calculate_class_weights:147] Computed class weights: {0: 1.0, 1: 1.0, 2: 1.0, 3: 1.0}
+[2026-07-19 13:11:47] INFO [src.models.efficientnet_model.build_model:45] Building EfficientNetV2B0 model with shape (224, 224, 3)...
+[2026-07-19 13:11:49] INFO [src.models.efficientnet_model.build_model:56] EfficientNetV2B0 base backbone frozen.
+[2026-07-19 13:11:50] INFO [src.models.efficientnet_model.build_model:105] Successfully built and compiled EfficientNetV2B0 model with GPU augmentations.
+[2026-07-19 13:11:50] INFO [TrainingPipeline.run_train_pipeline:376] Model summary written to C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\model_summary.txt
+[2026-07-19 13:11:50] INFO [TrainingPipeline.run_train_pipeline:382] --- PHASE 1: Training Custom Head (Backbone Frozen) for 1 epochs ---
+[2026-07-19 13:11:50] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:11:50] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:50] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:50] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:11:50] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 13:11:50] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:11:50] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:50] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:50] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:11:50] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:11:50] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:50] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:50] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:11:50] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 13:11:51] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:11:51] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:51] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:51] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:11:51] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:11:51] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:51] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:51] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:11:51] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:11:51] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:51] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:51] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:11:54] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:11:54] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:54] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:54] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:11:54] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 13:11:54] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:11:54] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:54] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:54] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:11:54] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:11:54] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:54] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:54] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:11:54] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 13:11:54] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:11:54] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:55] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:55] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:11:55] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:11:55] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:55] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:55] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:11:55] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:11:55] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:55] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:11:55] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:14:58] INFO [TrainingPipeline.run_train_pipeline:394] Phase 1 head training finished in 187.97 seconds.
+[2026-07-19 13:14:58] INFO [TrainingPipeline.run_train_pipeline:401] --- PHASE 2: Fine-Tuning backbone (Unfreezing last 25 layers) ---
+[2026-07-19 13:14:58] INFO [TrainingPipeline.fine_tune_backbone:263] Unfreezing EfficientNetB0 backbone layers (unfreezing last 25 layers)...
+[2026-07-19 13:14:58] INFO [TrainingPipeline.fine_tune_backbone:293] Successfully re-compiled model for Phase 2: Fine-Tuning.
+[2026-07-19 13:14:58] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:14:58] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:14:58] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:14:58] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:14:58] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 13:14:58] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:14:58] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:14:58] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:14:58] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:14:58] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:14:58] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:14:58] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:14:58] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:14:59] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 13:14:59] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:14:59] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:14:59] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:14:59] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:14:59] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:14:59] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:14:59] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:14:59] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:14:59] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:14:59] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:14:59] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:14:59] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:15:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:15:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:15:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:15:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:15:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 13:15:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:15:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:15:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:15:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:15:04] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:15:04] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:15:04] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:15:04] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:15:04] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 13:15:04] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:15:04] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:15:04] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:15:04] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:15:04] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:15:04] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:15:04] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:15:04] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:15:04] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 13:15:04] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:15:05] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 13:15:05] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 13:19:33] INFO [TrainingPipeline.run_train_pipeline:421] Phase 2 fine-tuning training finished in 275.56 seconds.
+[2026-07-19 13:19:33] INFO [TrainingPipeline.run_train_pipeline:432] Saved last model weights to C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\last_model.keras
+[2026-07-19 13:19:33] INFO [TrainingPipeline.run_train_pipeline:439] Saved complete training history to C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\history.json
+[2026-07-19 13:19:35] INFO [TrainingPipeline.save_plots:241] Saved metric graphs (accuracy.png, loss.png, learning_rate.png) to C:\Users\udayg\Desktop\MRI brain tumor detection\outputs\training
+[2026-07-19 13:19:35] INFO [TrainingPipeline.run_train_pipeline:446] ============================================================
+[2026-07-19 13:19:35] INFO [TrainingPipeline.run_train_pipeline:447] TRAINING PIPELINE FINISHED SUCCESSFULLY.
+[2026-07-19 13:19:35] INFO [TrainingPipeline.run_train_pipeline:448] Total Pipeline Execution Time: 8.35 minutes.
+[2026-07-19 13:19:35] INFO [TrainingPipeline.run_train_pipeline:449] ============================================================
+[2026-07-19 14:00:08] INFO [root.setup_logger:110] Logger initialized. Logs stored in: C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-19 14:00:08] INFO [root.set_seed:25] Random seed set to 42 (Python, NumPy, TensorFlow)
+[2026-07-19 14:00:08] INFO [TrainingPipeline.run_train_pipeline:304] ============================================================
+[2026-07-19 14:00:08] INFO [TrainingPipeline.run_train_pipeline:305]            STARTING MODEL TRAINING PIPELINE           
+[2026-07-19 14:00:08] INFO [TrainingPipeline.run_train_pipeline:306] ============================================================
+[2026-07-19 14:00:08] INFO [TrainingPipeline.configure_mixed_precision:55] Mixed precision disabled in configs. Using standard float32 policy.
+[2026-07-19 14:01:06] INFO [root.setup_logger:110] Logger initialized. Logs stored in: C:\Users\udayg\Desktop\MRI brain tumor detection\logs
+[2026-07-19 14:01:06] INFO [root.set_seed:25] Random seed set to 42 (Python, NumPy, TensorFlow)
+[2026-07-19 14:01:06] INFO [TrainingPipeline.run_train_pipeline:304] ============================================================
+[2026-07-19 14:01:06] INFO [TrainingPipeline.run_train_pipeline:305]            STARTING MODEL TRAINING PIPELINE           
+[2026-07-19 14:01:06] INFO [TrainingPipeline.run_train_pipeline:306] ============================================================
+[2026-07-19 14:01:06] INFO [TrainingPipeline.configure_mixed_precision:55] Mixed precision disabled in configs. Using standard float32 policy.
+[2026-07-19 14:01:06] INFO [TrainingPipeline.run_train_pipeline:321] Saved configuration config settings to C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\training_config.json
+[2026-07-19 14:01:06] INFO [TrainingPipeline.run_train_pipeline:324] Scanning dataset folders under: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-19 14:01:06] INFO [src.data.dataset_loader._detect_layout:134] Layout A (standard splits) detected with images present.
+[2026-07-19 14:01:06] INFO [src.data.dataset_loader.scan_dataset:95] Detected dataset layout: standard
+[2026-07-19 14:01:06] INFO [src.data.dataset_loader.validate_structure:80] Dataset structure validated: C:\Users\udayg\Desktop\MRI brain tumor detection\dataset
+[2026-07-19 14:01:06] INFO [src.data.dataset_loader._scan_standard:377] Detected classes: ['glioma', 'meningioma', 'notumor', 'pituitary']
+[2026-07-19 14:01:27] INFO [src.data.dataset_loader._scan_standard:403] Split 'train': 4760 valid images. Skipped 0 corrupted files.
+[2026-07-19 14:01:30] INFO [src.data.dataset_loader._scan_standard:403] Split 'validation': 840 valid images. Skipped 0 corrupted files.
+[2026-07-19 14:01:36] INFO [src.data.dataset_loader._scan_standard:403] Split 'test': 1600 valid images. Skipped 0 corrupted files.
+[2026-07-19 14:01:36] INFO [TrainingPipeline.run_train_pipeline:355] Training dataset size: 4760 valid images.
+[2026-07-19 14:01:36] INFO [TrainingPipeline.run_train_pipeline:356] Validation dataset size: 840 valid images.
+[2026-07-19 14:01:36] INFO [TrainingPipeline.calculate_class_weights:147] Computed class weights: {0: 1.0, 1: 1.0, 2: 1.0, 3: 1.0}
+[2026-07-19 14:01:36] INFO [src.models.efficientnet_model.build_model:46] Building EfficientNetV2B0 model with shape (224, 224, 3)...
+[2026-07-19 14:01:38] INFO [src.models.efficientnet_model.build_model:57] EfficientNetV2B0 base backbone frozen.
+[2026-07-19 14:01:38] INFO [src.models.efficientnet_model.build_model:111] Successfully built and compiled EfficientNetV2B0 model with GPU augmentations.
+[2026-07-19 14:01:38] INFO [TrainingPipeline.run_train_pipeline:376] Model summary written to C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\model_summary.txt
+[2026-07-19 14:01:38] INFO [TrainingPipeline.run_train_pipeline:382] --- PHASE 1: Training Custom Head (Backbone Frozen) for 15 epochs ---
+[2026-07-19 14:01:39] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:01:39] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:39] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:39] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:01:39] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 14:01:39] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:01:39] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:39] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:39] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:01:39] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:01:39] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:39] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:39] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:01:39] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 14:01:39] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformFullIntV2 cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomGetKeyCounter cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:01:40] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting AdjustContrastv2 cause Input "contrast_factor" of op 'AdjustContrastv2' expected to be loop invariant.
+[2026-07-19 14:01:43] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:01:43] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:43] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:43] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:01:43] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 14:01:43] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:01:43] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:43] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:43] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:01:43] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:01:43] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:43] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:43] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformFullIntV2 cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomGetKeyCounter cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:01:44] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting AdjustContrastv2 cause Input "contrast_factor" of op 'AdjustContrastv2' expected to be loop invariant.
+[2026-07-19 14:17:01] INFO [TrainingPipeline.run_train_pipeline:394] Phase 1 head training finished in 922.85 seconds.
+[2026-07-19 14:17:01] INFO [TrainingPipeline.run_train_pipeline:401] --- PHASE 2: Fine-Tuning backbone (Unfreezing last 25 layers) ---
+[2026-07-19 14:17:01] INFO [TrainingPipeline.fine_tune_backbone:263] Unfreezing EfficientNetB0 backbone layers (unfreezing last 25 layers)...
+[2026-07-19 14:17:01] INFO [TrainingPipeline.fine_tune_backbone:293] Successfully re-compiled model for Phase 2: Fine-Tuning.
+[2026-07-19 14:17:01] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:17:01] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:01] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:01] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:17:02] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 14:17:02] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:17:02] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:02] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:02] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:17:02] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:17:02] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:02] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:02] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:17:02] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformFullIntV2 cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomGetKeyCounter cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:17:03] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting AdjustContrastv2 cause Input "contrast_factor" of op 'AdjustContrastv2' expected to be loop invariant.
+[2026-07-19 14:17:06] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:17:06] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:06] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:06] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:17:06] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:07] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:17:08] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+[2026-07-19 14:17:08] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:08] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+[2026-07-19 14:17:08] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformFullIntV2 cause there is no registered converter for this op.
+[2026-07-19 14:17:08] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomGetKeyCounter cause there is no registered converter for this op.
+[2026-07-19 14:17:08] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+[2026-07-19 14:17:08] WARNING [tensorflow._fallback_converter:1082] Using a while_loop for converting AdjustContrastv2 cause Input "contrast_factor" of op 'AdjustContrastv2' expected to be loop invariant.

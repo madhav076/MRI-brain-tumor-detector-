@@ -1,0 +1,286 @@
+[2026-07-17 14:00:08] INFO [StreamlitApp.<module>:107] ============================================================
+[2026-07-17 14:00:08] INFO [StreamlitApp.<module>:108]            APPLICATION STARTUP INITIATED              
+[2026-07-17 14:00:08] INFO [StreamlitApp.<module>:109] ============================================================
+[2026-07-17 14:00:08] WARNING [StreamlitApp.load_best_model:87] best_model.keras was not found under saved_models/
+[2026-07-17 14:00:08] INFO [StreamlitApp.<module>:150] Navigation: User navigated to Home Page.
+[2026-07-17 19:24:48] INFO [StreamlitApp.<module>:107] ============================================================
+[2026-07-17 19:24:48] INFO [StreamlitApp.<module>:108]            APPLICATION STARTUP INITIATED              
+[2026-07-17 19:24:48] INFO [StreamlitApp.<module>:109] ============================================================
+[2026-07-17 19:24:48] WARNING [StreamlitApp.load_best_model:87] best_model.keras was not found under saved_models/
+[2026-07-17 19:24:48] INFO [StreamlitApp.<module>:150] Navigation: User navigated to Home Page.
+[2026-07-17 19:58:21] INFO [StreamlitApp.<module>:116] ============================================================
+[2026-07-17 19:58:21] INFO [StreamlitApp.<module>:117]            APPLICATION STARTUP INITIATED              
+[2026-07-17 19:58:21] INFO [StreamlitApp.<module>:118] ============================================================
+[2026-07-17 19:58:21] WARNING [StreamlitApp.load_best_model:89] best_model.keras was not found under saved_models/
+[2026-07-17 19:58:21] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Home Page.
+[2026-07-19 12:50:24] INFO [StreamlitApp.<module>:116] ============================================================
+[2026-07-19 12:50:24] INFO [StreamlitApp.<module>:117]            APPLICATION STARTUP INITIATED              
+[2026-07-19 12:50:24] INFO [StreamlitApp.<module>:118] ============================================================
+[2026-07-19 12:50:24] WARNING [StreamlitApp.load_best_model:89] best_model.keras was not found under saved_models/
+[2026-07-19 12:50:24] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Home Page.
+[2026-07-19 12:50:45] INFO [StreamlitApp.<module>:207] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 12:50:49] INFO [StreamlitApp.<module>:282] Navigation: User navigated to Batch Scan Classifier.
+[2026-07-19 12:50:58] INFO [StreamlitApp.<module>:353] Navigation: User navigated to Prediction History.
+[2026-07-19 12:50:59] INFO [StreamlitApp.<module>:358] Navigation: User navigated to Model Diagnostics.
+[2026-07-19 12:51:03] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Home Page.
+[2026-07-19 12:51:09] INFO [StreamlitApp.<module>:207] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 12:51:17] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Home Page.
+[2026-07-19 12:51:23] INFO [StreamlitApp.<module>:282] Navigation: User navigated to Batch Scan Classifier.
+[2026-07-19 12:51:26] INFO [StreamlitApp.<module>:353] Navigation: User navigated to Prediction History.
+[2026-07-19 12:51:29] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Home Page.
+[2026-07-19 12:51:34] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Home Page.
+[2026-07-19 12:51:46] INFO [StreamlitApp.<module>:207] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 12:51:48] INFO [StreamlitApp.<module>:282] Navigation: User navigated to Batch Scan Classifier.
+[2026-07-19 12:51:50] INFO [StreamlitApp.<module>:358] Navigation: User navigated to Model Diagnostics.
+[2026-07-19 12:51:54] INFO [StreamlitApp.<module>:404] Navigation: User navigated to Application Settings.
+[2026-07-19 12:51:57] INFO [StreamlitApp.<module>:404] Navigation: User navigated to Application Settings.
+[2026-07-19 12:51:58] INFO [StreamlitApp.<module>:404] Navigation: User navigated to Application Settings.
+[2026-07-19 12:52:03] INFO [StreamlitApp.<module>:404] Navigation: User navigated to Application Settings.
+[2026-07-19 12:52:05] INFO [StreamlitApp.<module>:404] Navigation: User navigated to Application Settings.
+[2026-07-19 12:52:07] INFO [StreamlitApp.<module>:282] Navigation: User navigated to Batch Scan Classifier.
+[2026-07-19 12:52:07] INFO [StreamlitApp.<module>:207] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 12:52:11] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Home Page.
+[2026-07-19 12:53:20] INFO [StreamlitApp.<module>:207] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 12:53:33] INFO [StreamlitApp.<module>:282] Navigation: User navigated to Batch Scan Classifier.
+[2026-07-19 12:53:36] INFO [StreamlitApp.<module>:353] Navigation: User navigated to Prediction History.
+[2026-07-19 12:53:38] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Home Page.
+[2026-07-19 12:53:45] INFO [StreamlitApp.<module>:282] Navigation: User navigated to Batch Scan Classifier.
+[2026-07-19 12:53:55] INFO [StreamlitApp.<module>:207] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 12:54:06] INFO [StreamlitApp.<module>:282] Navigation: User navigated to Batch Scan Classifier.
+[2026-07-19 13:00:17] INFO [StreamlitApp.<module>:116] ============================================================
+[2026-07-19 13:00:17] INFO [StreamlitApp.<module>:117]            APPLICATION STARTUP INITIATED              
+[2026-07-19 13:00:17] INFO [StreamlitApp.<module>:118] ============================================================
+[2026-07-19 13:00:17] WARNING [StreamlitApp.load_best_model:89] No pre-trained model found at configured path: C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\best_model.keras
+[2026-07-19 13:00:17] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Home Page.
+[2026-07-19 13:00:23] INFO [StreamlitApp.<module>:207] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:00:25] INFO [StreamlitApp.<module>:282] Navigation: User navigated to Batch Scan Classifier.
+[2026-07-19 13:00:31] INFO [StreamlitApp.<module>:207] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:00:33] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Home Page.
+[2026-07-19 13:01:58] INFO [StreamlitApp.<module>:116] ============================================================
+[2026-07-19 13:01:58] INFO [StreamlitApp.<module>:117]            APPLICATION STARTUP INITIATED              
+[2026-07-19 13:01:58] INFO [StreamlitApp.<module>:118] ============================================================
+[2026-07-19 13:01:58] WARNING [StreamlitApp.load_best_model:89] No pre-trained model found at configured path: C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\best_model.keras
+[2026-07-19 13:01:58] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Home Page.
+[2026-07-19 13:02:01] INFO [StreamlitApp.<module>:207] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:02:03] INFO [StreamlitApp.<module>:282] Navigation: User navigated to Batch Scan Classifier.
+[2026-07-19 13:22:24] INFO [StreamlitApp.<module>:116] ============================================================
+[2026-07-19 13:22:24] INFO [StreamlitApp.<module>:117]            APPLICATION STARTUP INITIATED              
+[2026-07-19 13:22:24] INFO [StreamlitApp.<module>:118] ============================================================
+[2026-07-19 13:22:24] ERROR [StreamlitApp.load_best_model:111] Error loading best_model.keras: File not found: filepath=C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\best_model.keras. Please ensure the file is an accessible `.keras` zip file.
+Traceback (most recent call last):
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\app\streamlit_app.py", line 94, in load_best_model
+    model = tf.keras.models.load_model(
+        model_path,
+    ...<4 lines>...
+        compile=False,
+    )
+  File "C:\Users\udayg\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\saving\saving_api.py", line 203, in load_model
+    raise ValueError(
+    ...<3 lines>...
+    )
+ValueError: File not found: filepath=C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\best_model.keras. Please ensure the file is an accessible `.keras` zip file.
+[2026-07-19 13:22:25] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Home Page.
+[2026-07-19 13:22:30] INFO [StreamlitApp.<module>:207] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:22:33] INFO [StreamlitApp.<module>:282] Navigation: User navigated to Batch Scan Classifier.
+[2026-07-19 13:22:39] INFO [StreamlitApp.<module>:354] Navigation: User navigated to Prediction History.
+[2026-07-19 13:22:41] INFO [StreamlitApp.<module>:359] Navigation: User navigated to Model Diagnostics.
+[2026-07-19 13:22:46] INFO [StreamlitApp.<module>:282] Navigation: User navigated to Batch Scan Classifier.
+[2026-07-19 13:22:47] INFO [StreamlitApp.<module>:207] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:23:09] INFO [StreamlitApp.<module>:282] Navigation: User navigated to Batch Scan Classifier.
+[2026-07-19 13:30:22] INFO [StreamlitApp.<module>:111] ============================================================
+[2026-07-19 13:30:22] INFO [StreamlitApp.<module>:112]            APPLICATION STARTUP INITIATED              
+[2026-07-19 13:30:22] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 13:30:22] INFO [StreamlitApp.load_best_model:89] Checking model at absolute path: C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\best_model.keras
+[2026-07-19 13:30:27] INFO [StreamlitApp.load_best_model:103] Model loaded successfully on CPU in 4.50 seconds.
+[2026-07-19 13:30:27] INFO [StreamlitApp.<module>:155] Navigation: User navigated to Home Page.
+[2026-07-19 13:31:57] INFO [StreamlitApp.<module>:111] ============================================================
+[2026-07-19 13:31:57] INFO [StreamlitApp.<module>:112]            APPLICATION STARTUP INITIATED              
+[2026-07-19 13:31:57] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 13:31:57] INFO [StreamlitApp.load_best_model:89] Checking model at absolute path: C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\best_model.keras
+[2026-07-19 13:31:59] INFO [StreamlitApp.load_best_model:103] Model loaded successfully on CPU in 1.67 seconds.
+[2026-07-19 13:31:59] INFO [StreamlitApp.<module>:155] Navigation: User navigated to Home Page.
+[2026-07-19 13:32:02] INFO [StreamlitApp.<module>:111] ============================================================
+[2026-07-19 13:32:02] INFO [StreamlitApp.<module>:112]            APPLICATION STARTUP INITIATED              
+[2026-07-19 13:32:02] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 13:32:02] INFO [StreamlitApp.<module>:155] Navigation: User navigated to Home Page.
+[2026-07-19 13:32:08] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:32:11] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:32:12] INFO [StreamlitApp.<module>:277] Navigation: User navigated to Batch Scan Classifier.
+[2026-07-19 13:32:19] INFO [StreamlitApp.<module>:277] Navigation: User navigated to Batch Scan Classifier.
+[2026-07-19 13:32:21] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:33:18] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:33:18] ERROR [StreamlitApp.<module>:255] Prediction failed for file 'Screenshot 2026-07-19 133309.png': Unsupported number of channels: 4. Expected 1 or 3.
+Traceback (most recent call last):
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\app\streamlit_app.py", line 241, in <module>
+    probs, inference_time = execute_inference(image_array, best_model)
+                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\app\components\prediction_card.py", line 53, in execute_inference
+    raise e
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\app\components\prediction_card.py", line 36, in execute_inference
+    processed_img = preprocess_single_image(
+        image_array,
+        target_size=config.IMAGE_SIZE,
+        normalize_method="minmax_01"
+    )
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\src\data\preprocessing.py", line 173, in preprocess_single_image
+    tensor = convert_to_rgb(tensor)
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\src\data\preprocessing.py", line 94, in convert_to_rgb
+    raise ValueError(f"Unsupported number of channels: {channels}. Expected 1 or 3.")
+ValueError: Unsupported number of channels: 4. Expected 1 or 3.
+[2026-07-19 13:33:26] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:33:31] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:33:35] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:33:35] ERROR [StreamlitApp.<module>:255] Prediction failed for file 'Screenshot 2026-07-19 133309.png': Unsupported number of channels: 4. Expected 1 or 3.
+Traceback (most recent call last):
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\app\streamlit_app.py", line 241, in <module>
+    probs, inference_time = execute_inference(image_array, best_model)
+                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\app\components\prediction_card.py", line 53, in execute_inference
+    raise e
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\app\components\prediction_card.py", line 36, in execute_inference
+    processed_img = preprocess_single_image(
+        image_array,
+        target_size=config.IMAGE_SIZE,
+        normalize_method="minmax_01"
+    )
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\src\data\preprocessing.py", line 173, in preprocess_single_image
+    tensor = convert_to_rgb(tensor)
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\src\data\preprocessing.py", line 94, in convert_to_rgb
+    raise ValueError(f"Unsupported number of channels: {channels}. Expected 1 or 3.")
+ValueError: Unsupported number of channels: 4. Expected 1 or 3.
+[2026-07-19 13:36:08] INFO [StreamlitApp.<module>:111] ============================================================
+[2026-07-19 13:36:08] INFO [StreamlitApp.<module>:112]            APPLICATION STARTUP INITIATED              
+[2026-07-19 13:36:08] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 13:36:08] INFO [StreamlitApp.<module>:155] Navigation: User navigated to Home Page.
+[2026-07-19 13:38:29] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:38:35] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:38:35] ERROR [StreamlitApp.<module>:255] Prediction failed for file 'Screenshot 2026-07-19 133309.png': preprocess_single_image() got an unexpected keyword argument 'is_bgr'
+Traceback (most recent call last):
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\app\streamlit_app.py", line 241, in <module>
+    probs, inference_time = execute_inference(image_array, best_model)
+                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\app\components\prediction_card.py", line 54, in execute_inference
+    raise e
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\app\components\prediction_card.py", line 36, in execute_inference
+    processed_img = preprocess_single_image(
+        image_array,
+    ...<2 lines>...
+        is_bgr=True
+    )
+TypeError: preprocess_single_image() got an unexpected keyword argument 'is_bgr'
+[2026-07-19 13:39:50] INFO [StreamlitApp.<module>:111] ============================================================
+[2026-07-19 13:39:50] INFO [StreamlitApp.<module>:112]            APPLICATION STARTUP INITIATED              
+[2026-07-19 13:39:50] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 13:39:50] INFO [StreamlitApp.load_best_model:89] Checking model at absolute path: C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\best_model.keras
+[2026-07-19 13:39:53] INFO [StreamlitApp.load_best_model:103] Model loaded successfully on CPU in 3.02 seconds.
+[2026-07-19 13:39:53] INFO [StreamlitApp.<module>:155] Navigation: User navigated to Home Page.
+[2026-07-19 13:39:55] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:40:00] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:42:27] INFO [StreamlitApp.<module>:111] ============================================================
+[2026-07-19 13:42:27] INFO [StreamlitApp.<module>:112]            APPLICATION STARTUP INITIATED              
+[2026-07-19 13:42:27] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 13:42:27] INFO [StreamlitApp.<module>:155] Navigation: User navigated to Home Page.
+[2026-07-19 13:42:30] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:42:37] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:42:38] INFO [StreamlitApp.<module>:252] Successful prediction: File='Screenshot 2026-07-19 133309.png', Pred='pituitary', Conf=0.3938, Time=1.383s
+[2026-07-19 13:43:07] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:43:07] INFO [StreamlitApp.<module>:252] Successful prediction: File='Screenshot 2026-07-19 133309.png', Pred='pituitary', Conf=0.3938, Time=0.668s
+[2026-07-19 13:43:11] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:43:12] INFO [StreamlitApp.<module>:252] Successful prediction: File='Screenshot 2026-07-19 133309.png', Pred='pituitary', Conf=0.3938, Time=0.621s
+[2026-07-19 13:43:19] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:43:19] INFO [StreamlitApp.<module>:252] Successful prediction: File='Screenshot 2026-07-19 133309.png', Pred='pituitary', Conf=0.3938, Time=0.547s
+[2026-07-19 13:43:24] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:43:25] INFO [StreamlitApp.<module>:252] Successful prediction: File='Screenshot 2026-07-19 133309.png', Pred='pituitary', Conf=0.3938, Time=0.720s
+[2026-07-19 13:44:32] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:44:34] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:44:36] INFO [StreamlitApp.<module>:349] Navigation: User navigated to Prediction History.
+[2026-07-19 13:44:41] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:45:33] INFO [StreamlitApp.<module>:202] Navigation: User navigated to Single Scan Classifier.
+[2026-07-19 13:45:34] INFO [StreamlitApp.<module>:252] Successful prediction: File='Screenshot 2026-07-19 134528.png', Pred='pituitary', Conf=0.3952, Time=0.675s
+[2026-07-19 13:52:41] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 13:52:41] INFO [StreamlitApp.<module>:114]            APPLICATION STARTUP INITIATED              
+[2026-07-19 13:52:41] INFO [StreamlitApp.<module>:115] ============================================================
+[2026-07-19 13:52:57] INFO [StreamlitApp.<module>:343] Navigation: User navigated to AI Reports.
+[2026-07-19 13:53:08] INFO [StreamlitApp.<module>:338] Navigation: User navigated to Prediction History.
+[2026-07-19 13:53:11] INFO [StreamlitApp.<module>:164] Navigation: User navigated to MRI Analysis.
+[2026-07-19 13:53:23] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Dashboard.
+[2026-07-19 13:53:56] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 13:53:56] INFO [StreamlitApp.<module>:114]            APPLICATION STARTUP INITIATED              
+[2026-07-19 13:53:56] INFO [StreamlitApp.<module>:115] ============================================================
+[2026-07-19 13:53:56] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Dashboard.
+[2026-07-19 13:54:01] INFO [StreamlitApp.<module>:164] Navigation: User navigated to MRI Analysis.
+[2026-07-19 13:54:06] INFO [StreamlitApp.<module>:164] Navigation: User navigated to MRI Analysis.
+[2026-07-19 13:54:09] INFO [StreamlitApp.<module>:249] Successful prediction: File='Screenshot 2026-07-19 133309.png', Pred='pituitary', Conf=0.3938, Time=0.688s
+[2026-07-19 13:54:27] INFO [StreamlitApp.<module>:164] Navigation: User navigated to MRI Analysis.
+[2026-07-19 13:54:29] INFO [StreamlitApp.<module>:249] Successful prediction: File='Screenshot 2026-07-19 133309.png', Pred='pituitary', Conf=0.3938, Time=0.663s
+[2026-07-19 13:56:37] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 13:56:37] INFO [StreamlitApp.<module>:114]            APPLICATION STARTUP INITIATED              
+[2026-07-19 13:56:37] INFO [StreamlitApp.<module>:115] ============================================================
+[2026-07-19 13:56:37] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Dashboard.
+[2026-07-19 13:56:43] INFO [StreamlitApp.<module>:164] Navigation: User navigated to MRI Analysis.
+[2026-07-19 13:56:48] INFO [StreamlitApp.<module>:164] Navigation: User navigated to MRI Analysis.
+[2026-07-19 13:56:51] INFO [StreamlitApp.<module>:249] Successful prediction: File='Screenshot 2026-07-19 134528.png', Pred='pituitary', Conf=0.3952, Time=0.729s
+[2026-07-19 13:56:58] INFO [StreamlitApp.<module>:164] Navigation: User navigated to MRI Analysis.
+[2026-07-19 13:57:00] INFO [StreamlitApp.<module>:249] Successful prediction: File='Screenshot 2026-07-19 134528.png', Pred='pituitary', Conf=0.3952, Time=0.495s
+[2026-07-19 13:59:18] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 13:59:18] INFO [StreamlitApp.<module>:114]            APPLICATION STARTUP INITIATED              
+[2026-07-19 13:59:18] INFO [StreamlitApp.<module>:115] ============================================================
+[2026-07-19 13:59:18] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Dashboard.
+[2026-07-19 13:59:36] INFO [StreamlitApp.<module>:343] Navigation: User navigated to AI Reports.
+[2026-07-19 13:59:38] INFO [StreamlitApp.<module>:164] Navigation: User navigated to MRI Analysis.
+[2026-07-19 13:59:48] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 13:59:48] INFO [StreamlitApp.<module>:114]            APPLICATION STARTUP INITIATED              
+[2026-07-19 13:59:48] INFO [StreamlitApp.<module>:115] ============================================================
+[2026-07-19 13:59:48] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Dashboard.
+[2026-07-19 13:59:51] INFO [StreamlitApp.<module>:164] Navigation: User navigated to MRI Analysis.
+[2026-07-19 13:59:58] INFO [StreamlitApp.<module>:164] Navigation: User navigated to MRI Analysis.
+[2026-07-19 14:00:01] INFO [StreamlitApp.<module>:249] Successful prediction: File='Screenshot 2026-07-19 133309.png', Pred='pituitary', Conf=0.3938, Time=0.961s
+[2026-07-19 14:00:05] INFO [StreamlitApp.<module>:338] Navigation: User navigated to Prediction History.
+[2026-07-19 14:00:07] INFO [StreamlitApp.<module>:343] Navigation: User navigated to AI Reports.
+[2026-07-19 14:00:11] INFO [StreamlitApp.<module>:338] Navigation: User navigated to Prediction History.
+[2026-07-19 14:00:11] INFO [StreamlitApp.<module>:343] Navigation: User navigated to AI Reports.
+[2026-07-19 14:00:19] INFO [StreamlitApp.<module>:349] Navigation: User navigated to Model Diagnostics.
+[2026-07-19 14:00:43] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 14:00:43] INFO [StreamlitApp.<module>:114]            APPLICATION STARTUP INITIATED              
+[2026-07-19 14:00:43] INFO [StreamlitApp.<module>:115] ============================================================
+[2026-07-19 14:00:43] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Dashboard.
+[2026-07-19 14:05:19] INFO [StreamlitApp.<module>:338] Navigation: User navigated to Prediction History.
+[2026-07-19 14:05:29] INFO [StreamlitApp.<module>:395] Navigation: User navigated to Application Settings.
+[2026-07-19 14:42:08] INFO [StreamlitApp.<module>:395] Navigation: User navigated to Application Settings.
+[2026-07-19 15:19:03] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 15:19:03] INFO [StreamlitApp.<module>:114]            APPLICATION STARTUP INITIATED              
+[2026-07-19 15:19:03] INFO [StreamlitApp.<module>:115] ============================================================
+[2026-07-19 15:19:03] INFO [StreamlitApp.<module>:395] Navigation: User navigated to Application Settings.
+[2026-07-19 15:20:37] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 15:20:37] INFO [StreamlitApp.<module>:114]            APPLICATION STARTUP INITIATED              
+[2026-07-19 15:20:37] INFO [StreamlitApp.<module>:115] ============================================================
+[2026-07-19 15:20:37] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Dashboard.
+[2026-07-19 15:21:27] INFO [StreamlitApp.<module>:395] Navigation: User navigated to Application Settings.
+[2026-07-19 15:22:32] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 15:22:32] INFO [StreamlitApp.<module>:114]            APPLICATION STARTUP INITIATED              
+[2026-07-19 15:22:32] INFO [StreamlitApp.<module>:115] ============================================================
+[2026-07-19 15:22:32] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Dashboard.
+[2026-07-19 15:22:49] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 15:22:49] INFO [StreamlitApp.<module>:114]            APPLICATION STARTUP INITIATED              
+[2026-07-19 15:22:49] INFO [StreamlitApp.<module>:115] ============================================================
+[2026-07-19 15:22:49] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Dashboard.
+[2026-07-19 15:23:56] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 15:23:56] INFO [StreamlitApp.<module>:114]            APPLICATION STARTUP INITIATED              
+[2026-07-19 15:23:56] INFO [StreamlitApp.<module>:115] ============================================================
+[2026-07-19 15:23:56] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Dashboard.
+[2026-07-19 15:26:19] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 15:26:19] INFO [StreamlitApp.<module>:114]            APPLICATION STARTUP INITIATED              
+[2026-07-19 15:26:19] INFO [StreamlitApp.<module>:115] ============================================================
+[2026-07-19 15:26:19] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Dashboard.
+[2026-07-19 15:30:19] INFO [StreamlitApp.<module>:113] ============================================================
+[2026-07-19 15:30:19] INFO [StreamlitApp.<module>:114]            APPLICATION STARTUP INITIATED              
+[2026-07-19 15:30:19] INFO [StreamlitApp.<module>:115] ============================================================
+[2026-07-19 15:30:19] INFO [StreamlitApp.load_best_model:91] Checking model at absolute path: C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\best_model.keras
+[2026-07-19 15:30:21] INFO [StreamlitApp.load_best_model:105] Model loaded successfully on CPU in 1.94 seconds.
+[2026-07-19 15:30:21] INFO [StreamlitApp.<module>:160] Navigation: User navigated to Dashboard.
+[2026-07-19 15:30:37] INFO [StreamlitApp.<module>:164] Navigation: User navigated to MRI Analysis.
+[2026-07-19 15:30:49] INFO [StreamlitApp.<module>:164] Navigation: User navigated to MRI Analysis.
+[2026-07-19 15:30:53] INFO [StreamlitApp.<module>:249] Successful prediction: File='Screenshot 2026-07-19 133309.png', Pred='pituitary', Conf=0.4728, Time=1.764s
+[2026-07-19 15:31:17] INFO [StreamlitApp.<module>:343] Navigation: User navigated to AI Reports.
+[2026-07-19 15:31:20] INFO [StreamlitApp.<module>:338] Navigation: User navigated to Prediction History.
+[2026-07-19 15:31:23] INFO [StreamlitApp.<module>:343] Navigation: User navigated to AI Reports.

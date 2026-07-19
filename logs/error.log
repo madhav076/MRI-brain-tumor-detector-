@@ -1,0 +1,50 @@
+[2026-07-17 12:36:31] ERROR [src.data.dataset_loader.scan_dataset:84] No class subdirectories discovered in split folders.
+[2026-07-17 12:36:32] ERROR [src.data.preprocessing.validate_image:51] Error validating image: Value for attr 'T' of uint8 is not in the list of allowed values: bfloat16, half, float, double
+	; NodeDef: {{node IsNan}}; Op<name=IsNan; signature=x:T -> y:bool; attr=T:type,allowed=[DT_BFLOAT16, DT_HALF, DT_FLOAT, DT_DOUBLE]> [Op:IsNan] name: 
+[2026-07-17 12:36:32] ERROR [src.data.preprocessing.validate_image:51] Error validating image: Value for attr 'T' of uint8 is not in the list of allowed values: bfloat16, half, float, double
+	; NodeDef: {{node IsNan}}; Op<name=IsNan; signature=x:T -> y:bool; attr=T:type,allowed=[DT_BFLOAT16, DT_HALF, DT_FLOAT, DT_DOUBLE]> [Op:IsNan] name: 
+[2026-07-17 12:36:32] ERROR [Verification.run_verification:118] Preprocessing check failed: Image failed numerical or dimensional validation.
+Traceback (most recent call last):
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\verify_module1.py", line 99, in run_verification
+    preprocessed_single = preprocess_single_image(
+        dummy_grayscale.numpy(), target_size=config.IMAGE_SIZE, normalize_method="minmax_01"
+    )
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\src\data\preprocessing.py", line 169, in preprocess_single_image
+    raise ValueError("Image failed numerical or dimensional validation.")
+ValueError: Image failed numerical or dimensional validation.
+[2026-07-17 12:36:49] ERROR [src.data.dataset_loader.scan_dataset:84] No class subdirectories discovered in split folders.
+[2026-07-17 12:36:49] ERROR [Verification.run_verification:147] Augmentation check failed: Exception encountered when calling RandomShear.call().
+
+[1mimage_projective_transform_v2() got an unexpected keyword argument 'fill_value'[0m
+
+Arguments received by RandomShear.call():
+  • inputs=tf.Tensor(shape=(4, 224, 224, 3), dtype=float32)
+  • training=True
+Traceback (most recent call last):
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\verify_module1.py", line 134, in run_verification
+    augmented_batch = augmentation_pipeline(preprocessed_batch, training=True)
+  File "C:\Users\udayg\AppData\Local\Programs\Python\Python313\Lib\site-packages\keras\src\utils\traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\src\data\augmentation.py", line 187, in call
+    x = self.shear(x)
+  File "C:\Users\udayg\Desktop\MRI brain tumor detection\src\data\augmentation.py", line 79, in call
+    sheared = tf.raw_ops.ImageProjectiveTransformV2(
+        images=inputs_float,
+    ...<4 lines>...
+        fill_value=0.0
+    )
+TypeError: Exception encountered when calling RandomShear.call().
+
+[1mimage_projective_transform_v2() got an unexpected keyword argument 'fill_value'[0m
+
+Arguments received by RandomShear.call():
+  • inputs=tf.Tensor(shape=(4, 224, 224, 3), dtype=float32)
+  • training=True
+[2026-07-17 12:37:15] ERROR [src.data.dataset_loader.scan_dataset:84] No class subdirectories discovered in split folders.
+[2026-07-17 12:40:25] ERROR [src.data.dataset_loader.scan_dataset:84] No class subdirectories discovered in split folders.
+[2026-07-17 12:40:25] ERROR [TrainingPipeline.run_train_pipeline:325] Dataset folder splits 'train' and 'validation' are empty or missing. Skipping training loops. Creating dummy outputs for structure verification.
+[2026-07-17 12:43:20] ERROR [EvaluationPipeline.run_evaluation:1031] Trained model 'C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\best_model.keras' not discovered. Skipping actual evaluation loops. Generating template placeholder report files.
+[2026-07-17 14:14:43] ERROR [src.data.dataset_loader.scan_dataset:84] No class subdirectories discovered in split folders.
+[2026-07-17 14:14:43] ERROR [TrainingPipeline.run_train_pipeline:325] Dataset folder splits 'train' and 'validation' are empty or missing. Skipping training loops. Creating dummy outputs for structure verification.
+[2026-07-17 14:40:57] ERROR [src.data.dataset_loader.scan_dataset:106] Scan aborted — dataset does not follow the required structure.
+[2026-07-17 14:40:57] ERROR [TrainingPipeline.run_train_pipeline:335] Dataset folder splits 'train' and 'validation' are empty or missing. Skipping training loops. Creating dummy outputs for structure verification.

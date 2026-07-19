@@ -1,0 +1,29 @@
+# Production dependencies for Brain MRI Tumor Classification pipeline.
+#
+# VERIFIED RUNTIME ENVIRONMENT:
+#   Python    : 3.8.10  (use the .venv virtual environment)
+#   TensorFlow: 2.10.1  (last release with native Windows GPU support)
+#   Keras     : 2.10.0  (bundled with TensorFlow 2.10.x)
+#   Streamlit : 1.18.1
+#
+# To activate the correct environment on Windows:
+#   .venv\Scripts\activate
+#
+# TensorFlow 2.10.x is the last version that supports GPU acceleration
+# natively on Windows (without WSL2). Later releases are CPU-only on
+# native Windows.
+
+tensorflow==2.10.1
+keras==2.10.0
+numpy==1.23.5
+pandas==1.5.3
+matplotlib==3.7.5
+seaborn==0.12.2
+opencv-python==4.8.1.78
+Pillow==9.5.0
+scikit-learn==1.2.2
+PyYAML==6.0.1
+streamlit==1.18.1
+protobuf==3.19.6
+fpdf2==2.7.9
+psutil==5.9.8

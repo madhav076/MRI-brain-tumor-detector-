@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  web_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mri_tumor_classifier
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./saved_models:/workspace/saved_models
+      - ./logs:/workspace/logs
+      - ./outputs:/workspace/outputs
+    restart: unless-stopped

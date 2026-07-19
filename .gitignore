@@ -1,0 +1,62 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project Specific
+dataset/
+logs/
+saved_models/
+outputs/
+
+# Keep folders but ignore contents
+!dataset/
+!dataset/train/
+!dataset/validation/
+!dataset/test/
+!logs/
+!saved_models/
+!outputs/
+!configs/
+
+# OS metadata
+.DS_Store
+Thumbs.db

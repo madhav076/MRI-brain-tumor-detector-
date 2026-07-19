@@ -1,0 +1,25 @@
+{
+    "accuracy": 0.0,
+    "balanced_accuracy": 0.0,
+    "macro_f1": 0.0,
+    "ece": 0.0,
+    "mce": 0.0,
+    "mcc": 0.0,
+    "cohen_kappa": 0.0,
+    "test_set_size": 0,
+    "duration_sec": 0.0,
+    "classes": [
+        "glioma",
+        "meningioma",
+        "pituitary",
+        "notumor"
+    ],
+    "per_class_performance": {},
+    "metadata": {
+        "tensorflow_version": "2.21.0",
+        "device_used": "CPU",
+        "gpu_count": 0,
+        "model_version": "1.0.0",
+        "random_seed": 42
+    }
+}

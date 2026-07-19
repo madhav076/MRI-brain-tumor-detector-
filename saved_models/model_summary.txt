@@ -1,0 +1,31 @@
+Model: "Brain_MRI_Tumor_Classifier"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ input_image (InputLayer)    [(None, 224, 224, 3)]     0         
+                                                                 
+ mri_augmentation (MRIAugmen  (None, 224, 224, 3)      0         
+ tationPipeline)                                                 
+                                                                 
+ efficientnetv2-b0 (Function  (None, 7, 7, 1280)       5919312   
+ al)                                                             
+                                                                 
+ global_avg_pool (GlobalAver  (None, 1280)             0         
+ agePooling2D)                                                   
+                                                                 
+ batch_norm (BatchNormalizat  (None, 1280)             5120      
+ ion)                                                            
+                                                                 
+ dropout_1 (Dropout)         (None, 1280)              0         
+                                                                 
+ dense_256 (Dense)           (None, 256)               327936    
+                                                                 
+ dropout_2 (Dropout)         (None, 256)               0         
+                                                                 
+ predictions (Dense)         (None, 4)                 1028      
+                                                                 
+=================================================================
+Total params: 6,253,396
+Trainable params: 331,524
+Non-trainable params: 5,921,872
+_________________________________________________________________

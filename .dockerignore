@@ -1,0 +1,22 @@
+# Exclude files from build context to keep container size small
+.git/
+.github/
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+htmlcov/
+.coverage
+coverage.xml
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Datasets and checkpoints
+dataset/
+logs/
+saved_models/*.keras
+outputs/

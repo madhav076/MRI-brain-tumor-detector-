@@ -1,0 +1,25 @@
+{
+    "PROJECT_NAME": "Brain-MRI-Tumor-Classification",
+    "VERSION": "1.0.0",
+    "SEED": 42,
+    "DEVICE": "GPU",
+    "NUM_WORKERS": 4,
+    "DATASET_PATH": "C:\\Users\\udayg\\Desktop\\MRI brain tumor detection\\dataset",
+    "IMAGE_SIZE": [
+        224,
+        224
+    ],
+    "BATCH_SIZE": 32,
+    "NUM_CLASSES": 4,
+    "MODEL_NAME": "EfficientNetV2B0",
+    "LEARNING_RATE": 0.001,
+    "EPOCHS": 15,
+    "FINE_TUNE_EPOCHS": 15,
+    "FINE_TUNE_LEARNING_RATE": 5e-05,
+    "FINE_TUNE_LAYERS": 25,
+    "MIXED_PRECISION": false,
+    "CHECKPOINT_DIR": "C:\\Users\\udayg\\Desktop\\MRI brain tumor detection\\saved_models",
+    "OUTPUT_DIR": "C:\\Users\\udayg\\Desktop\\MRI brain tumor detection\\outputs",
+    "LOG_DIR": "C:\\Users\\udayg\\Desktop\\MRI brain tumor detection\\logs",
+    "MODEL_PATH": "C:\\Users\\udayg\\Desktop\\MRI brain tumor detection\\saved_models\\best_model.keras"
+}

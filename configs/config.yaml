@@ -1,0 +1,26 @@
+# Brain MRI Tumor Classification Configuration File
+
+project:
+  name: "Brain-MRI-Tumor-Classification"
+  version: "1.0.0"
+  seed: 42
+  device: "GPU"  # GPU or CPU
+  num_workers: 4
+
+data:
+  dataset_path: "dataset"
+  image_size: [224, 224]  # Height, Width
+  batch_size: 32
+  num_classes: 4
+
+training:
+  model_name: "EfficientNetV2B0"
+  learning_rate: 0.001
+  epochs: 15
+  fine_tune_epochs: 15
+  fine_tune_learning_rate: 0.00005
+  fine_tune_layers: 25
+  mixed_precision: false
+  checkpoint_dir: "saved_models"
+  output_dir: "outputs"
+  log_dir: "logs"

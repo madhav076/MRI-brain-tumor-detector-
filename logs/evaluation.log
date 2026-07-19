@@ -1,0 +1,6 @@
+[2026-07-17 12:43:20] INFO [EvaluationPipeline.run_evaluation:1013] ============================================================
+[2026-07-17 12:43:20] INFO [EvaluationPipeline.run_evaluation:1014]            STARTING MODEL EVALUATION PIPELINE           
+[2026-07-17 12:43:20] INFO [EvaluationPipeline.run_evaluation:1015] ============================================================
+[2026-07-17 12:43:20] ERROR [EvaluationPipeline.run_evaluation:1031] Trained model 'C:\Users\udayg\Desktop\MRI brain tumor detection\saved_models\best_model.keras' not discovered. Skipping actual evaluation loops. Generating template placeholder report files.
+[2026-07-17 12:43:20] INFO [EvaluationPipeline.generate_html_report:958] HTML evaluation report generated at: C:\Users\udayg\Desktop\MRI brain tumor detection\outputs\evaluation\reports\evaluation_report.html
+[2026-07-17 12:43:20] INFO [EvaluationPipeline.generate_markdown_report:1008] Markdown evaluation report generated at: C:\Users\udayg\Desktop\MRI brain tumor detection\outputs\evaluation\reports\evaluation_report.md

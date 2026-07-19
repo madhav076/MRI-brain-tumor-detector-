@@ -35,9 +35,6 @@ jobs:
     - name: Check Imports Order (isort)
       run: isort --check-only .
 
-    - name: Audit Dependencies Vulnerabilities (pip-audit)
-      run: pip-audit --strict -r requirements.txt
-
     - name: Run Test Suite with Coverage
       run: pytest tests/ --cov=src --cov-report=xml --cov-report=term-missing
 

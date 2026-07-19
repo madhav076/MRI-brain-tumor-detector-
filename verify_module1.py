@@ -4,9 +4,10 @@ Verifies imports, config loading, dataset loader behavior on empty folder struct
 and tests preprocessing and data augmentation layers with synthetic dummy tensors.
 """
 
-import sys
 import logging
+import sys
 from pathlib import Path
+
 import tensorflow as tf
 
 # Setup path to import local packages
@@ -15,17 +16,17 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.append(str(PROJECT_ROOT))
 
 from src import config
-from src.utils import setup_logger, set_seed
+from src.data.augmentation import MRIAugmentationPipeline
 from src.data.dataset_loader import MRIDatasetLoader
 from src.data.preprocessing import (
-    validate_image,
     convert_to_rgb,
-    resize_image,
     normalize_image,
-    preprocess_single_image,
     preprocess_batch,
+    preprocess_single_image,
+    resize_image,
+    validate_image,
 )
-from src.data.augmentation import MRIAugmentationPipeline
+from src.utils import set_seed, setup_logger
 
 
 def run_verification():

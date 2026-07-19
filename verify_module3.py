@@ -4,9 +4,9 @@ Checks imports, explainer class inheritances, explainer methods, and runs the ev
 script in verification mode to test report exports and logging systems.
 """
 
-import sys
 import json
 import logging
+import sys
 from pathlib import Path
 
 # Setup path to import local packages
@@ -15,9 +15,9 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.append(str(PROJECT_ROOT))
 
 from src import config
-from src.utils import setup_logger
-from src.evaluation.explainability import BaseExplainer, GradCAMExplainer
 from src.evaluation.evaluate import run_evaluation
+from src.evaluation.explainability import BaseExplainer, GradCAMExplainer
+from src.utils import setup_logger
 
 
 def run_verification():

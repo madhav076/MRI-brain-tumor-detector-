@@ -16,11 +16,12 @@ import logging
 import random
 import shutil
 from pathlib import Path
-from typing import Any, Dict, List, Tuple, Optional
+from typing import Any, Dict, List, Optional, Tuple
+
+import cv2
 import numpy as np
 import pandas as pd
 from PIL import Image
-import cv2
 
 # Set up logging
 logger = logging.getLogger(__name__)

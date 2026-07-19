@@ -2,7 +2,8 @@
 Functional verification tests - ASCII-safe version for Windows CMD.
 """
 
-import sys, os
+import os
+import sys
 
 sys.path.insert(0, ".")
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
@@ -185,8 +186,9 @@ except Exception as e:
 
 # TEST 12: MRIDatasetLoader
 try:
-    from src.data.dataset_loader import MRIDatasetLoader
     from pathlib import Path
+
+    from src.data.dataset_loader import MRIDatasetLoader
 
     loader = MRIDatasetLoader("dataset")
     assert loader.dataset_path == Path("dataset")

@@ -6,9 +6,10 @@ discovery and heatmap overlay functions.
 
 import logging
 from typing import Tuple, Union
+
+import cv2
 import numpy as np
 import tensorflow as tf
-import cv2
 
 from src.evaluation.explainability.base_explainer import BaseExplainer
 

@@ -2,7 +2,8 @@
 
 import numpy as np
 import tensorflow as tf
-from src.data.preprocessing import validate_image, convert_to_rgb, resize_image, normalize_image
+
+from src.data.preprocessing import convert_to_rgb, normalize_image, resize_image, validate_image
 
 
 def test_validate_image():

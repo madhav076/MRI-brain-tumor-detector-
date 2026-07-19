@@ -6,10 +6,11 @@ and provides a interface to load scans from the local demo directory.
 
 import logging
 from pathlib import Path
-from typing import List, Tuple, Optional, Union
-import streamlit as st
-import numpy as np
+from typing import List, Optional, Tuple, Union
+
 import cv2
+import numpy as np
+import streamlit as st
 from PIL import Image
 
 # Setup logging

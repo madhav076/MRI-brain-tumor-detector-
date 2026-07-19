@@ -1,8 +1,9 @@
 """Unit tests for EfficientNet model build compilation."""
 
 import tensorflow as tf
-from src.models.efficientnet_model import build_model
+
 from src import config
+from src.models.efficientnet_model import build_model
 
 
 def test_build_model():

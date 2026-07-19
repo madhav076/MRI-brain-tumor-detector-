@@ -11,8 +11,8 @@ Run from the project root:
     python fix_and_train.py
 """
 
-import sys
 import os
+import sys
 
 # -----------------------------------------------------------------------
 # Force UTF-8 on stdout/stderr immediately — must happen before any import
@@ -31,9 +31,9 @@ if hasattr(sys.stderr, "reconfigure"):
 
 os.environ["PYTHONIOENCODING"] = "utf-8"
 
-import shutil
-import random
 import logging
+import random
+import shutil
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent

@@ -5,13 +5,14 @@ integrates the custom Keras augmentation layer directly, and compiles the model.
 """
 
 import logging
-from typing import Tuple, Union
 from pathlib import Path
+from typing import Tuple, Union
+
 import tensorflow as tf
-from tensorflow.keras.applications import EfficientNetV2B0
 from tensorflow.keras import layers, models
+from tensorflow.keras.applications import EfficientNetV2B0
+from tensorflow.keras.metrics import AUC, CategoricalAccuracy, Precision, Recall
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.metrics import CategoricalAccuracy, Precision, Recall, AUC
 
 from src import config
 from src.data.augmentation import MRIAugmentationPipeline

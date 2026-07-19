@@ -3,20 +3,21 @@
 Runs train, evaluation, error audits, inference checks, and outputs the final report.
 """
 
-import sys
-import os
 import json
-import time
+import logging
+import os
 import random
 import shutil
-import logging
+import sys
+import time
 from pathlib import Path
+
+import cv2
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import tensorflow as tf
 from sklearn.metrics import classification_report, confusion_matrix
-import matplotlib.pyplot as plt
-import cv2
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -24,11 +25,11 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src import config
-from src.training.train import run_train_pipeline
-from src.evaluation.evaluate import run_evaluation
-from src.models.efficientnet_model import load_model_robustly
 from src.data.dataset_loader import MRIDatasetLoader
 from src.data.preprocessing import preprocess_single_image
+from src.evaluation.evaluate import run_evaluation
+from src.models.efficientnet_model import load_model_robustly
+from src.training.train import run_train_pipeline
 
 # Initialize logger
 logger = logging.getLogger("UnifiedPipeline")
@@ -217,7 +218,7 @@ def main():
     print(f"Exported classification report to {saved_models_dir / 'classification_report.txt'}")
 
     # Calculate performance metrics
-    from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+    from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 
     test_acc = accuracy_score(y_true_arr, y_pred_arr)
     precision_val = precision_score(y_true_arr, y_pred_arr, average="weighted")

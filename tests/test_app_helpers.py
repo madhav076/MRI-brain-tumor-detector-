@@ -1,8 +1,9 @@
 """Unit tests for Streamlit application utility helpers and calibration math."""
 
 import numpy as np
-from src.evaluation.evaluate import calculate_calibration_metrics
+
 from app.components.report_generator import generate_pdf_report
+from src.evaluation.evaluate import calculate_calibration_metrics
 
 
 def test_calibration_ece_mce():

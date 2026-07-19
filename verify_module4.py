@@ -4,8 +4,8 @@ Checks that the Streamlit app layout, sub-components, CSS assets, and medical lo
 are successfully generated, and verifies PDF/JSON/CSV report generation bytes.
 """
 
-import sys
 import logging
+import sys
 from pathlib import Path
 
 # Setup path to import local packages
@@ -13,13 +13,13 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.append(str(PROJECT_ROOT))
 
-from src import config
-from src.utils import setup_logger
+from app.components.gradcam_viewer import render_gradcam_viewer
+from app.components.prediction_card import execute_inference
+from app.components.report_generator import generate_pdf_report
 from app.components.sidebar import render_sidebar
 from app.components.uploader import render_uploader
-from app.components.prediction_card import execute_inference
-from app.components.gradcam_viewer import render_gradcam_viewer
-from app.components.report_generator import generate_pdf_report
+from src import config
+from src.utils import setup_logger
 
 
 def run_verification():

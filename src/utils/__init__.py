@@ -1,11 +1,12 @@
 """Common utility functions for seed settings and logging."""
 
-import os
-import sys
-import random
 import logging
+import os
+import random
+import sys
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
+
 import numpy as np
 import tensorflow as tf
 

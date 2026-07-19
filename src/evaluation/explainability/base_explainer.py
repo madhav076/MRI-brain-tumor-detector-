@@ -4,6 +4,7 @@ Defines the abstract interface for all predictions explainers (e.g. Grad-CAM, Sc
 """
 
 from abc import ABC, abstractmethod
+
 import numpy as np
 import tensorflow as tf
 

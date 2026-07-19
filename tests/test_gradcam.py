@@ -1,10 +1,11 @@
 """Unit tests for explainable AI Grad-CAM layer discovery."""
 
+import numpy as np
 import pytest
 import tensorflow as tf
-import numpy as np
-from src.models.efficientnet_model import build_model
+
 from src.evaluation.explainability import GradCAMExplainer
+from src.models.efficientnet_model import build_model
 
 
 def test_gradcam_find_last_conv():

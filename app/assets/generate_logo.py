@@ -1,6 +1,7 @@
 """Helper script to generate a medical-grade logo for the Streamlit dashboard."""
 
 from pathlib import Path
+
 from PIL import Image, ImageDraw
 
 

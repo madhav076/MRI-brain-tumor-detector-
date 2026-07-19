@@ -2,8 +2,9 @@
 
 import numpy as np
 import tensorflow as tf
-from src.models.efficientnet_model import build_model
+
 from app.components.prediction_card import execute_inference
+from src.models.efficientnet_model import build_model
 
 
 def test_execute_inference():

@@ -7,8 +7,8 @@ Usage:
     python scripts/setup_dataset.py
 """
 
-import sys
 import os
+import sys
 from pathlib import Path
 
 # Force UTF-8 stdout
@@ -177,8 +177,8 @@ def main():
             print(f"  Found {count:,} images in: {location}")
 
     # Now verify/run the reorganisation via MRIDatasetLoader
-    from src.data.dataset_loader import MRIDatasetLoader
     from src import config
+    from src.data.dataset_loader import MRIDatasetLoader
 
     print()
     print("[INFO] Running dataset layout detection and reorganisation...")

@@ -3,8 +3,8 @@
 Spawns a streamlit subprocess to run the web dashboard.
 """
 
-import sys
 import subprocess
+import sys
 from pathlib import Path
 
 

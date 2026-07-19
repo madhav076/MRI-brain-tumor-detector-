@@ -103,7 +103,7 @@ except Exception as e:
     errors.append(("gradcam_viewer", e))
 
 try:
-    from app.components.report_generator import generate_pdf_report, add_to_history
+    from app.components.report_generator import add_to_history, generate_pdf_report
 
     print("[OK] app.components.report_generator")
 except Exception as e:

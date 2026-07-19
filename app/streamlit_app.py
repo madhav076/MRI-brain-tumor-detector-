@@ -5,40 +5,41 @@ and handles routing to Home Page, Single Classifier, Batch Classifier,
 Prediction History, Diagnostics, and Settings interfaces.
 """
 
-import sys
-import os
-import time
-import logging
-from pathlib import Path
-from datetime import datetime
-from typing import Tuple, List, Optional
 import json
+import logging
+import os
+import sys
+import time
+from datetime import datetime
+from pathlib import Path
+from typing import List, Optional, Tuple
+
 import numpy as np
 import pandas as pd
-import tensorflow as tf
 import streamlit as st
+import tensorflow as tf
 
 # Setup paths for importing local packages
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.append(str(PROJECT_ROOT))
 
-from src import config
-from src.utils import set_seed
-from src.data.augmentation import MRIAugmentationPipeline, RandomShear
-from src.models.efficientnet_model import load_model_robustly
-from app.components.sidebar import render_sidebar
-from app.components.navbar import render_navbar
 from app.components.dashboard_home import render_dashboard_home
-from app.components.uploader import render_uploader, render_demo_selector
-from app.components.prediction_card import execute_inference, render_prediction_results
 from app.components.gradcam_viewer import render_gradcam_viewer
+from app.components.navbar import render_navbar
+from app.components.prediction_card import execute_inference, render_prediction_results
 from app.components.report_generator import (
     add_to_history,
-    render_history_section,
-    render_exporters_section,
     init_session_history,
+    render_exporters_section,
+    render_history_section,
 )
+from app.components.sidebar import render_sidebar
+from app.components.uploader import render_demo_selector, render_uploader
+from src import config
+from src.data.augmentation import MRIAugmentationPipeline, RandomShear
+from src.models.efficientnet_model import load_model_robustly
+from src.utils import set_seed
 
 # Setup app logging to logs/app.log
 log_path = Path(config.LOG_DIR)

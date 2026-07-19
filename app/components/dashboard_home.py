@@ -3,9 +3,10 @@
 Renders the landing hero screen, key medical diagnostic statistics, and platform guides.
 """
 
-import streamlit as st
-from typing import List, Dict, Any
+from typing import Any, Dict, List
+
 import numpy as np
+import streamlit as st
 
 
 def render_dashboard_home(history: List[Dict[str, Any]]) -> str:

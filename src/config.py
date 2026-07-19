@@ -7,6 +7,7 @@ Classification project. Provides safe defaults if config file is not found.
 import logging
 from pathlib import Path
 from typing import Any, Dict, Tuple
+
 import yaml
 
 # Setup logging

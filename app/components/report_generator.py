@@ -7,7 +7,8 @@ downloadable PDF clinical logs.
 import json
 import logging
 from datetime import datetime
-from typing import Dict, Any, List
+from typing import Any, Dict, List
+
 import pandas as pd
 import streamlit as st
 

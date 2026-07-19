@@ -4,11 +4,12 @@ Reuses Module 1 preprocessing pipelines, executes model inference,
 renders circular confidence meters, top diagnoses distribution, and monitors prediction durations.
 """
 
-import time
 import logging
+import time
 from typing import List, Tuple
-import streamlit as st
+
 import numpy as np
+import streamlit as st
 import tensorflow as tf
 
 from src import config

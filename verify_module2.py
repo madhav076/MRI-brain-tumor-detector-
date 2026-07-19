@@ -4,11 +4,12 @@ Checks that the model builds, the Keras layer properties match the design specif
 and runs the training script in verification mode to test the config exports.
 """
 
-import os
-import sys
 import json
 import logging
+import os
+import sys
 from pathlib import Path
+
 import tensorflow as tf
 
 # Setup path to import local packages
@@ -17,8 +18,8 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.append(str(PROJECT_ROOT))
 
 from src import config
-from src.utils import setup_logger, set_seed
 from src.models.efficientnet_model import build_model
+from src.utils import set_seed, setup_logger
 
 
 def run_verification():

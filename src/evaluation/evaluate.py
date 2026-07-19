@@ -6,40 +6,41 @@ generates diagrams (confusion matrices, ROC, Precision-Recall, Reliability),
 performs error audits, builds Grad-CAM galleries, and exports HTML, MD, and JSON reports.
 """
 
-import os
-import cv2  # HIGH-11: was missing — required for imread/resize throughout pipeline
 import json
-import time
 import logging
+import os
+import time
 from pathlib import Path
-from typing import Dict, Any, Tuple, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
+
+import cv2  # HIGH-11: was missing — required for imread/resize throughout pipeline
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import seaborn as sns
 import tensorflow as tf
 from sklearn.metrics import (
     accuracy_score,
-    balanced_accuracy_score,
-    cohen_kappa_score,
-    matthews_corrcoef,
-    precision_recall_fscore_support,
-    confusion_matrix,
-    roc_curve,
-    precision_recall_curve,
     auc,
+    balanced_accuracy_score,
     classification_report,
+    cohen_kappa_score,
+    confusion_matrix,
+    matthews_corrcoef,
+    precision_recall_curve,
+    precision_recall_fscore_support,
+    roc_curve,
 )
 
 from src import config
-from src.utils import set_seed
-from src.data.dataset_loader import MRIDatasetLoader
-from src.data.augmentation import (
+from src.data.augmentation import (  # CRITICAL-05: needed for custom_objects
     MRIAugmentationPipeline,
     RandomShear,
-)  # CRITICAL-05: needed for custom_objects
-from src.models.efficientnet_model import load_model_robustly
+)
+from src.data.dataset_loader import MRIDatasetLoader
 from src.evaluation.explainability.gradcam import GradCAMExplainer
+from src.models.efficientnet_model import load_model_robustly
+from src.utils import set_seed
 
 # Setup custom logging for evaluation
 log_path = Path(config.LOG_DIR)

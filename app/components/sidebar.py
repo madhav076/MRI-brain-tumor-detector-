@@ -4,8 +4,10 @@ Renders project metadata, navigation options, active framework versions,
 and the medical disclaimer notice.
 """
 
-import streamlit as st
 from pathlib import Path
+
+import streamlit as st
+
 from src import config
 
 

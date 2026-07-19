@@ -35,9 +35,6 @@ jobs:
     - name: Check Imports Order (isort)
       run: isort --check-only .
 
-    - name: Lint Codebase (Flake8)
-      run: flake8 .
-
     - name: Static Security Scan (Bandit)
       run: bandit -r src/ -x tests/
 

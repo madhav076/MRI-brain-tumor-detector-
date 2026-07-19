@@ -7,6 +7,7 @@ import streamlit as st
 from typing import List, Dict, Any
 import numpy as np
 
+
 def render_dashboard_home(history: List[Dict[str, Any]]) -> str:
     """Renders the enterprise dashboard landing page.
 
@@ -107,7 +108,7 @@ def render_dashboard_home(history: List[Dict[str, Any]]) -> str:
 
     # 2. Compute dynamic stats from history
     total_analyses = len(history)
-    
+
     if total_analyses > 0:
         confidences = []
         durations = []
@@ -118,14 +119,14 @@ def render_dashboard_home(history: List[Dict[str, Any]]) -> str:
                 confidences.append(conf_val)
             except Exception:
                 pass
-            
+
             try:
                 dur_val = float(r.get("Duration", 0.0))
                 if dur_val > 0:
                     durations.append(dur_val)
             except Exception:
                 pass
-                
+
         avg_conf = f"{np.mean(confidences):.2f}%" if confidences else "94.85%"
         avg_dur = f"{np.mean(durations):.3f}s" if durations else "0.385s"
     else:
@@ -144,9 +145,9 @@ def render_dashboard_home(history: List[Dict[str, Any]]) -> str:
                 <div class="metric-trend text-primary">📊 Active Sessions</div>
             </div>
             """,
-            unsafe_allow_html=True
+            unsafe_allow_html=True,
         )
-        
+
     with col2:
         st.markdown(
             f"""
@@ -156,9 +157,9 @@ def render_dashboard_home(history: List[Dict[str, Any]]) -> str:
                 <div class="metric-trend text-success">▲ EfficientNetV2B0</div>
             </div>
             """,
-            unsafe_allow_html=True
+            unsafe_allow_html=True,
         )
-        
+
     with col3:
         st.markdown(
             f"""
@@ -168,9 +169,9 @@ def render_dashboard_home(history: List[Dict[str, Any]]) -> str:
                 <div class="metric-trend text-success">▲ High Certainty</div>
             </div>
             """,
-            unsafe_allow_html=True
+            unsafe_allow_html=True,
         )
-        
+
     with col4:
         st.markdown(
             f"""
@@ -180,7 +181,7 @@ def render_dashboard_home(history: List[Dict[str, Any]]) -> str:
                 <div class="metric-trend text-warning">▼ GPU Accelerated</div>
             </div>
             """,
-            unsafe_allow_html=True
+            unsafe_allow_html=True,
         )
 
     st.markdown("### Diagnosis Instructions")
@@ -195,7 +196,7 @@ def render_dashboard_home(history: List[Dict[str, Any]]) -> str:
                 </p>
             </div>
             """,
-            unsafe_allow_html=True
+            unsafe_allow_html=True,
         )
     with col_g2:
         st.markdown(
@@ -207,5 +208,5 @@ def render_dashboard_home(history: List[Dict[str, Any]]) -> str:
                 </p>
             </div>
             """,
-            unsafe_allow_html=True
+            unsafe_allow_html=True,
         )

@@ -7,6 +7,7 @@ from abc import ABC, abstractmethod
 import numpy as np
 import tensorflow as tf
 
+
 class BaseExplainer(ABC):
     """Abstract base class for computer vision explainability models."""
 

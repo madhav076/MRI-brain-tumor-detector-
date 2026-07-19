@@ -15,6 +15,7 @@ from PIL import Image
 # Setup logging
 logger = logging.getLogger(__name__)
 
+
 def validate_uploaded_image(file_bytes: bytes, filename: str) -> Optional[np.ndarray]:
     """Validates the uploaded file binary contents.
 
@@ -38,19 +39,22 @@ def validate_uploaded_image(file_bytes: bytes, filename: str) -> Optional[np.nda
         nparr = np.frombuffer(file_bytes, np.uint8)
         # Decode using OpenCV
         img = cv2.imdecode(nparr, cv2.IMREAD_UNCHANGED)
-        
+
         if img is None:
             logger.error(f"Validation failed: OpenCV failed to decode '{filename}' headers.")
             st.error(f"Uploaded file **{filename}** is corrupted or not a valid image format.")
             return None
-            
+
         return img
     except Exception as e:
         logger.error(f"Unexpected error validating image '{filename}': {e}", exc_info=True)
         st.error(f"Error reading **{filename}**: {e}")
         return None
 
-def render_uploader(accept_multiple: bool = False, key: str = "mri_uploader") -> List[Tuple[np.ndarray, str]]:
+
+def render_uploader(
+    accept_multiple: bool = False, key: str = "mri_uploader"
+) -> List[Tuple[np.ndarray, str]]:
     """Renders the file uploader widget and returns validated image arrays.
 
     Args:
@@ -65,14 +69,14 @@ def render_uploader(accept_multiple: bool = False, key: str = "mri_uploader") ->
         "Upload Brain MRI slice scans (JPG, JPEG, PNG)",
         type=["jpg", "jpeg", "png"],
         accept_multiple_files=accept_multiple,
-        key=key
+        key=key,
     )
 
     if not uploaded_files:
         return []
 
     valid_images = []
-    
+
     # Normalize list wrapper for single vs multiple files
     files_list = uploaded_files if isinstance(uploaded_files, list) else [uploaded_files]
 
@@ -80,14 +84,17 @@ def render_uploader(accept_multiple: bool = False, key: str = "mri_uploader") ->
         file_bytes = f.read()
         # Reset file seek pointer
         f.seek(0)
-        
+
         img_arr = validate_uploaded_image(file_bytes, f.name)
         if img_arr is not None:
             valid_images.append((img_arr, f.name))
 
     return valid_images
 
-def render_demo_selector(demo_dir_path: str = "app/demo_images") -> Optional[Tuple[np.ndarray, str]]:
+
+def render_demo_selector(
+    demo_dir_path: str = "app/demo_images",
+) -> Optional[Tuple[np.ndarray, str]]:
     """Scans and renders a dropdown selector for local demo scans.
 
     Args:
@@ -98,10 +105,11 @@ def render_demo_selector(demo_dir_path: str = "app/demo_images") -> Optional[Tup
     """
     demo_dir = Path(demo_dir_path)
     demo_dir.mkdir(parents=True, exist_ok=True)
-    
+
     # Scan files
     demo_files = [
-        f for f in demo_dir.iterdir()
+        f
+        for f in demo_dir.iterdir()
         if f.is_file() and f.suffix.lower() in [".jpg", ".jpeg", ".png"]
     ]
 
@@ -116,7 +124,7 @@ def render_demo_selector(demo_dir_path: str = "app/demo_images") -> Optional[Tup
     filenames = [f.name for f in demo_files]
     selected_name = st.selectbox(
         "Select a pre-loaded MRI scan to test the pipeline:",
-        options=["-- Choose a Demo Scan --"] + filenames
+        options=["-- Choose a Demo Scan --"] + filenames,
     )
 
     if selected_name == "-- Choose a Demo Scan --":
@@ -125,9 +133,9 @@ def render_demo_selector(demo_dir_path: str = "app/demo_images") -> Optional[Tup
     # Load selected demo scan
     selected_file = demo_dir / selected_name
     img = cv2.imread(str(selected_file.resolve()), cv2.IMREAD_UNCHANGED)
-    
+
     if img is None:
         st.error(f"Failed to load demo image: {selected_name}")
         return None
-        
+
     return img, selected_name

@@ -8,6 +8,7 @@ import streamlit as st
 from pathlib import Path
 from src import config
 
+
 def render_sidebar(tf_version: str, device: str) -> str:
     """Renders the navigation sidebar and returns the selected page option.
 
@@ -25,11 +26,11 @@ def render_sidebar(tf_version: str, device: str) -> str:
             <p style='color: #6B7280; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; line-height: 1.2;'>AI Powered Brain MRI Diagnosis Platform</p>
         </div>
         """,
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )
-    
+
     st.sidebar.markdown("---")
-    
+
     # Navigation Radio Buttons
     page = st.sidebar.radio(
         "Application Navigation",
@@ -39,12 +40,12 @@ def render_sidebar(tf_version: str, device: str) -> str:
             "📜 Patient History",
             "📄 AI Reports",
             "📊 Statistics",
-            "⚙ Settings"
-        ]
+            "⚙ Settings",
+        ],
     )
-    
+
     st.sidebar.markdown("---")
-    
+
     # System metadata summary
     st.sidebar.markdown("### System Diagnostics")
     st.sidebar.markdown(
@@ -57,11 +58,11 @@ def render_sidebar(tf_version: str, device: str) -> str:
             <span style='color: #6B7280;'>Categories:</span> {config.NUM_CLASSES} classes
         </div>
         """,
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )
 
     st.sidebar.markdown("---")
-    
+
     # Global Medical Disclaimer Notice
     st.sidebar.warning(
         "⚠️ **MEDICAL DISCLAIMER**\n\n"
@@ -75,7 +76,7 @@ def render_sidebar(tf_version: str, device: str) -> str:
             Developed by Madhav
         </div>
         """,
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )
-    
+
     return page

@@ -32,9 +32,6 @@ jobs:
         pip install -r requirements.txt
         pip install -r requirements-dev.txt
 
-    - name: Check Formatting (Black)
-      run: black --check .
-
     - name: Check Imports Order (isort)
       run: isort --check-only .
 

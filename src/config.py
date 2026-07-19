@@ -17,6 +17,7 @@ SRC_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SRC_DIR.parent
 CONFIG_PATH = PROJECT_ROOT / "configs" / "config.yaml"
 
+
 def load_yaml_config(config_path: Path) -> Dict[str, Any]:
     """Loads settings from a YAML configuration file.
 
@@ -27,9 +28,7 @@ def load_yaml_config(config_path: Path) -> Dict[str, Any]:
         Dict[str, Any]: Configuration dictionary.
     """
     if not config_path.exists():
-        logger.warning(
-            f"Config file not found at {config_path}. Using fallback default settings."
-        )
+        logger.warning(f"Config file not found at {config_path}. Using fallback default settings.")
         return {}
 
     try:
@@ -46,6 +45,7 @@ def load_yaml_config(config_path: Path) -> Dict[str, Any]:
     except Exception as e:
         logger.error(f"Unexpected error reading config file: {e}")
         return {}
+
 
 # Load YAML configs
 config_dict = load_yaml_config(CONFIG_PATH)
@@ -82,6 +82,7 @@ LOG_DIR: str = str(PROJECT_ROOT / training_cfg.get("log_dir", "logs"))
 for required_dir in [DATASET_PATH, CHECKPOINT_DIR, OUTPUT_DIR, LOG_DIR]:
     Path(required_dir).mkdir(parents=True, exist_ok=True)
 
+
 def find_model_path() -> Path:
     """Locates the pre-trained Keras model in the project directory by prioritizing
     specific names: best_model.keras, best_model.h5, model.keras, model.h5,
@@ -99,7 +100,7 @@ def find_model_path() -> Path:
         "model.keras",
         "model.h5",
         "final_model.keras",
-        "checkpoint.keras"
+        "checkpoint.keras",
     ]
 
     # 1. Scan saved_models directory first for target names in order
@@ -116,7 +117,19 @@ def find_model_path() -> Path:
                 return models[0]
 
     # 2. General recursive scan in PROJECT_ROOT (excluding virtual environments and dataset folders)
-    exclude_dirs = {".venv", "venv", "env", "dataset", ".git", "logs", "outputs", "tests", "docs", "app", "notebooks"}
+    exclude_dirs = {
+        ".venv",
+        "venv",
+        "env",
+        "dataset",
+        ".git",
+        "logs",
+        "outputs",
+        "tests",
+        "docs",
+        "app",
+        "notebooks",
+    }
     try:
         for p in PROJECT_ROOT.iterdir():
             if p.is_dir() and p.name not in exclude_dirs:
@@ -136,7 +149,9 @@ def find_model_path() -> Path:
     # Default fallback path
     return saved_models_dir / "best_model.keras"
 
+
 MODEL_PATH: Path = find_model_path()
+
 
 def get_config_summary() -> Dict[str, Any]:
     """Returns a dictionary summary of active configuration variables.

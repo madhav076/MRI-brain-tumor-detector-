@@ -141,7 +141,8 @@ class MRIDatasetLoader:
         if training_dir.exists():
             class_dirs = [d for d in training_dir.iterdir() if d.is_dir()]
             images_found = any(
-                list(cd.glob("*")) for cd in class_dirs
+                list(cd.glob("*"))
+                for cd in class_dirs
                 if any(f.suffix.lower() in IMAGE_EXTENSIONS for f in cd.iterdir() if f.is_file())
             )
             if images_found or class_dirs:
@@ -151,19 +152,24 @@ class MRIDatasetLoader:
         # Layout B — flat per-class: dataset/{class}/images
         potential_class_dirs = [d for d in self.dataset_path.iterdir() if d.is_dir()]
         flat_class_dirs = [
-            d for d in potential_class_dirs
+            d
+            for d in potential_class_dirs
             if d.name.lower() not in {"train", "validation", "test", "training", "testing"}
             and any(f.suffix.lower() in IMAGE_EXTENSIONS for f in d.rglob("*") if f.is_file())
         ]
         if flat_class_dirs:
-            logger.info(f"Layout B (flat per-class) detected. Found class dirs: {[d.name for d in flat_class_dirs]}")
+            logger.info(
+                f"Layout B (flat per-class) detected. Found class dirs: {[d.name for d in flat_class_dirs]}"
+            )
             return "flat"
 
         # Fallback: recursive scan for any images anywhere
         all_images = list(self.dataset_path.rglob("*"))
         all_images = [f for f in all_images if f.is_file() and f.suffix.lower() in IMAGE_EXTENSIONS]
         if all_images:
-            logger.info(f"Layout E (arbitrary nesting) detected. Found {len(all_images)} images recursively.")
+            logger.info(
+                f"Layout E (arbitrary nesting) detected. Found {len(all_images)} images recursively."
+            )
             return "recursive"
 
         logger.warning("No images found anywhere in the dataset directory.")
@@ -257,8 +263,8 @@ class MRIDatasetLoader:
             # Remaining images go to test
             splits = {
                 "train": images[:n_train],
-                "validation": images[n_train: n_train + n_val],
-                "test": images[n_train + n_val:],
+                "validation": images[n_train : n_train + n_val],
+                "test": images[n_train + n_val :],
             }
 
             for split_name, split_images in splits.items():
@@ -286,7 +292,9 @@ class MRIDatasetLoader:
         testing_dir = self.dataset_path / "Testing"
 
         # Collect from Training (large set) for train/val splits
-        train_class_images = self._collect_class_images(training_dir) if training_dir.exists() else {}
+        train_class_images = (
+            self._collect_class_images(training_dir) if training_dir.exists() else {}
+        )
         test_class_images = self._collect_class_images(testing_dir) if testing_dir.exists() else {}
 
         random.seed(42)
@@ -305,7 +313,11 @@ class MRIDatasetLoader:
             splits = {
                 "train": train_imgs[:n_actual_train],
                 "validation": train_imgs[n_actual_train:],
-                "test": test_imgs if test_imgs else train_imgs[n_actual_train:n_actual_train + max(1, n_val // 2)],
+                "test": (
+                    test_imgs
+                    if test_imgs
+                    else train_imgs[n_actual_train : n_actual_train + max(1, n_val // 2)]
+                ),
             }
 
             for split_name, split_images in splits.items():
@@ -334,8 +346,7 @@ class MRIDatasetLoader:
         for d in self.dataset_path.iterdir():
             if d.is_dir() and d.name.lower() not in excluded:
                 imgs = [
-                    f for f in d.rglob("*")
-                    if f.is_file() and f.suffix.lower() in IMAGE_EXTENSIONS
+                    f for f in d.rglob("*") if f.is_file() and f.suffix.lower() in IMAGE_EXTENSIONS
                 ]
                 if imgs:
                     class_images[d.name.lower()] = imgs
@@ -371,7 +382,9 @@ class MRIDatasetLoader:
 
         self.classes = sorted(list(detected_classes))
         if not self.classes:
-            logger.error("No class subdirectories discovered in split folders after reorganisation.")
+            logger.error(
+                "No class subdirectories discovered in split folders after reorganisation."
+            )
             return {}
 
         logger.info(f"Detected classes: {self.classes}")
@@ -496,8 +509,12 @@ class MRIDatasetLoader:
                 "class_counts": class_counts,
                 "class_imbalance": class_imbalance,
                 "resolution": {
-                    "min_width": min_w, "max_width": max_w, "mean_width": mean_w,
-                    "min_height": min_h, "max_height": max_h, "mean_height": mean_h,
+                    "min_width": min_w,
+                    "max_width": max_w,
+                    "mean_width": mean_w,
+                    "min_height": min_h,
+                    "max_height": max_h,
+                    "mean_height": mean_h,
                 },
                 "pixels": {"mean_intensity": global_mean, "std_intensity": global_std},
                 "corrupted_count": len(self.corrupted_files.get(split, [])),

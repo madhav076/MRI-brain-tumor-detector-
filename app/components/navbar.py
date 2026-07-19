@@ -7,6 +7,7 @@ import streamlit as st
 import tensorflow as tf
 from src import config
 
+
 def render_navbar(tf_version: str, device: str) -> None:
     """Renders the professional enterprise top navigation navbar.
 

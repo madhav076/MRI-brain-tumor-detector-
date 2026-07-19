@@ -11,18 +11,14 @@ import tensorflow as tf
 from tensorflow.keras.applications import EfficientNetV2B0
 from tensorflow.keras import layers, models
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.metrics import (
-    CategoricalAccuracy,
-    Precision,
-    Recall,
-    AUC
-)
+from tensorflow.keras.metrics import CategoricalAccuracy, Precision, Recall, AUC
 
 from src import config
 from src.data.augmentation import MRIAugmentationPipeline
 
 # Set up logging
 logger = logging.getLogger(__name__)
+
 
 def build_model(
     input_shape: Tuple[int, int, int] = config.IMAGE_SIZE + (3,),
@@ -47,28 +43,25 @@ def build_model(
     try:
         # Initialize EfficientNetV2B0 backbone pretrained on ImageNet
         base_model = EfficientNetV2B0(
-            include_top=False,
-            weights="imagenet",
-            input_shape=input_shape
+            include_top=False, weights="imagenet", input_shape=input_shape
         )
-        
+
         # Freeze backbone to preserve pretrained features during initial phase
         base_model.trainable = False
         logger.info("EfficientNetV2B0 base backbone frozen.")
 
         # Build model inputs
         inputs = layers.Input(shape=input_shape, name="input_image")
-        
+
         # 1. Augmentation Layer (runs on GPU during training, bypassed in validation/test)
         augmentation_layer = MRIAugmentationPipeline(
-            image_size=config.IMAGE_SIZE,
-            name="mri_augmentation"
+            image_size=config.IMAGE_SIZE, name="mri_augmentation"
         )
         augmented = augmentation_layer(inputs)
-        
+
         # 2. Base model forward pass
         features = base_model(augmented)
-        
+
         # 3. Custom Classification Head
         x = layers.GlobalAveragePooling2D(name="global_avg_pool")(features)
         x = layers.BatchNormalization(name="batch_norm")(x)
@@ -77,38 +70,37 @@ def build_model(
             256,
             activation="relu",
             kernel_regularizer=tf.keras.regularizers.l2(1e-4),
-            name="dense_256"
+            name="dense_256",
         )(x)
         x = layers.Dropout(0.3, name="dropout_2")(x)
-        
+
         # Output layer explicitly cast to float32 (critical for mixed precision stability)
         outputs = layers.Dense(
-            num_classes,
-            activation="softmax",
-            dtype="float32",
-            name="predictions"
+            num_classes, activation="softmax", dtype="float32", name="predictions"
         )(x)
 
         # Instantiate Model
         model = models.Model(inputs=inputs, outputs=outputs, name="Brain_MRI_Tumor_Classifier")
-        
+
         # Define Metrics
         metrics = [
             CategoricalAccuracy(name="accuracy"),
             Precision(name="precision"),
             Recall(name="recall"),
-            AUC(name="auc")
+            AUC(name="auc"),
         ]
-        
+
         # Compile Model
         # CategoricalCrossentropy expects one-hot encoded labels
         model.compile(
             optimizer=Adam(learning_rate=learning_rate),
             loss="categorical_crossentropy",
-            metrics=metrics
+            metrics=metrics,
         )
-        
-        logger.info("Successfully built and compiled EfficientNetV2B0 model with GPU augmentations.")
+
+        logger.info(
+            "Successfully built and compiled EfficientNetV2B0 model with GPU augmentations."
+        )
         return model
 
     except Exception as e:
@@ -130,7 +122,7 @@ def load_model_robustly(model_path: Union[str, Path]) -> tf.keras.Model:
         tf.keras.Model: Loaded Keras model instance.
     """
     model_path = Path(model_path)
-    
+
     if not model_path.exists():
         raise FileNotFoundError(f"Model file not found at: {model_path.resolve()}")
 
@@ -142,7 +134,7 @@ def load_model_robustly(model_path: Union[str, Path]) -> tf.keras.Model:
                 "MRIAugmentationPipeline": MRIAugmentationPipeline,
                 "RandomShear": RandomShear,
             },
-            compile=False
+            compile=False,
         )
         logger.info("Successfully loaded model using standard load_model.")
         return model
@@ -150,27 +142,32 @@ def load_model_robustly(model_path: Union[str, Path]) -> tf.keras.Model:
         logger.warning(
             f"Standard load_model failed ({e}). Attempting dynamic model rebuild and name-based weight resolution..."
         )
-        
+
     try:
         import h5py
+
         # Rebuild fresh model architecture
         model = build_model(input_shape=(224, 224, 3), num_classes=4)
-        
-        with h5py.File(model_path, 'r') as f:
+
+        with h5py.File(model_path, "r") as f:
             weight_data = {}
+
             def visit_h5(name, obj):
                 if isinstance(obj, h5py.Dataset):
-                    parts = name.split('/')
+                    parts = name.split("/")
                     if len(parts) >= 3:
                         layer_name = parts[-2]
-                        weight_name = parts[-1].split(':')[0]
+                        weight_name = parts[-1].split(":")[0]
                         if layer_name not in weight_data:
                             weight_data[layer_name] = {}
-                        weight_data[layer_name][weight_name] = obj[()] if obj.shape == () else obj[:]
+                        weight_data[layer_name][weight_name] = (
+                            obj[()] if obj.shape == () else obj[:]
+                        )
+
             f.visititems(visit_h5)
-            
+
             def load_layer_weights(layer):
-                if hasattr(layer, 'layers'):
+                if hasattr(layer, "layers"):
                     for sub_layer in layer.layers:
                         load_layer_weights(sub_layer)
                 else:
@@ -180,7 +177,11 @@ def load_model_robustly(model_path: Union[str, Path]) -> tf.keras.Model:
                         matched_name = l_name
                     else:
                         for h5_layer in weight_data:
-                            if h5_layer == l_name or l_name.endswith(h5_layer) or h5_layer.endswith(l_name):
+                            if (
+                                h5_layer == l_name
+                                or l_name.endswith(h5_layer)
+                                or h5_layer.endswith(l_name)
+                            ):
                                 matched_name = h5_layer
                                 break
                     if matched_name and len(layer.weights) > 0:
@@ -188,7 +189,7 @@ def load_model_robustly(model_path: Union[str, Path]) -> tf.keras.Model:
                         new_weights = []
                         mismatch = False
                         for w in layer.weights:
-                            w_name = w.name.split('/')[-1].split(':')[0]
+                            w_name = w.name.split("/")[-1].split(":")[0]
                             val = None
                             if w_name in h5_weights:
                                 val = h5_weights[w_name]
@@ -203,11 +204,15 @@ def load_model_robustly(model_path: Union[str, Path]) -> tf.keras.Model:
                                 mismatch = True
                         if not mismatch and len(new_weights) == len(layer.weights):
                             layer.set_weights(new_weights)
-            
+
             load_layer_weights(model)
-            
-        logger.info("Successfully loaded weights directly into rebuilt architecture by layer name matching.")
+
+        logger.info(
+            "Successfully loaded weights directly into rebuilt architecture by layer name matching."
+        )
         return model
     except Exception as ex:
-        logger.error(f"Failed both standard loading and dynamic weight resolution: {ex}", exc_info=True)
+        logger.error(
+            f"Failed both standard loading and dynamic weight resolution: {ex}", exc_info=True
+        )
         raise ex

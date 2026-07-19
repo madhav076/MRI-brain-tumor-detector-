@@ -21,6 +21,7 @@ from app.components.prediction_card import execute_inference
 from app.components.gradcam_viewer import render_gradcam_viewer
 from app.components.report_generator import generate_pdf_report
 
+
 def run_verification():
     setup_logger(config.LOG_DIR)
     logger = logging.getLogger("VerificationModule4")
@@ -36,7 +37,7 @@ def run_verification():
         "app/components/uploader.py",
         "app/components/prediction_card.py",
         "app/components/gradcam_viewer.py",
-        "app/components/report_generator.py"
+        "app/components/report_generator.py",
     ]
     for file_rel in files:
         file_path = PROJECT_ROOT / file_rel
@@ -56,11 +57,11 @@ def run_verification():
             prediction="glioma",
             confidence=0.94235,
             duration=0.045,
-            model_version=config.VERSION
+            model_version=config.VERSION,
         )
         assert len(pdf_bytes) > 0, "Generated report byte stream is empty."
         logger.info(f"  PDF report generated successfully! Byte length: {len(pdf_bytes)}")
-        
+
         # Test PDF signature (starts with %PDF- or fallback text summary)
         # Note: If fpdf is not installed, it generates text representation starting with B
         signature = pdf_bytes[:5]
@@ -74,6 +75,7 @@ def run_verification():
     logger.info("MODULE 4 VERIFICATION COMPLETED SUCCESSFULLY!")
     logger.info("Streamlit entry, CSS style structures, and export formats are fully operational.")
     logger.info("=" * 60)
+
 
 if __name__ == "__main__":
     run_verification()

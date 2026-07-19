@@ -20,6 +20,7 @@ from src import config
 from src.utils import setup_logger, set_seed
 from src.models.efficientnet_model import build_model
 
+
 def run_verification():
     setup_logger(config.LOG_DIR)
     logger = logging.getLogger("VerificationModule2")
@@ -40,18 +41,24 @@ def run_verification():
 
         # Assert mandatory components
         assert "mri_augmentation" in layer_names, "Augmentation layer missing from model."
-        assert any(l.startswith("efficientnet") for l in layer_names), "EfficientNet backbone missing."
+        assert any(
+            l.startswith("efficientnet") for l in layer_names
+        ), "EfficientNet backbone missing."
         assert "global_avg_pool" in layer_names, "GlobalAveragePooling2D head missing."
         assert "batch_norm" in layer_names, "BatchNormalization head missing."
         assert "dropout_1" in layer_names, "First Dropout layer missing."
         assert "dense_256" in layer_names, "Dense hidden layer missing."
         assert "dropout_2" in layer_names, "Second Dropout layer missing."
-        assert "predictions" in layer_names, "Final classification output predictions layer missing."
+        assert (
+            "predictions" in layer_names
+        ), "Final classification output predictions layer missing."
 
         # Verify output activation and dtype policy (mixed precision check)
         prediction_layer = model.get_layer("predictions")
         logger.info(f"Predictions output dtype policy: {prediction_layer.dtype_policy.name}")
-        assert prediction_layer.dtype_policy.name == "float32", "Final Dense layer must use float32 policy for numerical stability."
+        assert (
+            prediction_layer.dtype_policy.name == "float32"
+        ), "Final Dense layer must use float32 policy for numerical stability."
 
         logger.info("Model architecture validated successfully!")
 
@@ -64,12 +71,13 @@ def run_verification():
     try:
         # Import train runner directly
         from src.training.train import run_train_pipeline
+
         run_train_pipeline()
 
         # Check export files exist
         checkpoint_dir = Path(config.CHECKPOINT_DIR)
         logger.info(f"Checking exported files under {checkpoint_dir.resolve()}...")
-        
+
         summary_file = checkpoint_dir / "model_summary.txt"
         config_file = checkpoint_dir / "training_config.json"
 
@@ -77,7 +85,7 @@ def run_verification():
         assert config_file.exists(), "training_config.json was not created."
 
         logger.info(f"  Verified export: model_summary.txt ({summary_file.stat().st_size} bytes)")
-        
+
         # Load and verify JSON config
         with open(config_file, "r") as f:
             config_data = json.load(f)
@@ -91,6 +99,7 @@ def run_verification():
     except Exception as e:
         logger.error(f"Training script validation failed: {e}", exc_info=True)
         sys.exit(1)
+
 
 if __name__ == "__main__":
     run_verification()

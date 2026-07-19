@@ -40,6 +40,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+
 # -----------------------------------------------------------------------
 # Basic print logger (before the real logger is set up)
 # -----------------------------------------------------------------------
@@ -53,14 +54,15 @@ def log(msg: str, level: str = "INFO"):
 
 
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".tif"}
-CLASSES     = ["glioma", "meningioma", "notumor", "pituitary"]
-VAL_RATIO   = 0.15   # 15 % of training images become validation
-SEED        = 42
+CLASSES = ["glioma", "meningioma", "notumor", "pituitary"]
+VAL_RATIO = 0.15  # 15 % of training images become validation
+SEED = 42
 
 
 # =======================================================================
 # STEP 1 — Clean validation folder and build validation split
 # =======================================================================
+
 
 def clean_and_build_validation(dataset_dir: Path) -> bool:
     """Remove non-image files from validation/ and build a proper split."""
@@ -123,10 +125,14 @@ def clean_and_build_validation(dataset_dir: Path) -> bool:
             if not dst.exists():
                 # MOVE (not copy) to keep train set clean and avoid duplicates
                 shutil.move(str(img), str(dst))
-        
+
         # Count what's now in val
-        val_count = len([f for f in dst_dir.iterdir() if f.is_file() and f.suffix.lower() in IMAGE_EXTS])
-        train_remaining = len([f for f in src_dir.iterdir() if f.is_file() and f.suffix.lower() in IMAGE_EXTS])
+        val_count = len(
+            [f for f in dst_dir.iterdir() if f.is_file() and f.suffix.lower() in IMAGE_EXTS]
+        )
+        train_remaining = len(
+            [f for f in src_dir.iterdir() if f.is_file() and f.suffix.lower() in IMAGE_EXTS]
+        )
         log(f"  {cls}: moved {n_val} to validation/ (train remaining: {train_remaining})")
         total_moved += n_val
 
@@ -137,6 +143,7 @@ def clean_and_build_validation(dataset_dir: Path) -> bool:
 # =======================================================================
 # STEP 2 — Verify complete dataset structure
 # =======================================================================
+
 
 def verify_dataset(dataset_dir: Path) -> bool:
     """Print counts and return True if all splits+classes have images."""
@@ -167,6 +174,7 @@ def verify_dataset(dataset_dir: Path) -> bool:
 # STEP 3 — Patch train.py to be fully UTF-8 safe
 # =======================================================================
 
+
 def patch_train_py(train_py: Path) -> None:
     """Patch src/training/train.py to write model summary with UTF-8 encoding
     and replace Unicode box-drawing chars with ASCII equivalents."""
@@ -187,7 +195,7 @@ def patch_train_py(train_py: Path) -> None:
     OLD_SUMMARY_JOIN = '    summary_str = "\\n".join(stringlist)\n    with open(checkpoint_dir / "model_summary.txt"'
     NEW_SUMMARY_JOIN = (
         '    summary_str = "\\n".join(stringlist)\n'
-        '    # Replace Unicode box-drawing chars with ASCII equivalents\n'
+        "    # Replace Unicode box-drawing chars with ASCII equivalents\n"
         '    summary_str = summary_str.encode("ascii", errors="replace").decode("ascii")\n'
         '    with open(checkpoint_dir / "model_summary.txt"'
     )
@@ -195,7 +203,9 @@ def patch_train_py(train_py: Path) -> None:
 
     # Fix 3: open training_config.json with utf-8
     OLD_CONFIG_WRITE = 'with open(checkpoint_dir / "training_config.json", "w") as f:'
-    NEW_CONFIG_WRITE = 'with open(checkpoint_dir / "training_config.json", "w", encoding="utf-8") as f:'
+    NEW_CONFIG_WRITE = (
+        'with open(checkpoint_dir / "training_config.json", "w", encoding="utf-8") as f:'
+    )
     patched = patched.replace(OLD_CONFIG_WRITE, NEW_CONFIG_WRITE)
 
     # Fix 4: ensure model.save path uses forward slashes (avoids rare Windows path issues)
@@ -205,7 +215,10 @@ def patch_train_py(train_py: Path) -> None:
         train_py.write_text(patched, encoding="utf-8")
         log(f"Patched {train_py.name} with UTF-8 safe file writes.", "OK")
     else:
-        log(f"{train_py.name} already has UTF-8 safe file writes (or patterns not matched — check manually).", "WARN")
+        log(
+            f"{train_py.name} already has UTF-8 safe file writes (or patterns not matched — check manually).",
+            "WARN",
+        )
 
 
 def patch_utils_init(utils_init: Path) -> None:
@@ -225,15 +238,18 @@ def patch_utils_init(utils_init: Path) -> None:
 # STEP 4 — Run training pipeline
 # =======================================================================
 
+
 def run_training() -> bool:
     """Imports and runs the training pipeline. Returns True on success."""
     log("\n--- Starting Training Pipeline ---")
     try:
         from src.training.train import run_train_pipeline
+
         run_train_pipeline()
         return True
     except Exception as exc:
         import traceback
+
         log(f"Training failed with exception: {exc}", "ERR")
         traceback.print_exc()
         return False
@@ -242,6 +258,7 @@ def run_training() -> bool:
 # =======================================================================
 # STEP 5 — Final report
 # =======================================================================
+
 
 def final_report(dataset_dir: Path, model_path: Path) -> None:
     log("\n" + "=" * 60)
@@ -255,7 +272,9 @@ def final_report(dataset_dir: Path, model_path: Path) -> None:
         for cls in CLASSES:
             cls_dir = split_dir / cls
             if cls_dir.exists():
-                n = len([f for f in cls_dir.iterdir() if f.is_file() and f.suffix.lower() in IMAGE_EXTS])
+                n = len(
+                    [f for f in cls_dir.iterdir() if f.is_file() and f.suffix.lower() in IMAGE_EXTS]
+                )
                 log(f"    {cls}: {n} images")
             else:
                 log(f"    {cls}: MISSING", "ERR")
@@ -272,13 +291,14 @@ def final_report(dataset_dir: Path, model_path: Path) -> None:
 # MAIN
 # =======================================================================
 
+
 def main():
     log("=" * 60)
     log("Brain MRI — Dataset Repair + Training Launcher")
     log("=" * 60)
 
     dataset_dir = PROJECT_ROOT / "dataset"
-    model_path  = PROJECT_ROOT / "saved_models" / "best_model.keras"
+    model_path = PROJECT_ROOT / "saved_models" / "best_model.keras"
 
     # ---- Step 1: Fix validation split ----
     log("\n[STEP 1] Fixing validation split...")

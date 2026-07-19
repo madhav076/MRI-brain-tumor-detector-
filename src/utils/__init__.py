@@ -52,7 +52,7 @@ def setup_logger(log_dir: str = "logs", log_level: int = logging.INFO) -> loggin
     # Formatter
     formatter = logging.Formatter(
         "[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S"
+        datefmt="%Y-%m-%d %H:%M:%S",
     )
 
     # ----------------------------------------------------------------
@@ -78,8 +78,10 @@ def setup_logger(log_dir: str = "logs", log_level: int = logging.INFO) -> loggin
         except UnicodeEncodeError:
             # Replace unencodable chars and retry
             try:
-                record.msg = str(record.msg).encode("utf-8", errors="replace").decode(
-                    sys.stdout.encoding or "ascii", errors="replace"
+                record.msg = (
+                    str(record.msg)
+                    .encode("utf-8", errors="replace")
+                    .decode(sys.stdout.encoding or "ascii", errors="replace")
                 )
                 _original_emit(record)
             except Exception:

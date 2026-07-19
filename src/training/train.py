@@ -35,6 +35,7 @@ from src.models.efficientnet_model import build_model
 # Initialize logger
 logger = logging.getLogger("TrainingPipeline")
 
+
 def configure_mixed_precision() -> None:
     """Configures TensorFlow mixed precision policy if configured and supported."""
     if config.MIXED_PRECISION:
@@ -48,17 +49,19 @@ def configure_mixed_precision() -> None:
                     f"Mixed precision enabled successfully. Global policy: {tf.keras.mixed_precision.global_policy().name}"
                 )
             except Exception as e:
-                logger.warning(f"Failed to enable mixed precision policy: {e}. Falling back to float32.")
+                logger.warning(
+                    f"Failed to enable mixed precision policy: {e}. Falling back to float32."
+                )
         else:
-            logger.info("Mixed precision requested, but no GPU devices detected. Using float32 policy.")
+            logger.info(
+                "Mixed precision requested, but no GPU devices detected. Using float32 policy."
+            )
     else:
         logger.info("Mixed precision disabled in configs. Using standard float32 policy.")
 
+
 def create_tf_dataset(
-    df: pd.DataFrame,
-    classes: list,
-    batch_size: int,
-    is_training: bool = False
+    df: pd.DataFrame, classes: list, batch_size: int, is_training: bool = False
 ) -> Optional[tf.data.Dataset]:
     """Creates a high-performance tf.data.Dataset pipeline from metadata.
 
@@ -98,7 +101,7 @@ def create_tf_dataset(
         img = tf.cast(img, tf.float32) / 255.0
         # Set static shape for Keras compatibility
         img.set_shape(config.IMAGE_SIZE + (3,))
-        
+
         # One-hot encode label
         label_onehot = tf.one_hot(label, depth=config.NUM_CLASSES)
         return img, label_onehot
@@ -119,6 +122,7 @@ def create_tf_dataset(
 
     return dataset
 
+
 def calculate_class_weights(df: pd.DataFrame, classes: list) -> Dict[int, float]:
     """Calculates class weights to handle training class imbalances.
 
@@ -135,17 +139,14 @@ def calculate_class_weights(df: pd.DataFrame, classes: list) -> Dict[int, float]
     class_to_idx = {cls: idx for idx, cls in enumerate(classes)}
     y_indices = np.array([class_to_idx[cls] for cls in df["class"]])
     unique_classes = np.unique(y_indices)
-    
+
     # Compute balanced weights
-    weights = compute_class_weight(
-        class_weight="balanced",
-        classes=unique_classes,
-        y=y_indices
-    )
-    
+    weights = compute_class_weight(class_weight="balanced", classes=unique_classes, y=y_indices)
+
     class_weights_dict = {int(cls): float(w) for cls, w in zip(unique_classes, weights)}
     logger.info(f"Computed class weights: {class_weights_dict}")
     return class_weights_dict
+
 
 def configure_callbacks(checkpoint_path: Path) -> list:
     """Configures training callbacks: early stopping, model checkpoint, LR reduction, CSV logger.
@@ -163,31 +164,23 @@ def configure_callbacks(checkpoint_path: Path) -> list:
 
     callbacks = [
         tf.keras.callbacks.EarlyStopping(
-            monitor="val_loss",
-            patience=5,
-            restore_best_weights=True,
-            verbose=1
+            monitor="val_loss", patience=5, restore_best_weights=True, verbose=1
         ),
         tf.keras.callbacks.ModelCheckpoint(
             filepath=str(checkpoint_path / "best_model.keras"),
             monitor="val_loss",
             save_best_only=True,
-            verbose=1
+            verbose=1,
         ),
         tf.keras.callbacks.ReduceLROnPlateau(
-            monitor="val_loss",
-            factor=0.2,
-            patience=3,
-            min_lr=1e-6,
-            verbose=1
+            monitor="val_loss", factor=0.2, patience=3, min_lr=1e-6, verbose=1
         ),
         tf.keras.callbacks.CSVLogger(
-            filename=str(checkpoint_path / "history.csv"),
-            separator=",",
-            append=True
+            filename=str(checkpoint_path / "history.csv"), separator=",", append=True
         ),
     ]
     return callbacks
+
 
 def save_plots(history: Dict[str, list], output_dir: Path) -> None:
     """Generates and saves performance charts from combined history.
@@ -227,7 +220,9 @@ def save_plots(history: Dict[str, list], output_dir: Path) -> None:
 
     # 3. Learning Rate plot
     plt.figure(figsize=(8, 5))
-    plt.plot(epochs, history.get("lr", [config.LEARNING_RATE] * len(epochs)), "g-", label="Learning Rate")
+    plt.plot(
+        epochs, history.get("lr", [config.LEARNING_RATE] * len(epochs)), "g-", label="Learning Rate"
+    )
     plt.title("Learning Rate vs Epoch")
     plt.xlabel("Epochs")
     plt.ylabel("Learning Rate")
@@ -237,8 +232,11 @@ def save_plots(history: Dict[str, list], output_dir: Path) -> None:
     plt.tight_layout()
     plt.savefig(output_dir / "learning_rate.png")
     plt.close()
-    
-    logger.info(f"Saved metric graphs (accuracy.png, loss.png, learning_rate.png) to {output_dir.resolve()}")
+
+    logger.info(
+        f"Saved metric graphs (accuracy.png, loss.png, learning_rate.png) to {output_dir.resolve()}"
+    )
+
 
 def fine_tune_backbone(model: tf.keras.Model) -> tf.keras.Model:
     """Unfreezes the last specified layers of EfficientNetB0 backbone.
@@ -260,17 +258,19 @@ def fine_tune_backbone(model: tf.keras.Model) -> tf.keras.Model:
         logger.warning("EfficientNet base layer not found in model structure. Fine-tuning skipped.")
         return model
 
-    logger.info(f"Unfreezing EfficientNetB0 backbone layers (unfreezing last {config.FINE_TUNE_LAYERS} layers)...")
+    logger.info(
+        f"Unfreezing EfficientNetB0 backbone layers (unfreezing last {config.FINE_TUNE_LAYERS} layers)..."
+    )
     base_model.trainable = True
 
     # Freeze all layers except the last N
     num_layers = len(base_model.layers)
     fine_tune_at = max(0, num_layers - config.FINE_TUNE_LAYERS)
-    
+
     # Freeze the initial layers and unfreeze fine-tune layer slice
     for layer in base_model.layers[:fine_tune_at]:
         layer.trainable = False
-        
+
     for layer in base_model.layers[fine_tune_at:]:
         # BatchNormalization layers must remain frozen during fine-tuning to preserve statistics
         if isinstance(layer, tf.keras.layers.BatchNormalization):
@@ -283,21 +283,22 @@ def fine_tune_backbone(model: tf.keras.Model) -> tf.keras.Model:
         tf.keras.metrics.CategoricalAccuracy(name="accuracy"),
         tf.keras.metrics.Precision(name="precision"),
         tf.keras.metrics.Recall(name="recall"),
-        tf.keras.metrics.AUC(name="auc")
+        tf.keras.metrics.AUC(name="auc"),
     ]
     model.compile(
         optimizer=Adam(learning_rate=config.FINE_TUNE_LEARNING_RATE),
         loss="categorical_crossentropy",
-        metrics=metrics
+        metrics=metrics,
     )
     logger.info("Successfully re-compiled model for Phase 2: Fine-Tuning.")
     return model
+
 
 def run_train_pipeline() -> None:
     """Executes the entire training pipeline."""
     # Start timer
     start_time = time.time()
-    
+
     # 1. Setup Logger & Reproduction Seed
     setup_logger(config.LOG_DIR)
     set_seed(config.SEED)
@@ -336,7 +337,7 @@ def run_train_pipeline() -> None:
         )
         # Create empty model for export checks
         model = build_model()
-        
+
         # Save model summary text file
         stringlist = []
         model.summary(print_fn=lambda x: stringlist.append(x))
@@ -345,7 +346,7 @@ def run_train_pipeline() -> None:
         summary_str = summary_str.encode("ascii", errors="replace").decode("ascii")
         with open(checkpoint_dir / "model_summary.txt", "w", encoding="utf-8") as f:
             f.write(summary_str)
-            
+
         logger.info(f"Saved model summary text structure to {checkpoint_dir / 'model_summary.txt'}")
         logger.warning("Pipeline terminated gracefully before training loop due to empty dataset.")
         return
@@ -364,7 +365,7 @@ def run_train_pipeline() -> None:
 
     # 6. Build model
     model = build_model()
-    
+
     # Save model summary text file
     stringlist = []
     model.summary(print_fn=lambda x: stringlist.append(x))
@@ -379,8 +380,10 @@ def run_train_pipeline() -> None:
     callbacks = configure_callbacks(checkpoint_dir)
 
     # 7. PHASE 1: Train classification head (backbone frozen)
-    logger.info(f"--- PHASE 1: Training Custom Head (Backbone Frozen) for {config.EPOCHS} epochs ---")
-    
+    logger.info(
+        f"--- PHASE 1: Training Custom Head (Backbone Frozen) for {config.EPOCHS} epochs ---"
+    )
+
     phase1_start = time.time()
     history_phase1 = model.fit(
         train_dataset,
@@ -388,7 +391,7 @@ def run_train_pipeline() -> None:
         epochs=config.EPOCHS,
         class_weight=class_weights,
         callbacks=callbacks,
-        verbose=1
+        verbose=1,
     )
     phase1_duration = time.time() - phase1_start
     logger.info(f"Phase 1 head training finished in {phase1_duration:.2f} seconds.")
@@ -398,11 +401,13 @@ def run_train_pipeline() -> None:
 
     # 8. PHASE 2: Fine-Tuning (Unfreeze last layers)
     if config.FINE_TUNE_EPOCHS > 0:
-        logger.info(f"--- PHASE 2: Fine-Tuning backbone (Unfreezing last {config.FINE_TUNE_LAYERS} layers) ---")
-        
+        logger.info(
+            f"--- PHASE 2: Fine-Tuning backbone (Unfreezing last {config.FINE_TUNE_LAYERS} layers) ---"
+        )
+
         # Unfreeze and compile
         model = fine_tune_backbone(model)
-        
+
         # Total epochs offset for continuous training metrics tracking
         initial_epoch = len(hist_dict.get("loss", []))
         total_epochs = initial_epoch + config.FINE_TUNE_EPOCHS
@@ -415,7 +420,7 @@ def run_train_pipeline() -> None:
             initial_epoch=initial_epoch,
             class_weight=class_weights,
             callbacks=callbacks,
-            verbose=1
+            verbose=1,
         )
         phase2_duration = time.time() - phase2_start
         logger.info(f"Phase 2 fine-tuning training finished in {phase2_duration:.2f} seconds.")
@@ -447,6 +452,7 @@ def run_train_pipeline() -> None:
     logger.info(f"TRAINING PIPELINE FINISHED SUCCESSFULLY.")
     logger.info(f"Total Pipeline Execution Time: {total_duration / 60:.2f} minutes.")
     logger.info("=" * 60)
+
 
 if __name__ == "__main__":
     run_train_pipeline()

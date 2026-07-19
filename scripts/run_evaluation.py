@@ -13,6 +13,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from src.evaluation.evaluate import run_evaluation
 
+
 def main():
     print("Initializing Model Evaluation and Diagnostics Pipeline...")
     try:
@@ -20,6 +21,7 @@ def main():
     except Exception as e:
         print(f"Evaluation failed with error: {e}")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

@@ -10,6 +10,7 @@ import tensorflow as tf
 # Set up logging
 logger = logging.getLogger(__name__)
 
+
 class RandomShear(tf.keras.layers.Layer):
     """Custom Keras layer to apply random shear mapping using TensorFlow operations.
 
@@ -77,7 +78,7 @@ class RandomShear(tf.keras.layers.Layer):
                 output_shape=output_shape,
                 interpolation="BILINEAR",
                 fill_mode="CONSTANT",
-                fill_value=0.0
+                fill_value=0.0,
             )
         except AttributeError:
             # Fallback for environments where only V2 is available
@@ -86,7 +87,7 @@ class RandomShear(tf.keras.layers.Layer):
                 transforms=transforms,
                 output_shape=output_shape,
                 interpolation="BILINEAR",
-                fill_mode="CONSTANT"
+                fill_mode="CONSTANT",
             )
 
         return tf.cast(sheared, inputs.dtype)
@@ -118,7 +119,7 @@ class MRIAugmentationPipeline(tf.keras.layers.Layer):
         brightness_range: float = 0.15,
         contrast_range: float = 0.15,
         shear_range: float = 0.1,
-        **kwargs
+        **kwargs,
     ):
         """Initializes the MRI Augmentation Pipeline.
 
@@ -143,9 +144,7 @@ class MRIAugmentationPipeline(tf.keras.layers.Layer):
 
         # 1. Random Rotation
         self.rotation = tf.keras.layers.RandomRotation(
-            factor=rotation_range,
-            fill_mode="constant",
-            fill_value=0.0
+            factor=rotation_range, fill_mode="constant", fill_value=0.0
         )
 
         # 2. Horizontal Flip
@@ -153,10 +152,7 @@ class MRIAugmentationPipeline(tf.keras.layers.Layer):
 
         # 3. Random Zoom
         self.zoom = tf.keras.layers.RandomZoom(
-            height_factor=zoom_range,
-            width_factor=zoom_range,
-            fill_mode="constant",
-            fill_value=0.0
+            height_factor=zoom_range, width_factor=zoom_range, fill_mode="constant", fill_value=0.0
         )
 
         # 4. Translation / Shift
@@ -164,7 +160,7 @@ class MRIAugmentationPipeline(tf.keras.layers.Layer):
             height_factor=shift_range,
             width_factor=shift_range,
             fill_mode="constant",
-            fill_value=0.0
+            fill_value=0.0,
         )
 
         # 5. Brightness adjustment
@@ -201,15 +197,17 @@ class MRIAugmentationPipeline(tf.keras.layers.Layer):
     def get_config(self):
         """Returns the config for layer serialization."""
         config = super().get_config()
-        config.update({
-            "image_size": self.image_size,
-            "rotation_range": self.rotation_range,
-            "zoom_range": self.zoom_range,
-            "shift_range": self.shift_range,
-            "brightness_range": self.brightness_range,
-            "contrast_range": self.contrast_range,
-            "shear_range": self.shear_range,
-        })
+        config.update(
+            {
+                "image_size": self.image_size,
+                "rotation_range": self.rotation_range,
+                "zoom_range": self.zoom_range,
+                "shift_range": self.shift_range,
+                "brightness_range": self.brightness_range,
+                "contrast_range": self.contrast_range,
+                "shear_range": self.shear_range,
+            }
+        )
         return config
 
     @classmethod

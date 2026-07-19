@@ -15,6 +15,7 @@ from src.evaluation.explainability.base_explainer import BaseExplainer
 # Setup logging
 logger = logging.getLogger(__name__)
 
+
 class GradCAMExplainer(BaseExplainer):
     """Explainer class that generates Gradient-weighted Class Activation Maps (Grad-CAM)."""
 
@@ -26,7 +27,9 @@ class GradCAMExplainer(BaseExplainer):
         """
         self.last_conv_layer_name = last_conv_layer_name
 
-    def _find_last_conv_layer(self, model: tf.keras.Model) -> Tuple[tf.keras.layers.Layer, tf.keras.Model]:
+    def _find_last_conv_layer(
+        self, model: tf.keras.Model
+    ) -> Tuple[tf.keras.layers.Layer, tf.keras.Model]:
         """Dynamically scans the model to locate the final Conv2D layer.
 
         Args:
@@ -61,7 +64,9 @@ class GradCAMExplainer(BaseExplainer):
         if base_model is not None:
             for layer in reversed(base_model.layers):
                 if isinstance(layer, tf.keras.layers.Conv2D) or "conv" in layer.name.lower():
-                    logger.info(f"Dynamically discovered nested backbone conv layer: '{layer.name}'")
+                    logger.info(
+                        f"Dynamically discovered nested backbone conv layer: '{layer.name}'"
+                    )
                     return layer, base_model
 
         # Fallback to scanning root model
@@ -97,7 +102,7 @@ class GradCAMExplainer(BaseExplainer):
             target_conv_layer, container_model = self._find_last_conv_layer(model)
 
             # Determine whether target layer is nested inside a backbone
-            is_nested = (container_model is not model)
+            is_nested = container_model is not model
 
             if is_nested:
                 # For nested backbone (e.g., EfficientNetB0 as a sub-layer):
@@ -109,8 +114,7 @@ class GradCAMExplainer(BaseExplainer):
                 # (training=False), so we can safely pass image directly to the backbone.
                 backbone = container_model
                 interim_model = tf.keras.Model(
-                    inputs=backbone.inputs,
-                    outputs=[target_conv_layer.output, backbone.output]
+                    inputs=backbone.inputs, outputs=[target_conv_layer.output, backbone.output]
                 )
 
                 # Identify the classification head layers (everything after the backbone)
@@ -143,8 +147,7 @@ class GradCAMExplainer(BaseExplainer):
                 # For non-nested models: build a direct sub-model from model inputs
                 # to [conv_output, predictions] — straightforward Functional API approach
                 grad_model = tf.keras.Model(
-                    inputs=model.inputs,
-                    outputs=[target_conv_layer.output, model.output]
+                    inputs=model.inputs, outputs=[target_conv_layer.output, model.output]
                 )
                 with tf.GradientTape() as tape:
                     conv_outputs, preds = grad_model(image, training=False)
@@ -188,7 +191,7 @@ class GradCAMExplainer(BaseExplainer):
         image_path_or_array: Union[str, np.ndarray],
         heatmap: np.ndarray,
         alpha: float = 0.4,
-        colormap: int = cv2.COLORMAP_JET
+        colormap: int = cv2.COLORMAP_JET,
     ) -> np.ndarray:
         """Overlays the heatmap on top of the original grayscale MRI scan.
 

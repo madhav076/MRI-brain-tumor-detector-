@@ -69,13 +69,23 @@ def try_kaggle_download() -> bool:
     print("[INFO] Downloading: masoudnickparvar/brain-tumor-mri-dataset ...")
     try:
         import subprocess
+
         result = subprocess.run(
             [
-                sys.executable, "-m", "kaggle", "datasets", "download",
-                "-d", "masoudnickparvar/brain-tumor-mri-dataset",
-                "--unzip", "-p", str(dataset_dir),
+                sys.executable,
+                "-m",
+                "kaggle",
+                "datasets",
+                "download",
+                "-d",
+                "masoudnickparvar/brain-tumor-mri-dataset",
+                "--unzip",
+                "-p",
+                str(dataset_dir),
             ],
-            capture_output=True, text=True, timeout=600
+            capture_output=True,
+            text=True,
+            timeout=600,
         )
         if result.returncode == 0:
             print("[SUCCESS] Dataset downloaded successfully.")

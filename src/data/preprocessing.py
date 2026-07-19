@@ -12,6 +12,7 @@ import tensorflow as tf
 # Set up logging
 logger = logging.getLogger(__name__)
 
+
 def validate_image(image: Union[np.ndarray, tf.Tensor]) -> bool:
     """Validates the structural and numerical integrity of an image.
 
@@ -26,11 +27,13 @@ def validate_image(image: Union[np.ndarray, tf.Tensor]) -> bool:
     try:
         # Convert to tensor for uniform checks
         tensor = tf.convert_to_tensor(image)
-        
+
         # Check image rank
         rank = len(tensor.shape)
         if rank not in [2, 3, 4]:
-            logger.warning(f"Invalid image rank: {rank}. Supported ranks are 2 (grayscale), 3 (HWC), or 4 (BHWC).")
+            logger.warning(
+                f"Invalid image rank: {rank}. Supported ranks are 2 (grayscale), 3 (HWC), or 4 (BHWC)."
+            )
             return False
 
         # Check for empty dimensions
@@ -51,6 +54,7 @@ def validate_image(image: Union[np.ndarray, tf.Tensor]) -> bool:
     except Exception as e:
         logger.error(f"Error validating image: {e}")
         return False
+
 
 def convert_to_rgb(image: tf.Tensor, is_bgr: bool = False) -> tf.Tensor:
     """Converts a grayscale, RGBA, BGR, or BGRA image array/tensor to a 3-channel RGB tensor.
@@ -77,7 +81,7 @@ def convert_to_rgb(image: tf.Tensor, is_bgr: bool = False) -> tf.Tensor:
         if channels == 4:
             tensor = tensor[..., :3]
             channels = 3
-        
+
         if channels == 3:
             if is_bgr:
                 tensor = tensor[..., ::-1]  # BGR to RGB
@@ -85,7 +89,9 @@ def convert_to_rgb(image: tf.Tensor, is_bgr: bool = False) -> tf.Tensor:
         elif channels == 1:
             return tf.image.grayscale_to_rgb(tensor)
         else:
-            raise ValueError(f"Unsupported number of channels in batch: {channels}. Expected 1, 3, or 4.")
+            raise ValueError(
+                f"Unsupported number of channels in batch: {channels}. Expected 1, 3, or 4."
+            )
 
     # Grayscale 2D image (H, W) -> expand to (H, W, 1) -> convert to RGB (H, W, 3)
     if rank == 2:
@@ -110,6 +116,7 @@ def convert_to_rgb(image: tf.Tensor, is_bgr: bool = False) -> tf.Tensor:
 
     raise ValueError(f"Unsupported image shape for RGB conversion: {shape}")
 
+
 def resize_image(image: tf.Tensor, target_size: Tuple[int, int]) -> tf.Tensor:
     """Resizes the image to the specified target dimensions using bilinear interpolation.
 
@@ -124,6 +131,7 @@ def resize_image(image: tf.Tensor, target_size: Tuple[int, int]) -> tf.Tensor:
     # tf.image.resize expects float type or returns float
     resized = tf.image.resize(tensor, size=target_size, method=tf.image.ResizeMethod.BILINEAR)
     return resized
+
 
 def normalize_image(image: tf.Tensor, method: str = "minmax_01") -> tf.Tensor:
     """Normalizes the pixel intensities of the image tensor.
@@ -164,11 +172,12 @@ def normalize_image(image: tf.Tensor, method: str = "minmax_01") -> tf.Tensor:
         logger.warning(f"Unknown normalization method: {method}. Defaulting to 'minmax_01'.")
         return tensor / 255.0
 
+
 def preprocess_single_image(
     image: Union[np.ndarray, tf.Tensor],
     target_size: Tuple[int, int],
     normalize_method: str = "minmax_01",
-    is_bgr: bool = False
+    is_bgr: bool = False,
 ) -> tf.Tensor:
     """Applies the complete preprocessing pipeline to a single image.
 
@@ -188,26 +197,27 @@ def preprocess_single_image(
 
     tensor = tf.convert_to_tensor(image)
     orig_shape = tuple(tensor.shape)
-    
+
     tensor = convert_to_rgb(tensor, is_bgr=is_bgr)
     conv_shape = tuple(tensor.shape)
-    
+
     tensor = resize_image(tensor, target_size)
     tensor = normalize_image(tensor, normalize_method)
-    
+
     final_shape = (1, int(tensor.shape[0]), int(tensor.shape[1]), int(tensor.shape[2]))
-    
+
     logger.info(f"Original: {orig_shape}")
     logger.info(f"Converted: {conv_shape}")
     logger.info(f"Input Tensor: {final_shape}")
-    
+
     return tensor
+
 
 def preprocess_batch(
     images: Union[np.ndarray, tf.Tensor],
     target_size: Tuple[int, int],
     normalize_method: str = "minmax_01",
-    is_bgr: bool = False
+    is_bgr: bool = False,
 ) -> tf.Tensor:
     """Preprocesses a batch of images.
 
@@ -227,20 +237,22 @@ def preprocess_batch(
     rank = len(tensor.shape)
 
     if rank != 4:
-        raise ValueError(f"preprocess_batch expects a 4D tensor (Batch, Height, Width, Channels). Got rank {rank}.")
+        raise ValueError(
+            f"preprocess_batch expects a 4D tensor (Batch, Height, Width, Channels). Got rank {rank}."
+        )
 
     orig_shape = tuple(tensor.shape)
-    
+
     tensor = convert_to_rgb(tensor, is_bgr=is_bgr)
     conv_shape = tuple(tensor.shape)
-    
+
     tensor = resize_image(tensor, target_size)
     tensor = normalize_image(tensor, normalize_method)
-    
+
     final_shape = tuple(tensor.shape)
-    
+
     logger.info(f"Original: {orig_shape}")
     logger.info(f"Converted: {conv_shape}")
     logger.info(f"Input Tensor: {final_shape}")
-    
+
     return tensor

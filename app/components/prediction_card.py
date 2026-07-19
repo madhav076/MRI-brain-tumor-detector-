@@ -17,10 +17,8 @@ from src.data.preprocessing import preprocess_single_image
 # Setup logging
 logger = logging.getLogger(__name__)
 
-def execute_inference(
-    image_array: np.ndarray,
-    model: tf.keras.Model
-) -> Tuple[np.ndarray, float]:
+
+def execute_inference(image_array: np.ndarray, model: tf.keras.Model) -> Tuple[np.ndarray, float]:
     """Runs preprocessing and model inference on a single image.
 
     Args:
@@ -34,12 +32,9 @@ def execute_inference(
         # Preprocess using pipeline from Module 1
         # Converts to RGB, resizes, and normalizes
         processed_img = preprocess_single_image(
-            image_array,
-            target_size=config.IMAGE_SIZE,
-            normalize_method="minmax_01",
-            is_bgr=True
+            image_array, target_size=config.IMAGE_SIZE, normalize_method="minmax_01", is_bgr=True
         )
-        
+
         # Add batch dimension (H, W, 3) -> (1, H, W, 3)
         processed_img_batch = tf.expand_dims(processed_img, axis=0)
 
@@ -47,16 +42,15 @@ def execute_inference(
         start_time = time.perf_counter()
         probabilities = model.predict(processed_img_batch)
         duration = time.perf_counter() - start_time
-        
+
         return probabilities, duration
     except Exception as e:
         logger.error(f"Inference pipeline execution failed: {e}", exc_info=True)
         raise e
 
+
 def render_prediction_results(
-    probabilities: np.ndarray,
-    classes: List[str],
-    precision: int = 2
+    probabilities: np.ndarray, classes: List[str], precision: int = 2
 ) -> Tuple[str, float]:
     """Renders styled inference metrics, circular confidence gauges, and top-3 probabilities.
 
@@ -72,7 +66,7 @@ def render_prediction_results(
     predicted_idx = int(np.argmax(probs))
     predicted_class = classes[predicted_idx]
     confidence = float(probs[predicted_idx])
-    
+
     # Map risk levels and badges
     if predicted_class == "glioma":
         risk_level = "HIGH"
@@ -85,9 +79,9 @@ def render_prediction_results(
         badge_class = "badge-success"
 
     st.subheader("Diagnostic Report Results")
-    
+
     col1, col2 = st.columns([1.2, 1.8])
-    
+
     with col1:
         # Radial Gauge SVG
         dash_offset = 251.2 * (1.0 - confidence)
@@ -109,9 +103,9 @@ def render_prediction_results(
                 </div>
             </div>
             """,
-            unsafe_allow_html=True
+            unsafe_allow_html=True,
         )
-        
+
     with col2:
         # Diagnostic summary parameters
         st.markdown(
@@ -138,15 +132,15 @@ def render_prediction_results(
                 </div>
             </div>
             """,
-            unsafe_allow_html=True
+            unsafe_allow_html=True,
         )
 
     # 3. Probability bars distribution
     st.markdown("---")
     st.subheader("Differential Diagnoses Distribution")
-    
+
     col_bars, col_desc = st.columns([2, 1.5])
-    
+
     with col_bars:
         st.markdown('<div class="premium-card">', unsafe_allow_html=True)
         top_indices = np.argsort(probs)[::-1]
@@ -166,9 +160,9 @@ def render_prediction_results(
                     </div>
                 </div>
                 """,
-                unsafe_allow_html=True
+                unsafe_allow_html=True,
             )
-        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
     with col_desc:
         # "Why this prediction?" panel
@@ -180,7 +174,7 @@ def render_prediction_results(
             explanation = "The highlighted region indicates abnormal sellar region mass and tissue texture consistent with pituitary tumor morphology. Model boundaries correlate with clinical indicators."
         else:
             explanation = "No suspicious masses or tissue intensity variations were detected. The ventricular system, cerebral cortex, and boundary structures appear normal."
-            
+
         st.markdown(
             f"""
             <div class="premium-card" style="height: 100%; border-left: 4px solid #2563EB;">
@@ -193,7 +187,7 @@ def render_prediction_results(
                 </p>
             </div>
             """,
-            unsafe_allow_html=True
+            unsafe_allow_html=True,
         )
 
     return predicted_class, confidence

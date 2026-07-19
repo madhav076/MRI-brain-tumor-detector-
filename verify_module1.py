@@ -27,6 +27,7 @@ from src.data.preprocessing import (
 )
 from src.data.augmentation import MRIAugmentationPipeline
 
+
 def run_verification():
     # 1. Initialize Logger
     setup_logger(log_dir=config.LOG_DIR)
@@ -46,7 +47,7 @@ def run_verification():
         "logs",
         "saved_models",
         "outputs",
-        "notebooks"
+        "notebooks",
     ]
     for directory in directories:
         dir_path = PROJECT_ROOT / directory
@@ -62,7 +63,7 @@ def run_verification():
     # 4. Initialize Dataset Loader
     logger.info("Initializing Dataset Loader...")
     loader = MRIDatasetLoader(config.DATASET_PATH)
-    
+
     # Run scan on empty structure (or whatever files are there)
     metadata = loader.scan_dataset()
     logger.info("Dataset statistics computed:")
@@ -72,9 +73,7 @@ def run_verification():
     logger.info("Running programmatic checks on preprocessing...")
     try:
         # Create a mock grayscale image slice of shape (256, 256) as uint8
-        dummy_grayscale = tf.random.uniform(
-            shape=(256, 256), minval=0, maxval=255, dtype=tf.int32
-        )
+        dummy_grayscale = tf.random.uniform(shape=(256, 256), minval=0, maxval=255, dtype=tf.int32)
         dummy_grayscale = tf.cast(dummy_grayscale, dtype=tf.uint8)
 
         # Validate
@@ -89,11 +88,17 @@ def run_verification():
         # Resize
         resized_tensor = resize_image(rgb_tensor, config.IMAGE_SIZE)
         logger.info(f"  Resized image shape: {resized_tensor.shape}")
-        assert resized_tensor.shape == (config.IMAGE_SIZE[0], config.IMAGE_SIZE[1], 3), "Resize failed."
+        assert resized_tensor.shape == (
+            config.IMAGE_SIZE[0],
+            config.IMAGE_SIZE[1],
+            3,
+        ), "Resize failed."
 
         # Normalization
         norm_tensor = normalize_image(resized_tensor, method="minmax_01")
-        logger.info(f"  Normalized image value range: Min={tf.reduce_min(norm_tensor):.4f}, Max={tf.reduce_max(norm_tensor):.4f}")
+        logger.info(
+            f"  Normalized image value range: Min={tf.reduce_min(norm_tensor):.4f}, Max={tf.reduce_max(norm_tensor):.4f}"
+        )
 
         # End-to-end preprocessing of single image
         preprocessed_single = preprocess_single_image(
@@ -110,7 +115,12 @@ def run_verification():
             dummy_batch, target_size=config.IMAGE_SIZE, normalize_method="minmax_01"
         )
         logger.info(f"  Preprocessed batch image shape: {preprocessed_batch.shape}")
-        assert preprocessed_batch.shape == (4, config.IMAGE_SIZE[0], config.IMAGE_SIZE[1], 3), "Batch preprocessing failed."
+        assert preprocessed_batch.shape == (
+            4,
+            config.IMAGE_SIZE[0],
+            config.IMAGE_SIZE[1],
+            3,
+        ), "Batch preprocessing failed."
 
         logger.info("Preprocessing checks completed successfully!")
 
@@ -127,20 +137,24 @@ def run_verification():
             zoom_range=0.1,
             shift_range=0.1,
             brightness_range=0.15,
-            shear_range=0.1
+            shear_range=0.1,
         )
-        
+
         # Apply pipeline to preprocessed batch in training mode
         augmented_batch = augmentation_pipeline(preprocessed_batch, training=True)
         logger.info(f"  Augmented batch shape: {augmented_batch.shape}")
-        assert augmented_batch.shape == preprocessed_batch.shape, "Augmentation shape changed mismatch."
+        assert (
+            augmented_batch.shape == preprocessed_batch.shape
+        ), "Augmentation shape changed mismatch."
 
         # Apply pipeline in evaluation mode (should pass images untouched)
         eval_batch = augmentation_pipeline(preprocessed_batch, training=False)
         logger.info(f"  Augmentation in eval mode checks out. Shapes: {eval_batch.shape}")
-        
+
         # Test exact match in eval mode
-        tf.debugging.assert_near(preprocessed_batch, eval_batch, message="Eval mode modified image values!")
+        tf.debugging.assert_near(
+            preprocessed_batch, eval_batch, message="Eval mode modified image values!"
+        )
         logger.info("Augmentation checks completed successfully!")
 
     except Exception as e:
@@ -151,6 +165,7 @@ def run_verification():
     logger.info("MODULE 1 VERIFICATION COMPLETED SUCCESSFULLY!")
     logger.info("The environment, source modules, and parameters are fully operational.")
     logger.info("=" * 60)
+
 
 if __name__ == "__main__":
     run_verification()

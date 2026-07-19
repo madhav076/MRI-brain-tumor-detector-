@@ -19,6 +19,7 @@ from src.utils import setup_logger
 from src.evaluation.explainability import BaseExplainer, GradCAMExplainer
 from src.evaluation.evaluate import run_evaluation
 
+
 def run_verification():
     setup_logger(config.LOG_DIR)
     logger = logging.getLogger("VerificationModule3")
@@ -27,13 +28,17 @@ def run_verification():
     # 1. Imports and Class Inheritance Verification
     logger.info("Checking explainers class inheritance...")
     try:
-        assert issubclass(GradCAMExplainer, BaseExplainer), "GradCAMExplainer must inherit from BaseExplainer."
+        assert issubclass(
+            GradCAMExplainer, BaseExplainer
+        ), "GradCAMExplainer must inherit from BaseExplainer."
         logger.info("  GradCAMExplainer inherits from BaseExplainer correctly.")
-        
+
         # Verify instance methods
         explainer = GradCAMExplainer()
         assert hasattr(explainer, "explain"), "GradCAMExplainer missing 'explain' method."
-        assert hasattr(explainer, "overlay_heatmap"), "GradCAMExplainer missing 'overlay_heatmap' method."
+        assert hasattr(
+            explainer, "overlay_heatmap"
+        ), "GradCAMExplainer missing 'overlay_heatmap' method."
         logger.info("  GradCAMExplainer methods verified.")
 
     except Exception as e:
@@ -57,7 +62,9 @@ def run_verification():
         assert html_file.exists(), "evaluation_report.html was not created."
         assert md_file.exists(), "evaluation_report.md was not created."
 
-        logger.info(f"  Verified export: evaluation_summary.json ({summary_file.stat().st_size} bytes)")
+        logger.info(
+            f"  Verified export: evaluation_summary.json ({summary_file.stat().st_size} bytes)"
+        )
         logger.info(f"  Verified export: evaluation_report.html ({html_file.stat().st_size} bytes)")
         logger.info(f"  Verified export: evaluation_report.md ({md_file.stat().st_size} bytes)")
 
@@ -75,12 +82,15 @@ def run_verification():
 
         logger.info("=" * 60)
         logger.info("MODULE 3 VERIFICATION COMPLETED SUCCESSFULLY!")
-        logger.info("All explainers, metrics calculations, and report exports conform to specifications.")
+        logger.info(
+            "All explainers, metrics calculations, and report exports conform to specifications."
+        )
         logger.info("=" * 60)
 
     except Exception as e:
         logger.error(f"Evaluation script validation failed: {e}", exc_info=True)
         sys.exit(1)
+
 
 if __name__ == "__main__":
     run_verification()

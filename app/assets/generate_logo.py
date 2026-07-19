@@ -3,6 +3,7 @@
 from pathlib import Path
 from PIL import Image, ImageDraw
 
+
 def generate_logo():
     # Create a 200x200 RGB image with a dark-blue background
     img = Image.new("RGBA", (200, 200), color=(44, 62, 80, 255))
@@ -22,6 +23,7 @@ def generate_logo():
     assets_dir.mkdir(parents=True, exist_ok=True)
     img.save(assets_dir / "logo.png")
     print(f"Logo generated at {assets_dir / 'logo.png'}")
+
 
 if __name__ == "__main__":
     generate_logo()

@@ -2,22 +2,19 @@
 
 import numpy as np
 import tensorflow as tf
-from src.data.preprocessing import (
-    validate_image,
-    convert_to_rgb,
-    resize_image,
-    normalize_image
-)
+from src.data.preprocessing import validate_image, convert_to_rgb, resize_image, normalize_image
+
 
 def test_validate_image():
     """Verifies image validation passes for valid tensors and catches dimensions errors."""
     # Valid uint8 grayscale matrix
     valid_tensor = tf.ones((256, 256), dtype=tf.uint8)
     assert validate_image(valid_tensor) == True
-    
+
     # Invalid empty tensor shape
     invalid_tensor = tf.zeros((0, 256), dtype=tf.uint8)
     assert validate_image(invalid_tensor) == False
+
 
 def test_convert_to_rgb():
     """Asserts that 2D and 3D grayscale tensors are converted to 3-channel RGB."""
@@ -25,19 +22,22 @@ def test_convert_to_rgb():
     rgb = convert_to_rgb(gray_2d)
     assert rgb.shape == (100, 100, 3)
 
+
 def test_resize_image():
     """Asserts image tensors dimensions are resized correctly."""
     img = tf.ones((100, 100, 3), dtype=tf.float32)
     resized = resize_image(img, (224, 224))
     assert resized.shape == (224, 224, 3)
 
+
 def test_normalize_image():
     """Verifies that pixel values are normalized to target scales."""
     img = tf.constant([[127.5, 255.0], [0.0, 63.75]], dtype=tf.float32)
-    
+
     # Minmax 0-1
     norm_01 = normalize_image(img, method="minmax_01")
     assert np.allclose(norm_01.numpy(), [[0.5, 1.0], [0.0, 0.25]])
+
 
 def test_channel_conversions():
     """Asserts that various channel formats are converted correctly to 3-channel RGB."""

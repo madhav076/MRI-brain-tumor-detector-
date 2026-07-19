@@ -28,13 +28,16 @@ from sklearn.metrics import (
     roc_curve,
     precision_recall_curve,
     auc,
-    classification_report
+    classification_report,
 )
 
 from src import config
 from src.utils import set_seed
 from src.data.dataset_loader import MRIDatasetLoader
-from src.data.augmentation import MRIAugmentationPipeline, RandomShear  # CRITICAL-05: needed for custom_objects
+from src.data.augmentation import (
+    MRIAugmentationPipeline,
+    RandomShear,
+)  # CRITICAL-05: needed for custom_objects
 from src.models.efficientnet_model import load_model_robustly
 from src.evaluation.explainability.gradcam import GradCAMExplainer
 
@@ -43,7 +46,7 @@ log_path = Path(config.LOG_DIR)
 log_path.mkdir(parents=True, exist_ok=True)
 formatter = logging.Formatter(
     "[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S"
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
 eval_log_handler = logging.FileHandler(log_path / "evaluation.log", encoding="utf-8")
 eval_log_handler.setFormatter(formatter)
@@ -56,6 +59,7 @@ stream_handler = logging.StreamHandler()
 stream_handler.setFormatter(formatter)
 logger.addHandler(stream_handler)
 
+
 def get_system_metadata() -> Dict[str, Any]:
     """Retrieves hardware, execution environment, and package versions metadata.
 
@@ -64,7 +68,7 @@ def get_system_metadata() -> Dict[str, Any]:
     """
     gpus = tf.config.list_physical_devices("GPU")
     device_used = "GPU" if gpus else "CPU"
-    
+
     return {
         "tensorflow_version": tf.__version__,
         "device_used": device_used,
@@ -73,10 +77,9 @@ def get_system_metadata() -> Dict[str, Any]:
         "random_seed": config.SEED,
     }
 
+
 def calculate_calibration_metrics(
-    y_true: np.ndarray,
-    y_prob: np.ndarray,
-    num_bins: int = 10
+    y_true: np.ndarray, y_prob: np.ndarray, num_bins: int = 10
 ) -> Tuple[float, float, List[float], List[float], List[int]]:
     """Calculates Expected Calibration Error (ECE) and Maximum Calibration Error (MCE).
 
@@ -91,49 +94,46 @@ def calculate_calibration_metrics(
     """
     confidences = np.max(y_prob, axis=1)
     predictions = np.argmax(y_prob, axis=1)
-    accuracies = (predictions == y_true)
-    
+    accuracies = predictions == y_true
+
     ece = 0.0
     mce = 0.0
     bin_boundaries = np.linspace(0, 1, num_bins + 1)
-    
+
     bin_accs = []
     bin_confs = []
     bin_sizes = []
-    
+
     for i in range(num_bins):
         bin_lower = bin_boundaries[i]
-        bin_upper = bin_boundaries[i+1]
-        
+        bin_upper = bin_boundaries[i + 1]
+
         # Select items in this confidence interval
         in_bin = (confidences > bin_lower) & (confidences <= bin_upper)
         bin_size = int(np.sum(in_bin))
         bin_sizes.append(bin_size)
-        
+
         prop_in_bin = bin_size / len(y_true)
-        
+
         if bin_size > 0:
             accuracy_in_bin = np.mean(accuracies[in_bin])
             confidence_in_bin = np.mean(confidences[in_bin])
-            
+
             bin_accs.append(float(accuracy_in_bin))
             bin_confs.append(float(confidence_in_bin))
-            
+
             difference = np.abs(accuracy_in_bin - confidence_in_bin)
             ece += prop_in_bin * difference
             mce = max(mce, difference)
         else:
             bin_accs.append(0.0)
             bin_confs.append(0.0)
-            
+
     return float(ece), float(mce), bin_accs, bin_confs, bin_sizes
 
+
 def plot_reliability_diagram(
-    bin_accs: List[float],
-    bin_confs: List[float],
-    ece: float,
-    mce: float,
-    save_path: Path
+    bin_accs: List[float], bin_confs: List[float], ece: float, mce: float, save_path: Path
 ) -> None:
     """Generates and saves the reliability calibration diagram.
 
@@ -148,7 +148,7 @@ def plot_reliability_diagram(
     num_bins = len(bin_accs)
     bin_boundaries = np.linspace(0, 1, num_bins + 1)
     bin_centers = 0.5 * (bin_boundaries[:-1] + bin_boundaries[1:])
-    
+
     # Plot bars
     plt.bar(
         bin_centers,
@@ -157,12 +157,12 @@ def plot_reliability_diagram(
         edgecolor="black",
         color="royalblue",
         alpha=0.8,
-        label="Model Outputs"
+        label="Model Outputs",
     )
-    
+
     # Diagonal baseline reference (perfect calibration)
     plt.plot([0, 1], [0, 1], "r--", label="Perfect Calibration")
-    
+
     plt.xlim(0, 1)
     plt.ylim(0, 1)
     plt.xlabel("Confidence")
@@ -174,11 +174,9 @@ def plot_reliability_diagram(
     plt.savefig(save_path)
     plt.close()
 
+
 def plot_confidence_distribution(
-    y_true: np.ndarray,
-    y_prob: np.ndarray,
-    classes: List[str],
-    save_path: Path
+    y_true: np.ndarray, y_prob: np.ndarray, classes: List[str], save_path: Path
 ) -> None:
     """Generates histograms analyzing confidence intervals for predictions.
 
@@ -190,10 +188,10 @@ def plot_confidence_distribution(
     """
     confidences = np.max(y_prob, axis=1)
     predictions = np.argmax(y_prob, axis=1)
-    accuracies = (predictions == y_true)
-    
+    accuracies = predictions == y_true
+
     fig, axes = plt.subplots(1, 2, figsize=(15, 6))
-    
+
     # Plot 1: Correct vs Incorrect prediction confidences
     sns.histplot(
         confidences[accuracies],
@@ -203,7 +201,7 @@ def plot_confidence_distribution(
         alpha=0.6,
         ax=axes[0],
         kde=True,
-        element="step"
+        element="step",
     )
     sns.histplot(
         confidences[~accuracies],
@@ -213,30 +211,24 @@ def plot_confidence_distribution(
         alpha=0.6,
         ax=axes[0],
         kde=True,
-        element="step"
+        element="step",
     )
     axes[0].set_title("Prediction Confidence Distribution (Correct vs Incorrect)")
     axes[0].set_xlabel("Confidence")
     axes[0].set_ylabel("Count")
     axes[0].legend()
     axes[0].grid(True, linestyle="--", alpha=0.5)
-    
+
     # Plot 2: Average confidence per class
     avg_confs = []
     for i, cls in enumerate(classes):
-        cls_mask = (y_true == i)
+        cls_mask = y_true == i
         if np.any(cls_mask):
             avg_confs.append(np.mean(confidences[cls_mask]))
         else:
             avg_confs.append(0.0)
-            
-    sns.barplot(
-        x=classes,
-        y=avg_confs,
-        ax=axes[1],
-        palette="viridis",
-        edgecolor="black"
-    )
+
+    sns.barplot(x=classes, y=avg_confs, ax=axes[1], palette="viridis", edgecolor="black")
     axes[1].set_title("Average Prediction Confidence per Class")
     axes[1].set_xlabel("Class")
     axes[1].set_ylabel("Average Confidence")
@@ -244,16 +236,14 @@ def plot_confidence_distribution(
     for i, val in enumerate(avg_confs):
         axes[1].text(i, val + 0.02, f"{val:.2f}", ha="center", va="bottom", fontweight="bold")
     axes[1].grid(axis="y", linestyle="--", alpha=0.5)
-    
+
     plt.tight_layout()
     plt.savefig(save_path)
     plt.close()
 
+
 def plot_confusion_matrices(
-    y_true: np.ndarray,
-    y_pred: np.ndarray,
-    classes: List[str],
-    save_dir: Path
+    y_true: np.ndarray, y_pred: np.ndarray, classes: List[str], save_dir: Path
 ) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """Generates, saves, and exports confusion matrices (Raw & Normalized).
 
@@ -268,7 +258,7 @@ def plot_confusion_matrices(
     """
     cm = confusion_matrix(y_true, y_pred)
     cm_norm = confusion_matrix(y_true, y_pred, normalize="true")
-    
+
     # 1. Raw CM Plot
     plt.figure(figsize=(8, 6))
     sns.heatmap(
@@ -280,7 +270,7 @@ def plot_confusion_matrices(
         yticklabels=classes,
         cbar=True,
         linewidths=0.5,
-        edgecolor="gray"
+        edgecolor="gray",
     )
     plt.title("Confusion Matrix (Raw Counts)")
     plt.ylabel("True Class")
@@ -288,7 +278,7 @@ def plot_confusion_matrices(
     plt.tight_layout()
     plt.savefig(save_dir / "confusion_matrix.png")
     plt.close()
-    
+
     # 2. Normalized CM Plot
     plt.figure(figsize=(8, 6))
     sns.heatmap(
@@ -300,7 +290,7 @@ def plot_confusion_matrices(
         yticklabels=classes,
         cbar=True,
         linewidths=0.5,
-        edgecolor="gray"
+        edgecolor="gray",
     )
     plt.title("Confusion Matrix (Normalized Rates)")
     plt.ylabel("True Class")
@@ -308,21 +298,19 @@ def plot_confusion_matrices(
     plt.tight_layout()
     plt.savefig(save_dir / "normalized_confusion_matrix.png")
     plt.close()
-    
+
     # Convert to DataFrames and export to CSV
     cm_df = pd.DataFrame(cm, index=classes, columns=classes)
     cm_norm_df = pd.DataFrame(cm_norm, index=classes, columns=classes)
-    
+
     cm_df.to_csv(save_dir / "confusion_matrix.csv")
     cm_norm_df.to_csv(save_dir / "normalized_confusion_matrix.csv")
-    
+
     return cm_df, cm_norm_df
 
+
 def plot_curves(
-    y_true: np.ndarray,
-    y_prob: np.ndarray,
-    classes: List[str],
-    save_dir: Path
+    y_true: np.ndarray, y_prob: np.ndarray, classes: List[str], save_dir: Path
 ) -> Tuple[Dict[str, float], Dict[str, float]]:
     """Plots and saves multi-class One-vs-Rest ROC and Precision-Recall Curves.
 
@@ -337,23 +325,23 @@ def plot_curves(
                                                  and Class-wise PR AUC values.
     """
     n_classes = len(classes)
-    
+
     # One-hot encode ground truth
     y_true_onehot = np.eye(n_classes)[y_true]
-    
+
     roc_aucs = {}
     pr_aucs = {}
-    
+
     # --- 1. ROC CURVE ---
     plt.figure(figsize=(8, 7))
-    
+
     # Plot class curves
     for i in range(n_classes):
         fpr, tpr, _ = roc_curve(y_true_onehot[:, i], y_prob[:, i])
         roc_auc = auc(fpr, tpr)
         roc_aucs[classes[i]] = float(roc_auc)
         plt.plot(fpr, tpr, label=f"{classes[i]} (AUC = {roc_auc:.3f})")
-        
+
     # Micro Average ROC
     fpr_micro, tpr_micro, _ = roc_curve(y_true_onehot.ravel(), y_prob.ravel())
     roc_auc_micro = auc(fpr_micro, tpr_micro)
@@ -363,14 +351,20 @@ def plot_curves(
         label=f"Micro-Average (AUC = {roc_auc_micro:.3f})",
         linestyle=":",
         color="deeppink",
-        linewidth=3
+        linewidth=3,
     )
-    
+
     # Macro Average ROC
-    all_fpr = np.unique(np.concatenate([roc_curve(y_true_onehot[:, i], y_prob[:, i])[0] for i in range(n_classes)]))
+    all_fpr = np.unique(
+        np.concatenate([roc_curve(y_true_onehot[:, i], y_prob[:, i])[0] for i in range(n_classes)])
+    )
     mean_tpr = np.zeros_like(all_fpr)
     for i in range(n_classes):
-        mean_tpr += np.interp(all_fpr, roc_curve(y_true_onehot[:, i], y_prob[:, i])[0], roc_curve(y_true_onehot[:, i], y_prob[:, i])[1])
+        mean_tpr += np.interp(
+            all_fpr,
+            roc_curve(y_true_onehot[:, i], y_prob[:, i])[0],
+            roc_curve(y_true_onehot[:, i], y_prob[:, i])[1],
+        )
     mean_tpr /= n_classes
     roc_auc_macro = auc(all_fpr, mean_tpr)
     plt.plot(
@@ -379,9 +373,9 @@ def plot_curves(
         label=f"Macro-Average (AUC = {roc_auc_macro:.3f})",
         linestyle=":",
         color="navy",
-        linewidth=3
+        linewidth=3,
     )
-    
+
     plt.plot([0, 1], [0, 1], "k--", label="Random Classifier")
     plt.xlim([0.0, 1.0])
     plt.ylim([0.0, 1.05])
@@ -393,17 +387,17 @@ def plot_curves(
     plt.tight_layout()
     plt.savefig(save_dir / "roc_curve.png")
     plt.close()
-    
+
     # --- 2. PRECISION-RECALL CURVE ---
     plt.figure(figsize=(8, 7))
-    
+
     # Plot class curves
     for i in range(n_classes):
         precision, recall, _ = precision_recall_curve(y_true_onehot[:, i], y_prob[:, i])
         pr_auc = auc(recall, precision)
         pr_aucs[classes[i]] = float(pr_auc)
         plt.plot(recall, precision, label=f"{classes[i]} (PR-AUC = {pr_auc:.3f})")
-        
+
     # Micro Average PR
     precision_micro, recall_micro, _ = precision_recall_curve(y_true_onehot.ravel(), y_prob.ravel())
     pr_auc_micro = auc(recall_micro, precision_micro)
@@ -413,9 +407,9 @@ def plot_curves(
         label=f"Micro-Average (PR-AUC = {pr_auc_micro:.3f})",
         linestyle=":",
         color="deeppink",
-        linewidth=3
+        linewidth=3,
     )
-    
+
     plt.xlim([0.0, 1.0])
     plt.ylim([0.0, 1.05])
     plt.xlabel("Recall")
@@ -426,14 +420,12 @@ def plot_curves(
     plt.tight_layout()
     plt.savefig(save_dir / "pr_curve.png")
     plt.close()
-    
+
     return roc_aucs, pr_aucs
 
+
 def generate_gradcam_gallery(
-    model: tf.keras.Model,
-    df: pd.DataFrame,
-    classes: List[str],
-    output_dir: Path
+    model: tf.keras.Model, df: pd.DataFrame, classes: List[str], output_dir: Path
 ) -> List[Dict[str, Any]]:
     """Generates a Grad-CAM gallery of correctly and incorrectly predicted MRI scans.
 
@@ -459,11 +451,11 @@ def generate_gradcam_gallery(
     for class_name in classes:
         class_idx = class_to_idx[class_name]
         class_df = df[df["true_class"] == class_name]
-        
+
         # 1. Select Correct Predictions
         correct_df = class_df[class_df["is_correct"] == True]
         correct_samples = correct_df.sort_values(by="confidence", ascending=False).head(5)
-        
+
         # 2. Select Incorrect Predictions
         incorrect_df = class_df[class_df["is_correct"] == False]
         incorrect_samples = incorrect_df.sort_values(by="confidence", ascending=False).head(5)
@@ -474,53 +466,56 @@ def generate_gradcam_gallery(
                     img_path = Path(row["file_path"])
                     if not img_path.exists():
                         continue
-                        
+
                     # Load grayscale image
                     img_raw = cv2.imread(str(img_path), cv2.IMREAD_GRAYSCALE)
                     if img_raw is None:
                         continue
-                        
+
                     # Resize to (width, height) — cv2.resize expects (w, h) order (HIGH-08)
                     img_resized = cv2.resize(img_raw, (config.IMAGE_SIZE[1], config.IMAGE_SIZE[0]))
                     img_tensor = tf.cast(img_resized, tf.float32) / 255.0
                     img_tensor = tf.expand_dims(img_tensor, axis=-1)
                     img_tensor = tf.image.grayscale_to_rgb(img_tensor)  # 3-channels
-                    
+
                     # Target category for explanation
                     target_idx = class_to_idx[row["predicted_class"]]
-                    
+
                     # Generate Heatmap
                     heatmap = explainer.explain(model, img_tensor, target_idx)
-                    
+
                     # Overlay heatmap on original BGR/gray image
                     overlaid = explainer.overlay_heatmap(img_resized, heatmap)
-                    
+
                     # Save overlaid image
                     filename = f"gradcam_{class_name}_{mode}_{idx}.png"
                     save_path = output_dir / filename
                     # Save as BGR for OpenCV
                     cv2.imwrite(str(save_path), cv2.cvtColor(overlaid, cv2.COLOR_RGB2BGR))
-                    
-                    gallery_info.append({
-                        "filename": filename,
-                        "relative_path": f"gradcam/{filename}",
-                        "original_path": row["file_path"],
-                        "true_class": row["true_class"],
-                        "predicted_class": row["predicted_class"],
-                        "confidence": float(row["confidence"]),
-                        "mode": mode
-                    })
+
+                    gallery_info.append(
+                        {
+                            "filename": filename,
+                            "relative_path": f"gradcam/{filename}",
+                            "original_path": row["file_path"],
+                            "true_class": row["true_class"],
+                            "predicted_class": row["predicted_class"],
+                            "confidence": float(row["confidence"]),
+                            "mode": mode,
+                        }
+                    )
                 except Exception as e:
                     logger.warning(f"Failed to generate Grad-CAM for {row['filename']}: {e}")
-                    
+
     logger.info(f"Generated {len(gallery_info)} Grad-CAM overlay visualizations.")
     return gallery_info
+
 
 def generate_html_report(
     summary: Dict[str, Any],
     misclassification_data: Dict[str, List[Dict[str, Any]]],
     gradcam_gallery: List[Dict[str, Any]],
-    output_path: Path
+    output_path: Path,
 ) -> None:
     """Generates a professional, responsive HTML evaluation report with navigation sidebar.
 
@@ -530,7 +525,7 @@ def generate_html_report(
         gradcam_gallery (List[Dict[str, Any]]): Grad-CAM image references.
         output_path (Path): Path to output HTML.
     """
-    
+
     def get_color_class(val: float) -> str:
         if val >= 0.85:
             return "badge-success"
@@ -780,7 +775,7 @@ def generate_html_report(
                     </tr>
                 </thead>
                 <tbody>"""
-                
+
     for cls in summary["classes"]:
         class_stats = summary["per_class_performance"].get(cls, {})
         html += f"""
@@ -794,7 +789,7 @@ def generate_html_report(
                         <td>{class_stats.get('f1_score', 0.0):.2%}</td>
                         <td>{class_stats.get('roc_auc', 0.0):.4f}</td>
                     </tr>"""
-                    
+
     html += f"""
                 </tbody>
             </table>
@@ -851,7 +846,7 @@ def generate_html_report(
             <h2>Explainable AI: Representative Grad-CAM Activations</h2>
             <p>Visualizing convolutional feature map overlays to identify decision hotspots:</p>
             <div class="gradcam-grid">"""
-            
+
     # Embed up to 8 Grad-CAM gallery items
     for item in gradcam_gallery[:8]:
         html += f"""
@@ -860,7 +855,7 @@ def generate_html_report(
                     <div class="title">{item['true_class'].upper()} ({item['mode'].upper()})</div>
                     <div class="info">Pred: {item['predicted_class']} | Conf: {item['confidence']:.2%}</div>
                 </div>"""
-                
+
     html += f"""
             </div>
         </div>
@@ -879,7 +874,7 @@ def generate_html_report(
                     </tr>
                 </thead>
                 <tbody>"""
-                
+
     for row in misclassification_data["wrong"][:5]:
         html += f"""
                     <tr>
@@ -888,7 +883,7 @@ def generate_html_report(
                         <td>{row['confidence']:.2%}</td>
                         <td><code>{row['filename']}</code></td>
                     </tr>"""
-                    
+
     html += f"""
                 </tbody>
             </table>
@@ -904,7 +899,7 @@ def generate_html_report(
                     </tr>
                 </thead>
                 <tbody>"""
-                
+
     for row in misclassification_data["borderline"][:5]:
         html += f"""
                     <tr>
@@ -913,7 +908,7 @@ def generate_html_report(
                         <td>{row['confidence']:.2%}</td>
                         <td><code>{row['filename']}</code></td>
                     </tr>"""
-                    
+
     html += f"""
                 </tbody>
             </table>
@@ -956,8 +951,9 @@ def generate_html_report(
 
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(html)
-        
+
     logger.info(f"HTML evaluation report generated at: {output_path.resolve()}")
+
 
 def generate_markdown_report(summary: Dict[str, Any], output_path: Path) -> None:
     """Generates a detailed summary Markdown report.
@@ -1006,8 +1002,9 @@ This document compiles the quantitative evaluation parameters for the Brain MRI 
 
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(md)
-        
+
     logger.info(f"Markdown evaluation report generated at: {output_path.resolve()}")
+
 
 def run_evaluation() -> None:
     """Executes the full evaluation, calibration, explainability, and report generating pipeline."""
@@ -1047,13 +1044,18 @@ def run_evaluation() -> None:
             "duration_sec": 0.0,
             "classes": ["glioma", "meningioma", "notumor", "pituitary"],
             "per_class_performance": {},
-            "metadata": get_system_metadata()
+            "metadata": get_system_metadata(),
         }
-        
+
         with open(reports_dir / "evaluation_summary.json", "w") as f:
             json.dump(dummy_summary, f, indent=4)
-            
-        generate_html_report(dummy_summary, {"wrong": [], "borderline": []}, [], reports_dir / "evaluation_report.html")
+
+        generate_html_report(
+            dummy_summary,
+            {"wrong": [], "borderline": []},
+            [],
+            reports_dir / "evaluation_report.html",
+        )
         generate_markdown_report(dummy_summary, reports_dir / "evaluation_report.md")
         return
 
@@ -1089,13 +1091,22 @@ def run_evaluation() -> None:
             "cohen_kappa": 0.0,
             "test_set_size": 0,
             "duration_sec": 0.0,
-            "classes": loader.classes if loader.classes else ["glioma", "meningioma", "notumor", "pituitary"],
+            "classes": (
+                loader.classes
+                if loader.classes
+                else ["glioma", "meningioma", "notumor", "pituitary"]
+            ),
             "per_class_performance": {},
-            "metadata": get_system_metadata()
+            "metadata": get_system_metadata(),
         }
         with open(reports_dir / "evaluation_summary.json", "w") as f:
             json.dump(dummy_summary, f, indent=4)
-        generate_html_report(dummy_summary, {"wrong": [], "borderline": []}, [], reports_dir / "evaluation_report.html")
+        generate_html_report(
+            dummy_summary,
+            {"wrong": [], "borderline": []},
+            [],
+            reports_dir / "evaluation_report.html",
+        )
         generate_markdown_report(dummy_summary, reports_dir / "evaluation_report.md")
         return
 
@@ -1154,19 +1165,21 @@ def run_evaluation() -> None:
 
     # 6. Confusion Matrix Plots & CSV
     cm_df, cm_norm_df = plot_confusion_matrices(y_true, y_pred, loader.classes, eval_dir)
-    
+
     # 7. Curves Generation (ROC & PR)
     roc_aucs, pr_aucs = plot_curves(y_true, y_prob, loader.classes, eval_dir)
 
     # 8. Calibration Metrics
     ece, mce, bin_accs, bin_confs, bin_sizes = calculate_calibration_metrics(y_true, y_prob)
     plot_reliability_diagram(bin_accs, bin_confs, ece, mce, calib_dir / "reliability_diagram.png")
-    plot_confidence_distribution(y_true, y_prob, loader.classes, calib_dir / "confidence_distribution.png")
+    plot_confidence_distribution(
+        y_true, y_prob, loader.classes, calib_dir / "confidence_distribution.png"
+    )
 
     # 9. Error Audits & Dashboard
     confidences = np.max(y_prob, axis=1)
-    is_correct = (y_pred == y_true)
-    
+    is_correct = y_pred == y_true
+
     # Record metadata
     test_df["predicted_class"] = [loader.classes[idx] for idx in y_pred]
     test_df["true_class"] = test_df["class"]
@@ -1181,28 +1194,32 @@ def run_evaluation() -> None:
     # Format dashboard outputs
     dashboard_wrong = []
     for _, row in wrong_cases.head(20).iterrows():
-        dashboard_wrong.append({
-            "filename": row["filename"],
-            "true_class": row["true_class"],
-            "predicted_class": row["predicted_class"],
-            "confidence": float(row["confidence"]),
-            "file_path": row["file_path"]
-        })
-        
+        dashboard_wrong.append(
+            {
+                "filename": row["filename"],
+                "true_class": row["true_class"],
+                "predicted_class": row["predicted_class"],
+                "confidence": float(row["confidence"]),
+                "file_path": row["file_path"],
+            }
+        )
+
     dashboard_borderline = []
     for _, row in borderline_cases.head(20).iterrows():
-        dashboard_borderline.append({
-            "filename": row["filename"],
-            "true_class": row["true_class"],
-            "predicted_class": row["predicted_class"],
-            "confidence": float(row["confidence"]),
-            "file_path": row["file_path"]
-        })
+        dashboard_borderline.append(
+            {
+                "filename": row["filename"],
+                "true_class": row["true_class"],
+                "predicted_class": row["predicted_class"],
+                "confidence": float(row["confidence"]),
+                "file_path": row["file_path"],
+            }
+        )
 
     # Save CSV Dashboard
     dashboard_df = pd.concat([wrong_cases.head(20), borderline_cases.head(20)], ignore_index=True)
     dashboard_df.to_csv(reports_dir / "misclassification_dashboard.csv", index=False)
-    
+
     # Generate HTML failure dashboard segment
     dashboard_html_segment = """
     <html>
@@ -1231,7 +1248,7 @@ def run_evaluation() -> None:
     for item in dashboard_borderline:
         dashboard_html_segment += f"<tr><td>{item['filename']}</td><td><span class=\"badge-correct\">{item['true_class']}</span></td><td>{item['predicted_class']}</td><td>{item['confidence']:.2%}</td></tr>"
     dashboard_html_segment += "</table></body></html>"
-    
+
     with open(reports_dir / "misclassification_dashboard.html", "w", encoding="utf-8") as f:
         f.write(dashboard_html_segment)
 
@@ -1242,13 +1259,13 @@ def run_evaluation() -> None:
     # 11. Per-Class summary details
     per_class_summary = {}
     for i, cls in enumerate(loader.classes):
-        cls_mask = (y_true == i)
-        cls_pred_mask = (y_pred == i)
-        
+        cls_mask = y_true == i
+        cls_pred_mask = y_pred == i
+
         samples_count = int(np.sum(cls_mask))
         correct_count = int(np.sum((y_true == i) & (y_pred == i)))
         incorrect_count = samples_count - correct_count
-        
+
         per_class_summary[cls] = {
             "samples": samples_count,
             "correct": correct_count,
@@ -1257,7 +1274,7 @@ def run_evaluation() -> None:
             "recall": float(cls_rep[cls]["recall"]),
             "f1_score": float(cls_rep[cls]["f1-score"]),
             "roc_auc": float(roc_aucs.get(cls, 0.0)),
-            "pr_auc": float(pr_aucs.get(cls, 0.0))
+            "pr_auc": float(pr_aucs.get(cls, 0.0)),
         }
 
     # Compile overall summary JSON
@@ -1274,7 +1291,7 @@ def run_evaluation() -> None:
         "duration_sec": duration,
         "classes": loader.classes,
         "per_class_performance": per_class_summary,
-        "metadata": get_system_metadata()
+        "metadata": get_system_metadata(),
     }
 
     # Save summary JSON
@@ -1283,12 +1300,18 @@ def run_evaluation() -> None:
     logger.info(f"Evaluation summary JSON exported to {reports_dir / 'evaluation_summary.json'}")
 
     # Generate complete HTML & MD reports
-    generate_html_report(summary_json, {"wrong": dashboard_wrong, "borderline": dashboard_borderline}, gradcam_gallery, reports_dir / "evaluation_report.html")
+    generate_html_report(
+        summary_json,
+        {"wrong": dashboard_wrong, "borderline": dashboard_borderline},
+        gradcam_gallery,
+        reports_dir / "evaluation_report.html",
+    )
     generate_markdown_report(summary_json, reports_dir / "evaluation_report.md")
 
     logger.info("=" * 60)
     logger.info(f"EVALUATION PIPELINE FINISHED SUCCESSFULLY IN {duration:.2f} SECONDS.")
     logger.info("=" * 60)
+
 
 if __name__ == "__main__":
     run_evaluation()

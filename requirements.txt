@@ -27,4 +27,4 @@ streamlit==1.18.1
 altair==4.2.2
 protobuf==3.19.6
 fpdf2==2.7.9
-psutil==5.9.8
+psutil==7.2.2

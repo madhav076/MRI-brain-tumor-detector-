@@ -22,7 +22,7 @@ seaborn==0.12.2
 opencv-python==4.8.1.78
 Pillow==9.5.0
 scikit-learn==1.2.2
-PyYAML==6.0.1
+PyYAML==6.0.3
 streamlit==1.18.1
 altair==4.2.2
 protobuf==3.19.6
